@@ -1,0 +1,10 @@
+{
+	"nodes":[
+		{"id":"3123748c53de48a6","x":-328,"y":-300,"width":308,"height":120,"type":"text","text":"Simulasi : meniru kejadian asli"},
+		{"id":"d9379339117e37a1","x":-328,"y":-140,"width":368,"height":162,"type":"text","text":"Data contoh/terapan bukan metode yang paling baik, tapi metode yang paling sesuai. Lalu cari metode terbaik dari mana? Ya dari simulasi"},
+		{"id":"cfa153d8b098cf5f","x":-338,"y":-433,"width":250,"height":60,"type":"text","text":"# 01"},
+		{"id":"d3638a608b7ab6a5","x":-328,"y":60,"width":588,"height":328,"type":"file","file":"Pasted image 20240122101908.png"},
+		{"id":"5873bcda7564c466","x":280,"y":100,"width":435,"height":63,"type":"text","text":"2. Simulasi memerlukan paramter, dimana perlu asumsi. "}
+	],
+	"edges":[]
+}
