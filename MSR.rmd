@@ -67,6 +67,23 @@ cat("Banyaknya anak perempuan :", g,
     "\nPeluangnya :", g/(g+B))
 ```
 
+### no 3 
+
+![](images/clipboard-1034759495.png){width="521"}
+
+```{r}
+RollDie <- function(n) sample(1:6, n, rep=T)
+n <- 50
+d1 <- RollDie(n)
+d1
+```
+
+Selanjutnya akan menghitung berapa kali dadu sisi 3 muncul dan berapa frekuensi relatifnya.
+
+```{r}
+cat("Banyaknya tail :", sum(d1==3), "dan Frekuensi Relatifnya :", sum(d1==3)/n)
+```
+
 ## Latihan
 
 ### no 1
@@ -78,8 +95,8 @@ cat("Banyaknya anak perempuan :", g,
 ```{r}
 n <- 100
 e2 <- FlipCoin(n) 
-cat("Banyaknya tail :", sum(e2==0), "dan Peluangnya :", sum(e2==0)/n,
-    "\nBanyaknya head :", sum(e2==1), "dan Peluangnya :", sum(e2==1)/n)
+cat("Banyaknya tail :", sum(e2==0), "dan Frekuensi Relatifnya :", sum(e2==0)/n,
+    "\nBanyaknya head :", sum(e2==1), "dan Frekuensi Relatifnya :", sum(e2==1)/n)
 ```
 
 Histogram
@@ -101,4 +118,24 @@ Histogram
 
 ```{r}
 hist(e3, breaks=c(-0.5, 0.5, 1.5), prob=T)
+```
+
+### no 2
+
+![](images/clipboard-2216234215.png)
+
+```{r}
+Dice <- function(n){
+  d <- RollDie(n)
+  rolls <- numeric(0)
+  for(i in 1:6) rolls = c(rolls, sum(d==i)/n)
+return(rolls)
+}
+
+RollingDice <- data.frame(
+  rolls.200 = Dice(200),
+  rolls.1000 = Dice(1000)
+) 
+rownames(RollingDice) <- paste0("RF.", 1:6)
+print(RollingDice)
 ```
