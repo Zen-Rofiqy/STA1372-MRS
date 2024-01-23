@@ -17,31 +17,56 @@ Dimana ekor (tail) = 0 dan kepala (head) = 1.
 
 ```{r}
 FlipCoin <- function(n) sample(0:1, n, rep=T) 
-e1 <- FlipCoin(30) 
+n <- 30
+e1 <- FlipCoin(n) 
 e1 
 ```
 
 Terlihat isi dari sampel acak yang berjumlah 30 dan akan selalu berubah jika chunk nya di run berulang-ulang. Berikut adalah jumlah banyaknya tail dan head beserta peluangnya.
 
 ```{r}
-cat("Banyaknya tail :", sum(e1==0), "dan Peluangnya :", sum(e1==0)/30,
-    "\nBanyaknya head :", sum(e1==1), "dan Peluangnya :", sum(e1==1)/30)
+cat("Banyaknya tail :", sum(e1==0), "dan Peluangnya :", sum(e1==0)/n,
+    "\nBanyaknya head :", sum(e1==1), "dan Peluangnya :", sum(e1==1)/n)
 ```
 
-Berikut adalah histogram dari
+Berikut adalah plot sebaran dari banyaknya hasil tail dan head pada lemparan koin.
 
 ```{r}
 hist(e1,breaks=c(-0.5, 0.5, 1.5), prob=T) 
 ```
 
+## Latihan
+
+### no 1
+
+![](images/clipboard-112463260.png){width="447"}
+
+> Lempar koin 100 x
+
 ```{r}
-e2=FlipCoin(100) 
-e2 
+n <- 100
+e2 <- FlipCoin(n) 
+cat("Banyaknya tail :", sum(e2==0), "dan Peluangnya :", sum(e2==0)/n,
+    "\nBanyaknya head :", sum(e2==1), "dan Peluangnya :", sum(e2==1)/n)
+```
 
-sum(e1==0)
-sum(e1==0)/30
-sum(e1==1)
-sum(e1==1)/30
+Histogram
 
-hist(e2,breaks=c(-0.5,0.5,1.5), prob=T) 
+```{r}
+hist(e2, breaks=c(-0.5, 0.5, 1.5), prob=T)
+```
+
+> Lempar koin 500 x
+
+```{r}
+n <- 500
+e3 <- FlipCoin(n) 
+cat("Banyaknya tail :", sum(e3==0), "dan Peluangnya :", sum(e3==0)/n,
+    "\nBanyaknya head :", sum(e3==1), "dan Peluangnya :", sum(e3==1)/n)
+```
+
+Histogram
+
+```{r}
+hist(e3, breaks=c(-0.5, 0.5, 1.5), prob=T)
 ```
