@@ -13,7 +13,7 @@ output: html_document
 
 ![](images/clipboard-2676811128.png){width="431"}
 
-Dimana ekor (tail) = 0 dan kepala (head) = 1.
+Misalkan ekor (tail) = 0 dan kepala (head) = 1.
 
 ```{r}
 FlipCoin <- function(n) sample(0:1, n, rep=T) 
@@ -34,6 +34,12 @@ Berikut adalah plot sebaran dari banyaknya hasil tail dan head pada lemparan koi
 ```{r}
 hist(e1,breaks=c(-0.5, 0.5, 1.5), prob=T) 
 ```
+
+### no 2
+
+![](images/clipboard-33675307.png){width="436"}
+
+Misalkan Girl (perempuan) = 1 dan Boy (laki-laki) = 0.
 
 ## Latihan
 
