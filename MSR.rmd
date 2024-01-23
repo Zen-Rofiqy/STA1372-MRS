@@ -17,7 +17,7 @@ Misalkan ekor (tail) = 0 dan kepala (head) = 1.
 
 ```{r}
 FlipCoin <- function(n) sample(0:1, n, rep=T) 
-n <- 30
+n <- 10
 e1 <- FlipCoin(n) 
 e1 
 ```
@@ -40,6 +40,32 @@ hist(e1,breaks=c(-0.5, 0.5, 1.5), prob=T)
 ![](images/clipboard-33675307.png){width="436"}
 
 Misalkan Girl (perempuan) = 1 dan Boy (laki-laki) = 0.
+
+```{r}
+#Menggunakan function sebelumnya
+n <- 28 
+gb <- FlipCoin(n)
+gb
+
+g = 0; b=0; B=0
+for(i in 1:n){
+  if(gb[i] == 1){
+    g <- g+1
+    b <- 0
+  } else{
+    b <- b+1
+  }
+  
+  if(b==4){
+    B <- B+1
+    b <- 0
+  }
+}
+
+cat("Banyaknya anak perempuan :", g,
+    "\nBanyaknya 4 anak tanpa perempuan :", B, 
+    "\nPeluangnya :", g/(g+B))
+```
 
 ## Latihan
 
