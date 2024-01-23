@@ -5,13 +5,21 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-# 1. 
+# Bab 1
+
+## Ilustrasi
+
+### no 1
+
+![](images/clipboard-2676811128.png){width="431"}
 
 ```{r}
-FlipCoin = function(n) sample(0:1,n,rep=T) 
-e1=FlipCoin(30) 
+FlipCoin <- function(n) sample(0:1, n, rep=T) 
+e1 <- FlipCoin(30) 
 e1 
+```
 
+```{r}
 sum(e1==0)
 sum(e1==0)/30
 sum(e1==1)
