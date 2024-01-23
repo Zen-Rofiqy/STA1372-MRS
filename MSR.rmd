@@ -1,0 +1,33 @@
+---
+title: "Untitled"
+author: "Angga Fathan Rofiqy"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# 1. 
+
+```{r}
+FlipCoin = function(n) sample(0:1,n,rep=T) 
+e1=FlipCoin(30) 
+e1 
+
+sum(e1==0)
+sum(e1==0)/30
+sum(e1==1)
+sum(e1==1)/30
+
+hist(e1,breaks=c(-0.5,0.5,1.5), prob=T) 
+```
+
+```{r}
+e2=FlipCoin(100) 
+e2 
+
+sum(e1==0)
+sum(e1==0)/30
+sum(e1==1)
+sum(e1==1)/30
+
+hist(e2,breaks=c(-0.5,0.5,1.5), prob=T) 
+```
