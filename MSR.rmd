@@ -67,7 +67,7 @@ cat("Banyaknya anak perempuan :", g,
     "\nPeluangnya :", g/(g+B))
 ```
 
-### no 3 
+### no 3
 
 ![](images/clipboard-1034759495.png){width="521"}
 
