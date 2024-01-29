@@ -48,8 +48,64 @@ install_load <- function (package1, ...)  {
 ![](images/clipboard-3975775370.png){width="584"}
 
 ```{r}
+nim <- 6+14+29
+set.seed(nim) 
 
+berno.gen <- function(n, p) return( ifelse(runif(n) < p, 1, 0) )
+
+# 50 amantan dan probabilitas p = 0.6 
+data <- berno.gen(50, 0.6)
+data
 ```
+
+```{r dpi=300, fig.height = 14, fig.width = 20, message = FALSE, warning=FALSE}
+df <- data.frame(table(data)) 
+df$data <- as.numeric(df$data)
+bar.max <- which(df$data == max(df$data))
+ggplot(df, aes(x=data, y=Freq)) +
+  geom_bar(stat="identity", col=NA,
+           fill= ifelse(df$data %in% (bar.max),  "#1380A1", "#dddddd")) +
+  labs(x = "\nNilai", y = "Frekuensi", 
+       title = "\nSebaran Data yang dibangkitkan\n") +
+  theme1.1
+```
+
+## Dengan Fungsi `rbinom`
+
+```{r}
+set.seed(nim)
+
+data.rbinom <- rbinom(n=50, size=1,p=0.6)
+data.rbinom
+```
+
+```{r dpi=300, fig.height = 14, fig.width = 20, message = FALSE, warning=FALSE}
+df <- data.frame(table(data.rbinom)) 
+df$data <- as.numeric(df$data)
+bar.max <- which(df$data == max(df$data))
+ggplot(df, aes(x=data, y=Freq)) +
+  geom_bar(stat="identity", col=NA,
+           fill= ifelse(df$data %in% (bar.max),  "#1380A1", "#dddddd")) +
+  labs(x = "\nNilai", y = "Frekuensi", 
+       title = "\nSebaran Data yang dibangkitkan\n") +
+  theme1.1
+```
+
+Dari diagram batang (barplot), terlihat bahwa kedua metode menghasilkan data dengan frekuensi yang identik untuk setiap nilai keluaran. Hasil dari fungsi rbinom() selaras dengan sintaks yang dibuat, baik dalam pola distribusi maupun nilai keluarannya. Kedua metode menghasilkan data yang mengikuti distribusi Bernoulli dengan probabilitas keberhasilan $p=0.6$. Kesamaan ini dapat dijelaskan oleh penggunaan algoritma yang seragam pada kedua sintaks untuk menghasilkan data distribusi Bernoulli.
+
+Proses algoritma untuk menghasilkan data distribusi Bernoulli melibatkan langkah-langkah berikut:
+
+1.  Membangkitkan nilai acak dari distribusi seragam.
+
+2.  Memeriksa apakah nilai acak lebih besar atau sama dengan $p$.
+
+3.  Jika benar, keluaran adalah 1.
+
+4.  Jika tidak, keluaran adalah 0.
+
+Algoritma ini memanfaatkan fakta bahwa probabilitas munculnya 1 dalam distribusi Bernoulli adalah $p$. Dengan demikian, jika nilai acak lebih besar atau sama dengan $p$, maka keluaran adalah 1. Sebaliknya, jika nilai acak kurang dari $p$, maka keluaran adalah 0.
+
+Kedua sintaks yang diberikan menerapkan algoritma ini dengan cara yang serupa, sehingga menghasilkan data yang identik dalam keduanya.
 
 # No 4
 
