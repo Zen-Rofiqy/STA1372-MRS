@@ -20,3 +20,41 @@ pkgdown:
   as_is: true
 ---
 
+```{r message=FALSE, warning=FALSE, include=FALSE}
+#                      -=( Install & Load Package Function )=-
+install_load <- function (package1, ...)  {   
+
+   # convert arguments to vector
+   packages <- c(package1, ...)
+
+   # start loop to determine if each package is installed
+   for(package in packages){
+
+       # if package is installed locally, load
+       if(package %in% rownames(installed.packages()))
+          do.call('library', list(package))
+
+       # if package is not installed locally, download, then load
+       else {
+          install.packages(package)
+          do.call("library", list(package))
+       }
+   } 
+}
+```
+
+# No 3
+
+![](images/clipboard-3975775370.png){width="584"}
+
+```{r}
+
+```
+
+# No 4
+
+![](images/clipboard-1149010623.png)
+
+```{r}
+
+```
