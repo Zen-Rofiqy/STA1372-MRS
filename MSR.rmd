@@ -5,6 +5,38 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
+```{r, include=FALSE, echo=FALSE, warning=FALSE, message = FALSE}
+#                      -=( Install & Load Package Function )=-
+install_load <- function (package1, ...)  {   
+
+   # convert arguments to vector
+   packages <- c(package1, ...)
+
+   # start loop to determine if each package is installed
+   for(package in packages){
+
+       # if package is installed locally, load
+       if(package %in% rownames(installed.packages()))
+          do.call('library', list(package))
+
+       # if package is not installed locally, download, then load
+       else {
+          install.packages(package)
+          do.call("library", list(package))
+       }
+   } 
+}
+
+path <- function() gsub  ( "\\\\",  "/",  readClipboard ()  )
+#Copy path, Panggil function di console
+#Copy r path, paste ke var yang diinginkan
+```
+
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE, message = FALSE}
+require("knitr")
+opts_knit$set(root.dir = "C:/Users/Fathan/Documents/Obsidian Vault/2. Kuliah/Smt 6/1. Metode Simulasi dan Resampling")
+```
+
 # Bab 1
 
 ## Ilustrasi
@@ -143,15 +175,45 @@ print(RollingDice)
 # Bab 2
 
 ```{r}
-x0 <-78 
-n <-250
+x0 <-73 
+n <- 250
+a <- 17
+b <- 7
+m <- 1024
+
 xi <- matrix (NA , n, 3 )
 colnames (xi) <-c( "aX(i-1)+b", "Xi", "Ui") 
 for  (i in 1 :n){
-  xi[i,1] <- (1598*x0+17) 
-  xi[i,2] <- xi[i, 1]%%1000 
-  xi[i,3] <- xi[i, 2]/1000 
+  xi[i,1] <- (a * x0 + b) 
+  xi[i,2] <- xi[i, 1]%%m 
+  xi[i,3] <- xi[i, 2]/m 
   x0 <- xi[i,2]
 }
 hist(xi[,3])
+
+cbind("i"=1:20,    "Xi"=xi[1:20,2], 
+      "i"=101:120, "Xi"=xi[101:120,2], 
+      "i"=201:220, "Xi"=xi[201:220,2])
+```
+
+![](images/clipboard-2916962344.png)
+
+```{r}
+n <- 1000
+x1 <- 0.9
+for(i in 2:n) x1[i] <- (pi + x1[i-1])^5%%1
+
+hist(x1)
+
+cbind("i"=1:20,    "Xi"=xi[1:20,2], 
+      "i"=101:120, "Xi"=xi[101:120,2], 
+      "i"=201:220, "Xi"=xi[201:220,2])
+```
+
+## Soal 3.5
+
+```{r, warning=FALSE, message = FALSE}
+install_load('readxl','dplyr','kableExtra','DT')
+raw.data <- read_xlsx("Data pert 2.xlsx")
+data <- raw.data
 ```
