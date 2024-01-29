@@ -139,3 +139,19 @@ RollingDice <- data.frame(
 rownames(RollingDice) <- paste0("RF.", 1:6)
 print(RollingDice)
 ```
+
+# Bab 2
+
+```{r}
+x0 <-78 
+n <-250
+xi <- matrix (NA , n, 3 )
+colnames (xi) <-c( "aX(i-1)+b", "Xi", "Ui") 
+for  (i in 1 :n){
+  xi[i,1] <- (1598*x0+17) 
+  xi[i,2] <- xi[i, 1]%%1000 
+  xi[i,3] <- xi[i, 2]/1000 
+  x0 <- xi[i,2]
+}
+hist(xi[,3])
+```

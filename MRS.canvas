@@ -5,7 +5,8 @@
 		{"id":"cfa153d8b098cf5f","type":"text","text":"# 01","x":-338,"y":-433,"width":250,"height":60},
 		{"id":"d3638a608b7ab6a5","type":"file","file":"Pasted image 20240122101908.png","x":-328,"y":60,"width":588,"height":328},
 		{"id":"5873bcda7564c466","type":"text","text":"2. Simulasi memerlukan paramter, dimana perlu asumsi. ","x":280,"y":100,"width":435,"height":63},
-		{"id":"7c4fcb541095aaf6","x":943,"y":-421,"width":250,"height":60,"type":"text","text":"# Pertemuan 2"}
+		{"id":"7c4fcb541095aaf6","x":943,"y":-421,"width":250,"height":60,"type":"text","text":"# Pertemuan 2"},
+		{"id":"0d71ebc250ab324a","x":943,"y":-340,"width":577,"height":320,"type":"text","text":"Untuk bilangan acak manual, bisa pake tabel bilangan acak, tabel logaritme. \nUntuk simulasi skala besar, memang diperlukan komputer. Alasan lainnya karena jika menggunakan alat seperti dadu, spinner, dll.. alat nya bisa saja rusak jika digunakan terus menerus. \nDi kalkulator juga bisa, pake tombol RND untuk simulasi U(0, 1). \nJadi memang disesuaikan dengan skala simulasinya"}
 	],
 	"edges":[]
 }
