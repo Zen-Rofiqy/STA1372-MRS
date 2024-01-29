@@ -175,6 +175,28 @@ print(RollingDice)
 # Bab 2
 
 ```{r}
+x0 <-78 
+n <- 250
+a <- 1598
+b <- 17
+m <- 1000
+
+xi <- matrix (NA , n, 3 )
+colnames (xi) <-c( "aX(i-1)+b", "Xi", "Ui") 
+for  (i in 1 :n){
+  xi[i,1] <- (a * x0 + b) 
+  xi[i,2] <- xi[i, 1]%%m 
+  xi[i,3] <- xi[i, 2]/m 
+  x0 <- xi[i,2]
+}
+hist(xi[,3])
+
+cbind("i"=1:20,    "Xi"=xi[1:20,2], 
+      "i"=101:120, "Xi"=xi[101:120,2], 
+      "i"=201:220, "Xi"=xi[201:220,2])
+```
+
+```{r}
 x0 <-73 
 n <- 250
 a <- 17
