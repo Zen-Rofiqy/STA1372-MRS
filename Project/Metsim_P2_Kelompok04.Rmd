@@ -41,7 +41,263 @@ install_load <- function (package1, ...)  {
        }
    } 
 }
+
+install_load("DT","dplyr","ggplot2")
+
+theme1.1 <- list(
+  geom_hline(yintercept = 0, size = 1, colour="#333333"),
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, 
+                                   margin = margin(b = 10, t=-20)),
+        axis.text.y = element_text(vjust = 0.5, face = "bold", 
+                                   margin = margin(l = 20, r = 0)),
+        plot.title = element_text(hjust = 0.5, face = "bold"),
+        text = element_text(size = 30),
+        plot.subtitle = element_text(hjust = 0.5),
+        panel.background = element_rect(fill = 'transparent'),
+        plot.background = element_rect(fill='transparent', color=NA),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()
+        ) 
+)
 ```
+
+> **Kelompok 4 Praktikum P2**
+>
+> Anggota : 
+>
+> -   G1401211006 Angga Fathan Rofiqy
+>
+> -   G1401211014 Gladys Adya Zafira
+>
+> -   G1401211029 Kheni Hikmah Lestari
+
+**TUGAS PRAKTIKUM PERTEMUAN 2**
+
+# No 1
+
+1.  Bangkitkan data berdasarkan distribusi bernoulli sebanyak 3 amatan dengan 𝑝 = 0.6 tanpa bantuan software apapun (tunjukkan langkah tiap iterasi)
+
+    1.  Bangkitkan bilangan acak 𝑈
+
+    2.  Definisikan  𝑐 = p1 - p,i=0, pr=1-p, i = 0, F = pr
+
+    3.  Jika U \< F maka tetapkan X = i dan iterasi berhenti
+
+    4.  Hitung pr =[c \* (n - i)(i+1)]\*pr, F = F + pr, i = i +1
+
+    5.  Kembali ke langkah 3
+
+Jawab : 
+
+**Amatan pertama**
+
+-   **Iterasi 1**
+
+1.  Bilangan acak 𝑈 dibangkitkan,  misalkan 𝑈 = **0.34**
+
+2.  Definisikan  𝑐 = 0.61 - 0.6 =1.5,i=0, pr=1-0.6=0.4, i = 0, F = **0.4**
+
+3.  U \< F (0.34 \< 0.4) maka dapat ditetapkan X = i = 0 dan iterasi berhenti
+
+**Amatan Kedua**
+
+-   **Iterasi 1**
+
+1.  Bilangan acak 𝑈 dibangkitkan, misalkan  𝑈 = **0.59**
+
+2.  Definisikan  𝑐 = 0.61 - 0.6 =1.5,i=0, pr=1-0.6=0.4, i = 0, F = **0.4**
+
+3.  U \> F (0.59 \> 0.4)  maka iterasi tetap dilanjutkan 
+
+4.   pr =[1.5 \* (1 - 0)(0+1)]\*0.4 = 0.6 , F = 0.4 + 0.6 = 1, i = 0 +1 = 1
+
+-   **Iterasi 2**
+
+1.  Kembali ke langkah 3, U \< F (0.59 \< 1) maka dapat ditetapkan X = i = 1 dan iterasi berhenti
+
+	**Amatan Kedua**
+
+-   **Iterasi 1**
+
+1.  Bilangan acak 𝑈 dibangkitkan, misalkan  𝑈 = **0.93**
+
+2.  Definisikan  𝑐 = 0.61 - 0.6 =1.5,i=0, pr=1-0.6=0.4, i = 0, F = **0.4**
+
+3.  U \> F (0.93 \> 0.4)  maka iterasi tetap dilanjutkan 
+
+4.  pr =[1.5 \* (1 - 0)(0+1)]\*0.4 = 0.6 , F = 0.4 + 0.6 = 1, i = 0 +1 = 1
+
+-   **Iterasi 2**
+
+1.  Kembali ke langkah 3, U \< F (0.93 \< 1) maka dapat ditetapkan X = i = 1 dan iterasi berhenti
+
+Hasil dari ketiga amatan berturut-turut memperoleh Xi = 0, 1, 1
+
+# No 2
+
+2.  Bangkitkan data berdasarkan distribusi poisson sebanyak 3 amatan dengan = 3 tanpa bantuan software apapun (tunjukkan langkah tiap iterasi) 
+
+    1.  Bangkitkan bilangan acak 𝑈
+    2.  Definisikan i = 0, pr =e-, F = pr
+    3.  Jika U \< F maka tetapkan X = i dan iterasi berhenti
+    4.  Hitung pr = pri + 1 , F = F + pr, i = i +1
+    5.  Kembali ke langkah 3
+
+	Jawab : 
+
+	**Amatan pertama**
+
+-   **Iterasi 1**
+
+1.  Bangkitkan bilangan acak 𝑈
+
+U = 0,6 
+
+2.  Definisikan i = 0, pr =e-,  F = pr
+
+i = 0, pr =e-= e-3= 0.0498,  F = pr = 0.0498
+
+3.  Jika U \< F maka tetapkan X = i dan iterasi berhenti
+
+U = 0,6 \> F = 0,1992
+
+4.  Hitung pr = pri + 1 , F = F + pr, i = i +1
+
+pr = pri + 1 = 3(0.0498)0 + 1= 0,1494, F = 0,0498 + 0,1494= 0,1992, i= 0+1=1
+
+5.  Kembali ke langkah 3
+
+-   **Iterasi 2**
+
+1.  U = 0,6 \> F= 0,1992
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.1494)1+ 1= 0,2241, F = 0,1992 + 0,2241= 0,4233, i= 1+1=2
+
+-   **Iterasi 3**
+
+1.  U = 0,6 \> F= 0,4233
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.2241)2+ 1= 0,2241, F = 0,4233 + 0,2241= 0,6474, i= 2+1=3
+
+-   **Iterasi 4**
+
+1.  U = 0,6 \< F= 0,6474
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.2241)3+ 1= 0,1681, F = 0,6474 + 0,1681= 0,8155, i= 3+1=4
+
+	**Amatan Kedua**
+
+-   **Iterasi 1**
+
+1.  Bangkitkan bilangan acak 𝑈
+
+U = 0,7 
+
+2.  Definisikan i = 0, pr =e-,  F = pr
+
+i = 0, pr =e-= e-3= 0.0498,  F = pr = 0.0498
+
+3.  Jika U \< F maka tetapkan X = i dan iterasi berhenti
+
+U = 0,7 \> F = 0,1992
+
+4.  Hitung pr = pri + 1 , F = F + pr, i = i +1
+
+pr = pri + 1 = 3(0.0498)0 + 1= 0,1494, F = 0,0498 + 0,1494= 0,1992, i= 0+1=1
+
+5.  Kembali ke langkah 3
+
+-   **Iterasi 2**
+
+1.  U = 0,7\> F= 0,1992
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.1494)1+ 1= 0,2241, F = 0,1992 + 0,2241= 0,4233, i= 1+1=2
+
+-   **Iterasi 3**
+
+1.  U = 0,7 \> F= 0,4233
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.2241)2+ 1= 0,2241, F = 0,4233 + 0,2241= 0,6474, i= 2+1=3
+
+-   **Iterasi 4**
+
+1.  U = 0,7 \> F= 0,6474
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.2241)3+ 1= 0,1681, F = 0,6474 + 0,1681= 0,8155, i= 3+1=4
+
+-   **Iterasi 5**
+
+1.  U = 0,7 \< F= 0,8155
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.1681)4+ 1= 0,1008, F = 0,8155 + 0,1008= 0,9163, i= 4+1=5
+
+	**Amatan Ketiga**
+
+-   **Iterasi 1**
+
+1.  Bangkitkan bilangan acak 𝑈
+
+U = 0,8 
+
+2.  Definisikan i = 0, pr =e-,  F = pr
+
+i = 0, pr =e-= e-3= 0.0498,  F = pr = 0.0498
+
+3.  Jika U \< F maka tetapkan X = i dan iterasi berhenti
+
+U = 0,8 \> F = 0,1992
+
+4.  Hitung pr = pri + 1 , F = F + pr, i = i +1
+
+pr = pri + 1 = 3(0.0498)0 + 1= 0,1494, F = 0,0498 + 0,1494= 0,1992, i= 0+1=1
+
+5.  Kembali ke langkah 3
+
+-   **Iterasi 2**
+
+1.  U = 0,8\> F= 0,1992
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.1494)1+ 1= 0,2241, F = 0,1992 + 0,2241= 0,4233, i= 1+1=2
+
+-   **Iterasi 3**
+
+1.  U = 0,8 \> F= 0,4233
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.2241)2+ 1= 0,2241, F = 0,4233 + 0,2241= 0,6474, i= 2+1=3
+
+-   Iterasi 4
+
+1.  U = 0,7 \> F= 0,6474
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.2241)3+ 1= 0,1681, F = 0,6474 + 0,1681= 0,8155, i= 3+1=4
+
+	Iterasi 5
+
+1.  U = 0,7 \> F= 0,8155
+
+2.  Hitung : 
+
+pr = pri + 1 = 3(0.1681)4+ 1= 0,1008, F = 0,8155 + 0,1008= 0,9163, i= 4+1=5
 
 # No 3
 
@@ -61,7 +317,7 @@ data
 ```{r dpi=300, fig.height = 14, fig.width = 20, message = FALSE, warning=FALSE}
 df <- data.frame(table(data)) 
 df$data <- as.numeric(df$data)
-bar.max <- which(df$data == max(df$data))
+bar.max <- which(df$Freq == max(df$Freq))
 ggplot(df, aes(x=data, y=Freq)) +
   geom_bar(stat="identity", col=NA,
            fill= ifelse(df$data %in% (bar.max),  "#1380A1", "#dddddd")) +
@@ -82,7 +338,7 @@ data.rbinom
 ```{r dpi=300, fig.height = 14, fig.width = 20, message = FALSE, warning=FALSE}
 df <- data.frame(table(data.rbinom)) 
 df$data <- as.numeric(df$data)
-bar.max <- which(df$data == max(df$data))
+bar.max <- which(df$Freq == max(df$Freq))
 ggplot(df, aes(x=data, y=Freq)) +
   geom_bar(stat="identity", col=NA,
            fill= ifelse(df$data %in% (bar.max),  "#1380A1", "#dddddd")) +
@@ -112,5 +368,66 @@ Kedua sintaks yang diberikan menerapkan algoritma ini dengan cara yang serupa, s
 ![](images/clipboard-1149010623.png)
 
 ```{r}
+pois.gen <- function(n, lambda){
+  x <- numeric(n)
+  for(j in 1:n){
+    i <- 0
+    pr <- exp(-lambda)
+    F <- pr
+    U <- runif(1)
+    while(U >= F){
+    pr <- lambda * pr / (i+1)
+    F <- F +pr
+    i <- i+1
+    }
+    x[j] <- i
+  }
+  return(x)
+}
 
+set.seed(nim)
+data <- pois.gen(50, 3)
+data
 ```
+
+```{r dpi=300, fig.height = 14, fig.width = 20, message = FALSE, warning=FALSE}
+df <- data.frame(table(data)) 
+df$data <- as.numeric(as.character(df$data))
+bar.max <- which(df$Freq == max(df$Freq))
+ggplot(df, aes(x=data, y=Freq)) +
+  geom_bar(stat="identity", col=NA,
+           fill= ifelse(df$data %in% (bar.max-1),  "#1380A1", "#dddddd")) +
+  labs(x = "\nNilai", y = "Frekuensi", 
+       title = "\nSebaran Data yang dibangkitkan\n") +
+  theme1.1
+```
+
+## Dengan fungsi `rpois`
+
+```{r}
+set.seed(nim)
+data.rpois <- rpois(50, 3)
+data.rpois
+```
+
+```{r dpi=300, fig.height = 14, fig.width = 20, message = FALSE, warning=FALSE}
+df <- data.frame(table(data.rpois)) 
+df$data <- as.numeric(as.character(df$data))
+bar.max <- which(df$Freq == max(df$Freq))
+ggplot(df, aes(x=data, y=Freq)) +
+  geom_bar(stat="identity", col=NA,
+           fill= ifelse(df$data %in% (bar.max-1),  "#1380A1", "#dddddd")) +
+  labs(x = "\nNilai", y = "Frekuensi", 
+       title = "\nSebaran Data yang dibangkitkan\n") +
+  theme1.1
+```
+
+Dari hasil output kedua pernyataan tersebut, dapat diamati bahwa data yang dihasilkan memiliki kesamaan baik dari segi pola distribusi maupun nilai output. Persamaan ini dapat dijelaskan oleh fakta bahwa keduanya menggunakan algoritma yang serupa untuk menghasilkan data dengan distribusi Poisson. Algoritma yang digunakan untuk membangkitkan data distribusi Poisson memiliki langkah-langkah berikut:
+
+1.  Membangkitkan nilai acak dari distribusi seragam.
+
+2.  Memeriksa apakah nilai acak kurang dari atau sama dengan lambda.
+
+3.  Jika benar, keluaran adalah nilai acak tersebut.
+
+4.  Jika tidak, keluaran adalah 0. Algoritma ini memanfaatkan probabilitas munculnya nilai $x$ dalam distribusi Poisson, yang dihitung dengan rumus $P(X = x) = \frac{e^{-\lambda} \cdot \lambda^x}{x!}$. Oleh karena itu, jika nilai acak kurang dari atau sama dengan lambda, kemungkinan keluaran adalah $x$. Sebaliknya, jika nilai acak lebih besar dari lambda, kemungkinan keluaran adalah 0. Dalam kedua pernyataan yang telah diberikan, kedua algoritma ini diimplementasikan dengan cara yang serupa, sehingga menghasilkan data yang identik.
