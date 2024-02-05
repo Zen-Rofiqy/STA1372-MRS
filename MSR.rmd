@@ -358,9 +358,13 @@ hist(nbinom)
 
 ## Inverse Transform Method
 
+![](images/clipboard-1137921527.png){width="336"}
+
 ![](images/clipboard-3270173132.png){width="399"}
 
 ![](images/clipboard-2643393499.png){width="367"}
+
+![](images/clipboard-2482589517.png){width="333"}
 
 ### Seragam
 
@@ -421,4 +425,47 @@ Y <- apply(Um, 1, sum)
 chi <- -Y/lambda
 chi <- chi +(rnorm(i))^2  
 hist(chi)
+```
+
+## Poisson
+
+![](images/clipboard-3888260971.png){width="390"}
+
+![](images/clipboard-3043575602.png){width="391"}
+
+```{r}
+#Poisson(1) melalui ekponensial  
+i <- 1000
+lambda <- 1  
+K <- NULL
+for (z in 1:i){ 
+  sk <- 0  
+  k <- 0
+  while (sk<=1){
+    u <- runif(1)
+    y <- -log(u)/lambda 
+    sk <- y+sk
+    k <- k+1 
+  }
+  K[z] <- k-1 
+}
+(tabel <- table(K)/length(K)) 
+barplot(tabel)
+
+#Poisson(1) melalui seragam  
+i <- 1000
+lambda <- 1  
+K <- NULL
+for (z in 1:i){ 
+  k <- 0
+  sk <- 1
+  while(sk >= exp(-lambda)){  
+    u <- runif(1)
+    sk <- sk*u 
+    k <- k+1
+  } 
+  K[z] <- k
+}
+(tabel <- table(K)/length(K)) 
+barplot(tabel)
 ```
