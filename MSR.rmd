@@ -414,11 +414,11 @@ hist(chi)
 #chi-square(11)  
 i <- 1000
 lambda <- 2 
-alpha < 5
+alpha <- 5
 U <- log(runif(i*alpha))  
 Um <- matrix(U, i)
 Y <- apply(Um, 1, sum) 
-chi < --Y/lambda
+chi <- -Y/lambda
 chi <- chi +(rnorm(i))^2  
 hist(chi)
 ```
