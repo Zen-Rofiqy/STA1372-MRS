@@ -23,7 +23,13 @@
 		{"id":"4657b2b7dcb83068","x":1637,"y":1440,"width":400,"height":182,"type":"file","file":"Pasted image 20240205164049.png"},
 		{"id":"b64fc647733f63c8","x":2066,"y":1448,"width":374,"height":174,"type":"text","text":"Fungsinya kalo di integralkan bakal menjadi F(x) = 3x^2 - 2x^3.\nFunsi incomplete beta itu panjang sekali. Sehingga perlu bantuan software"},
 		{"id":"d2874d6a8f6d5f5e","x":1260,"y":1060,"width":340,"height":200,"type":"text","text":"Ini integralnya bb=0 ba=x. Karena Eksponensial itu batasnya dari 0 sampe tak hingga. \nAtas nya itu selalu batas dari peubah acaknya, yakni x.\nIni juga berlaku jika n besar."},
-		{"id":"313b9ebcd9f64a92","x":1260,"y":1280,"width":326,"height":130,"type":"text","text":"Misal : -tak hingga < X < tak hingga\nX~Normal. Maka integralnya itu bb=-tak hingga, ba = x"}
+		{"id":"313b9ebcd9f64a92","x":1260,"y":1280,"width":326,"height":130,"type":"text","text":"Misal : -tak hingga < X < tak hingga\nX~Normal. Maka integralnya itu bb=-tak hingga, ba = x"},
+		{"id":"22e4c174276f5b73","x":1586,"y":1760,"width":400,"height":182,"type":"file","file":"Pasted image 20240205165744.png"},
+		{"id":"00c23ae7fc624a71","x":2011,"y":1766,"width":250,"height":60,"type":"text","text":"Domain sama itu misalnya dari 0-1 atau 0-x"},
+		{"id":"772326bd6e5ea730","x":2028,"y":1851,"width":252,"height":109,"type":"text","text":"Domain Gamma : 0-1\nDomain Uniform : 0-1\nDomain Exp : 0-tak hingga"},
+		{"id":"ff867b5e255f9ec1","x":1586,"y":2020,"width":400,"height":166,"type":"file","file":"Pasted image 20240205170344.png"},
+		{"id":"af58137a16b0f339","x":920,"y":20,"width":400,"height":202,"type":"file","file":"Pasted image 20240205171735.png"},
+		{"id":"9a8f1b4a4b805d96","x":918,"y":257,"width":502,"height":263,"type":"text","text":"X dalam binom itu menandakan peluang sukses. \nJadi U < F, dimana F=(1-p)^n\nF adalah peluang gagal\nU itu harus > dari peluang sukses. Karena itulah F pake peluang gagal karena tandanya \"<\". \nKalo mau peluang sukses, ganti tanda jadi \">\""}
 	],
 	"edges":[]
 }
