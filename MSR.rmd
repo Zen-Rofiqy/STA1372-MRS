@@ -239,3 +239,48 @@ install_load('readxl','dplyr','kableExtra','DT')
 raw.data <- read_xlsx("Data pert 2.xlsx")
 data <- raw.data
 ```
+
+# Bab 3
+
+![](images/clipboard-2906850533.png){width="302"}
+
+## Bernoulli
+
+![](images/clipboard-1833550608.png){width="391"}
+
+```{r}
+#Bernouli
+i <- 1000
+p <- .65
+X <- runif(i)
+Y <- NULL
+for (z in 1:i) ifelse (X[z] <= p, Y[z] <- 1, Y[z] <- 0)
+(tabel <- table(Y)/length(Y))
+barplot(tabel, main="Bernoulli")
+
+i <- 1000
+p <- .65
+X <- runif(i)
+Y <- (X <= p)+0
+(tabel <- table(Y)/length(Y))
+barplot(tabel, main="Bernoulli")
+```
+
+## Seragam Diskrit
+
+![](images/clipboard-958172702.png){width="443"}
+
+```{r}
+i<-1000 
+N<-4
+X<-runif(i) 
+DU<-NULL
+for (z in 1:i){
+if (X[z]<=1/N) DU[z]<-1
+else if (X[z]<=2/N) DU[z]<-2  
+else if (X[z]<=3/N) DU[z]<-3
+else DU[z]<-4 
+}
+(tabel<-table(DU)/length(DU)) 
+barplot(tabel,main="Seragam Diskret")
+```
