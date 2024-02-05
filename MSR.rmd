@@ -27,6 +27,8 @@ install_load <- function (package1, ...)  {
    } 
 }
 
+install_load("MASS")
+
 path <- function() gsub  ( "\\\\",  "/",  readClipboard ()  )
 #Copy path, Panggil function di console
 #Copy r path, paste ke var yang diinginkan
@@ -282,4 +284,74 @@ for (z in 1:i){
 }
 (tabel <- table(DU)/length(DU)) 
 barplot(tabel, main="Seragam Diskret")
+
+
+i <- 1000 
+N <- 4
+X <- runif(i)
+DU <- as.numeric(cut(X, breaks=c(0, 1/N, 2/N, 3/N, 1),  
+include.lowest = T))
+(tabel <- table(DU)/length(DU)) 
+barplot(tabel, main="Seragam Diskret")
+i <- 1000  
+N <- 4
+X <- runif(i)
+DU <- 1 +floor(N*X)
+(tabel <- table(DU)/length(DU))  
+barplot(tabel, main="Seragam Diskret")
+```
+
+## Binomial
+
+![](images/clipboard-3560084147.png){width="490"}
+
+```{r}
+#Binomial (5,0.65) 
+i <- 1000
+n <- 5  
+p <- .65
+Binom <- NULL  
+for (z in 1:i){
+  m <- 0
+  for (k in 1:n){
+    y <- (runif(1) <= p) +0  
+    m <- m+y
+  }
+  Binom[z] <- m 
+}
+(tabel <- table(Binom)/length(Binom))  
+barplot(tabel, main="Binomial")
+
+#Binomial (3,0.5)  
+i <- 1000
+X <- runif(i)
+Binom <- as.numeric(cut(X, breaks=c(0, 1/8, 4/8, 7/8, 1),  
+include.lowest = T)) -1
+(tabel <- table(Binom)/length(Binom)) 
+barplot(tabel, main="Binomial")
+```
+
+## Geometrik
+
+![](images/clipboard-2245100121.png){width="519"}
+
+```{r}
+set.seed(123)
+geom <- rgeom(1000, prob = 0.2)
+
+cat("Geometric Distribution (p = 0.2):\n")
+head(geom)
+hist(geom)
+```
+
+## Binomial Negatif
+
+![](images/clipboard-493136764.png){width="524"}
+
+```{r}
+nbinom <- rnbinom(1000, size = 5, prob = 0.3)
+
+cat("\nNegative Binomial Distribution (size = 5, prob = 0.3):\n")
+head(nbinom)
+hist(nbinom)
 ```
