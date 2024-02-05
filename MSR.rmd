@@ -355,3 +355,21 @@ cat("\nNegative Binomial Distribution (size = 5, prob = 0.3):\n")
 head(nbinom)
 hist(nbinom)
 ```
+
+## Inverse Transform Method
+
+![](images/clipboard-3270173132.png){width="399"}
+
+![](images/clipboard-2643393499.png){width="367"}
+
+### Seragam
+
+![](images/clipboard-1525824238.png){width="366"}
+
+### Eksponensial
+
+![](images/clipboard-2021265094.png){width="510"}
+
+```{r}
+
+```
