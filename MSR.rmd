@@ -371,5 +371,54 @@ hist(nbinom)
 ![](images/clipboard-2021265094.png){width="510"}
 
 ```{r}
+i <- 1000
+lambda <- 3 
+U <- runif(i)
+X <- -log(U)/lambda  
+hist(X)
+```
 
+### Gamma
+
+![](images/clipboard-1228991952.png){width="442"}
+
+```{r}
+#Gamma(α=5,β=3)  
+i <- 1000
+lambda <- 3 
+alpha <- 5
+U <- log(runif(i*alpha))  
+Um <- matrix(U, i)
+Y <- apply(Um, 1, sum) 
+Gama <- -Y/lambda  
+hist(Gama)
+```
+
+### Chi-Square
+
+![](images/clipboard-3288057756.png){width="508"}
+
+![](images/clipboard-4197710110.png){width="506"}
+
+```{r}
+#chi-square(10)  
+i <- 1000
+lambda <- 2 
+alpha <- 5
+U <- log(runif(i*alpha))  
+Um <- matrix(U, i)
+Y <- apply(Um, 1, sum) 
+chi <- -Y/lambda  
+hist(chi)
+
+#chi-square(11)  
+i <- 1000
+lambda <- 2 
+alpha < 5
+U <- log(runif(i*alpha))  
+Um <- matrix(U, i)
+Y <- apply(Um, 1, sum) 
+chi < --Y/lambda
+chi <- chi +(rnorm(i))^2  
+hist(chi)
 ```
