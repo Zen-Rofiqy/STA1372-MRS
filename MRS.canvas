@@ -12,9 +12,18 @@
 		{"id":"340a7cfd640e1368","x":260,"y":-160,"width":517,"height":352,"type":"text","text":"## Contoh SS\n* Simulasi ==kepadatan penumpang== KRL jabodetabek\n* Simulasi ==Minat wisatawan== yang menyaksikan lomba f1 boat race di danau toba\n* Simulasi ==penambahan rute== biskita dramaga-kota\n* Simulasi ==jadwal penerbangan== pada bandara baru\n* Simulasi ==lama pergantian== warna pada lampu lalu lintas\n* Simulasi ==pembangkitan data== berdasarkan sebaran tertentu\n* Simulasi ==pendugaan data hilang== pada time series\n* Simulasi pembuktian teori"},
 		{"id":"5343cdc90ac56cc6","x":1672,"y":136,"width":568,"height":324,"type":"text","text":"Tau hubungan antar peubah acak itu seperti apa? Ini pake metode transformasi langsung\nMisal :\n* sebaran eksponensial jika dijumlahkan jadinya sebaran gamma. \n* Normal baku jadi chi-square dengan db 1\n* Gamma(alpha, beta) beta nya dikalikan c. Jadinya X~Gamma(alpha, beta) jadi Y = cX~Gamma(alpha, c beta)\n* X ~ X^2(m) "},
 		{"id":"7c8424f26d2395e9","x":2240,"y":136,"width":400,"height":215,"type":"file","file":"Pasted image 20240205162117.png"},
-		{"id":"58b347c2b4cc34cf","x":2276,"y":380,"width":404,"height":120,"type":"text","text":"Sifat gamma kalo parameternya dikalikan sesuatu, maka sebaran nya tetap Gamma. Bedanya ada di beta nya saja."},
-		{"id":"ddf6f7955c47af83","x":2240,"y":540,"width":400,"height":99,"type":"file","file":"Pasted image 20240205162306.png"},
-		{"id":"cea5f3433482cbb7","x":2240,"y":680,"width":400,"height":163,"type":"file","file":"Pasted image 20240205162318.png"}
+		{"id":"58b347c2b4cc34cf","x":1672,"y":500,"width":404,"height":120,"type":"text","text":"Sifat gamma kalo parameternya dikalikan sesuatu, maka sebaran nya tetap Gamma. Bedanya ada di beta nya saja."},
+		{"id":"ddf6f7955c47af83","x":1636,"y":660,"width":400,"height":99,"type":"file","file":"Pasted image 20240205162306.png"},
+		{"id":"cea5f3433482cbb7","x":1636,"y":800,"width":400,"height":163,"type":"file","file":"Pasted image 20240205162318.png"},
+		{"id":"0d0b113f8c088b3b","x":2193,"y":503,"width":367,"height":256,"type":"text","text":"Metode Inverse Transform\nSemua sebaran bisa didekatai oleh sebaran uniform. Dari nilai kumulatif nya itu selalu =1. Jdi rentang nilainya itu selalu 0-1. \nSehingga bisa di dekati oleh Uniform(0,1)\n\n"},
+		{"id":"983007cdf9a4a3ad","x":2143,"y":807,"width":400,"height":166,"type":"file","file":"Pasted image 20240205163236.png"},
+		{"id":"31a8d6c6bff2c302","x":2143,"y":973,"width":250,"height":60,"type":"text","text":"P adalah sebaran yang Uniform"},
+		{"id":"2655130863ddeba0","x":1636,"y":1060,"width":400,"height":326,"type":"file","file":"Pasted image 20240205163336.png"},
+		{"id":"1adb662017e18e11","x":2037,"y":1060,"width":356,"height":163,"type":"text","text":"Karena berangkatnya dari poisson, maka pake lambda. Dimana lambda = 1/teta\n\nUntuk transformasinya pake ln, sehingga x diperoleh"},
+		{"id":"4657b2b7dcb83068","x":1637,"y":1440,"width":400,"height":182,"type":"file","file":"Pasted image 20240205164049.png"},
+		{"id":"b64fc647733f63c8","x":2066,"y":1448,"width":374,"height":174,"type":"text","text":"Fungsinya kalo di integralkan bakal menjadi F(x) = 3x^2 - 2x^3.\nFunsi incomplete beta itu panjang sekali. Sehingga perlu bantuan software"},
+		{"id":"d2874d6a8f6d5f5e","x":1260,"y":1060,"width":340,"height":200,"type":"text","text":"Ini integralnya bb=0 ba=x. Karena Eksponensial itu batasnya dari 0 sampe tak hingga. \nAtas nya itu selalu batas dari peubah acaknya, yakni x.\nIni juga berlaku jika n besar."},
+		{"id":"313b9ebcd9f64a92","x":1260,"y":1280,"width":326,"height":130,"type":"text","text":"Misal : -tak hingga < X < tak hingga\nX~Normal. Maka integralnya itu bb=-tak hingga, ba = x"}
 	],
 	"edges":[]
 }
