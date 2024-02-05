@@ -469,3 +469,15 @@ for (z in 1:i){
 (tabel <- table(K)/length(K)) 
 barplot(tabel)
 ```
+
+## Praktikum
+
+```{r}
+#Membangkitkan Data Gamma(5,1) 
+> set.seed(123)
+> X=rgamma(100,5,scale = 1) 
+> head(X)
+[1] 3.389585 7.378957 1.629561 
+[4] 4.778440 8.873564 5.530862 
+> plot(density(X))
+```
