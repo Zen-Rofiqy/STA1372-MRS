@@ -498,8 +498,10 @@ k<-1000 # ulangan
 
 n<-10 #banyak sampel
 x11<-matrix(rnorm(n*k),k) #bangkitkan sampel
+hist(x11)
 x11<-apply(x11,1,mean) #simpan rataan
-hist(x11, main = "Sebaran Percontohan Normal 10 Sampel"); mean(x11); var(x11)
+hist(x11, main = "Sebaran Percontohan Normal 10 Sampel")
+mean(x11); var(x11)
 ```
 
 > 30 Sampel
@@ -510,8 +512,11 @@ k<-1000 # ulangan
 
 n<-30 #banyak sampel
 x12<-matrix(rnorm(n*k),k) #bangkitkan sampel
+hist(x12)
+
 x12<-apply(x12,1,mean) #simpan rataan
-hist(x12, main = "Sebaran Percontohan Normal 30 Sampel"); mean(x12); var(x12)
+hist(x12, main = "Sebaran Percontohan Normal 30 Sampel")
+mean(x12); var(x12)
 ```
 
 > 100 Sampel
@@ -522,8 +527,10 @@ k<-1000 # ulangan
 
 n<-100 #banyak sampel
 x13<-matrix(rnorm(n*k),k) #bangkitkan sampel
+hist(x13)
 x13<-apply(x13,1,mean) #simpan rataan
-hist(x13, main = "Sebaran Percontohan Normal 100 Sampel"); mean(x13); var(x13)
+hist(x13, main = "Sebaran Percontohan Normal 100 Sampel")
+mean(x13); var(x13)
 ```
 
 #### Eksponensial
@@ -536,8 +543,11 @@ k<-1000 # ulangan
 
 n<-10 #banyak sampel
 x21<-matrix(rexp(n*k),k) #bangkitkan sampel
+hist(x21)
+
 x21<-apply(x21,1,mean) #simpan rataan
-hist(x21, main = "Sebaran Percontohan Eksponensial 10 Sampel"); mean(x21); var(x21)
+hist(x21, main = "Sebaran Percontohan Eksponensial 10 Sampel")
+mean(x21); var(x21)
 ```
 
 > 30 Sampel
@@ -548,8 +558,10 @@ k<-1000 # ulangan
 
 n<-30 #banyak sampel
 x22<-matrix(rexp(n*k),k) #bangkitkan sampel
+hist(x22)
 x22<-apply(x22,1,mean) #simpan rataan
-hist(x22, main = "Sebaran Percontohan Eksponensial 30 Sampel") ; mean(x22); var(x22)
+hist(x22, main = "Sebaran Percontohan Eksponensial 30 Sampel") 
+mean(x22); var(x22)
 ```
 
 > 100 Sampel
@@ -560,8 +572,10 @@ k<-1000 # ulangan
 
 n<-100 #banyak sampel
 x23<-matrix(rexp(n*k),k) #bangkitkan sampel
+hist(x23)
 x23<-apply(x23,1,mean) #simpan rataan
-hist(x23, main = "Sebaran Percontohan Eksponensial 100 Sampel"); mean(x23); var(x23)
+hist(x23, main = "Sebaran Percontohan Eksponensial 100 Sampel")
+mean(x23); var(x23)
 ```
 
 #### Seragam
@@ -574,8 +588,10 @@ k<-1000 # ulangan
 
 n<-10 #banyak sampel
 x31<-matrix(runif(n*k),k) #bangkitkan sampel
+hist(x31)
 x31<-apply(x31,1,mean) #simpan rataan
-hist(x31, main = "Sebaran Percontohan Seragam 10 Sampel"); mean(x31); var(x31)
+hist(x31, main = "Sebaran Percontohan Seragam 10 Sampel")
+mean(x31); var(x31)
 ```
 
 > 30 Sampel
@@ -586,8 +602,10 @@ k<-1000 # ulangans
 
 n<-30 #banyak sampel
 x32<-matrix(runif(n*k),k) #bangkitkan sampel
+hist(x32)
 x32<-apply(x32,1,mean) #simpan rataan
-hist(x32, main = "Sebaran Percontohan Seragam 30 Sampel"); mean(x32); var(x32)
+hist(x32, main = "Sebaran Percontohan Seragam 30 Sampel")
+mean(x32); var(x32)
 ```
 
 > 100 Sampel
@@ -598,8 +616,10 @@ k<-1000 # ulangan
 
 n<-100 #banyak sampel
 x33<-matrix(runif(n*k),k) #bangkitkan sampel
+hist(x33)
 x33<-apply(x33,1,mean) #simpan rataan
-hist(x33, main = "Sebaran Percontohan Seragam 100 Sampel"); mean(x33); var(x33)
+hist(x33, main = "Sebaran Percontohan Seragam 100 Sampel")
+mean(x33); var(x33)
 ```
 
 #### Perbandingan
@@ -616,7 +636,33 @@ hist(x31, main = "Seragam 10 Sampel",xlim = c(0,1));hist(x32, main = "Seragam 30
 #### Membangkitkan Populasi
 
 ```{r}
+set.seed(15)
+k<-1000 # ulangan
+
+n<-10 #banyak sampel
+x21<-matrix(rexp(n*k),k) #bangkitkan sampel
+hist(x21)
+x21<-apply(x21,1,mean) #simpan rataan
+hist(x21, main = "Sebaran Percontohan Eksponensial 10 Sampel")
+mean(x21); var(x21)
+```
+
+```{r}
+k <- 1000
+n <- 10
+set.seed(14)
+y1<-rexp(n*k)
+
+set.seed(14)
+coba<-matrix(rexp(n*k), k)
+hist(y1)
+hist(coba)
+```
+
+```{r}
 y1<-rnorm(1000000)
+coba<-matrix(rexp(1000000), 10000)
+
 y2<-rexp(1000000)
 y3<-runif(1000000)
 hist(y1, main = "Populasi Terhingga Normal")
@@ -631,12 +677,9 @@ hist(y3, main = "Populasi Terhingga Uniform")
 ```{r}
 k<-1000
 n<-10
-z11<-matrix(sample(y1,
-n*k),k)
-z21<-matrix(sample(y2,
-n*k),k)
-z31<-matrix(sample(y3,
-n*k),k)
+z11<-matrix(sample(y1, n*k),k)
+z21<-matrix(sample(y2,n*k),k)
+z31<-matrix(sample(y3,n*k),k)
 z11<-apply(z11,1,mean)
 z21<-apply(z21,1,mean)
 z31<-apply(z31,1,mean)
@@ -721,8 +764,32 @@ Lakukan simulasi seperti di atas (boleh populasi terhingga atau tak terhingga) m
 Bandingkan dan jelaskan perbedaan hasil histogram masing-masing sebaran normal, eksponensial, seragam, dan sebaran yang menjulur ke kiri!
 
 ```{r}
-y2<- -rexp(1000000)
-hist(y2, main = "Populasi Terhingga Eksponensial")
+k<-1000 # ulangan
+n<-5 #banyak sampel
+set.seed(15)
+y21<-matrix(-rexp(n*k),k) #bangkitkan sampel
+hist(y21)
+
+yy21<-apply(y21,1,mean) #simpan rataan
+hist(yy21, main = "Sebaran Percontohan Eksponensial Negatif 5 Sampel")
+
+
+n<-50 #banyak sampel
+set.seed(15)
+y22<-matrix(-rexp(n*k),k) #bangkitkan sampel
+hist(y22)
+
+yy22<-apply(y22,1,mean) #simpan rataan
+hist(yy22, main = "Sebaran Percontohan Eksponensial Negatif 50 Sampel")
+
+
+n<-500 #banyak sampel
+set.seed(15)
+y23<-matrix(-rexp(n*k),k) #bangkitkan sampel
+hist(y23)
+
+yy23<-apply(y23,1,mean) #simpan rataan
+hist(yy23, main = "Sebaran Percontohan Eksponensial Negatif 500 Sampel")
 ```
 
 ```{r}
