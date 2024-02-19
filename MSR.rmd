@@ -481,3 +481,253 @@ X=rgamma(100,5,scale = 1)
 head(X)
 plot(density(X))
 ```
+
+# Bab 5
+
+## Praktikum
+
+### Populasi Tak Terhingga
+
+#### Normal
+
+> 10 Sampel
+
+```{r}
+set.seed(15)
+k<-1000 # ulangan
+
+n<-10 #banyak sampel
+x11<-matrix(rnorm(n*k),k) #bangkitkan sampel
+x11<-apply(x11,1,mean) #simpan rataan
+hist(x11, main = "Sebaran Percontohan Normal 10 Sampel"); mean(x11); var(x11)
+```
+
+> 30 Sampel
+
+```{r}
+set.seed(15)
+k<-1000 # ulangan
+
+n<-30 #banyak sampel
+x12<-matrix(rnorm(n*k),k) #bangkitkan sampel
+x12<-apply(x12,1,mean) #simpan rataan
+hist(x12, main = "Sebaran Percontohan Normal 30 Sampel"); mean(x12); var(x12)
+```
+
+> 100 Sampel
+
+```{r}
+set.seed(15)
+k<-1000 # ulangan
+
+n<-100 #banyak sampel
+x13<-matrix(rnorm(n*k),k) #bangkitkan sampel
+x13<-apply(x13,1,mean) #simpan rataan
+hist(x13, main = "Sebaran Percontohan Normal 100 Sampel"); mean(x13); var(x13)
+```
+
+#### Eksponensial
+
+> 10 Sampel
+
+```{r}
+set.seed(15)
+k<-1000 # ulangan
+
+n<-10 #banyak sampel
+x21<-matrix(rexp(n*k),k) #bangkitkan sampel
+x21<-apply(x21,1,mean) #simpan rataan
+hist(x21, main = "Sebaran Percontohan Eksponensial 10 Sampel"); mean(x21); var(x21)
+```
+
+> 30 Sampel
+
+```{r}
+set.seed(15)
+k<-1000 # ulangan
+
+n<-30 #banyak sampel
+x22<-matrix(rexp(n*k),k) #bangkitkan sampel
+x22<-apply(x22,1,mean) #simpan rataan
+hist(x22, main = "Sebaran Percontohan Eksponensial 30 Sampel") ; mean(x22); var(x22)
+```
+
+> 100 Sampel
+
+```{r}
+set.seed(15)
+k<-1000 # ulangan
+
+n<-100 #banyak sampel
+x23<-matrix(rexp(n*k),k) #bangkitkan sampel
+x23<-apply(x23,1,mean) #simpan rataan
+hist(x23, main = "Sebaran Percontohan Eksponensial 100 Sampel"); mean(x23); var(x23)
+```
+
+#### Seragam
+
+> 10 Sampel
+
+```{r}
+set.seed(15)
+k<-1000 # ulangan
+
+n<-10 #banyak sampel
+x31<-matrix(runif(n*k),k) #bangkitkan sampel
+x31<-apply(x31,1,mean) #simpan rataan
+hist(x31, main = "Sebaran Percontohan Seragam 10 Sampel"); mean(x31); var(x31)
+```
+
+> 30 Sampel
+
+```{r}
+set.seed(15)
+k<-1000 # ulangans
+
+n<-30 #banyak sampel
+x32<-matrix(runif(n*k),k) #bangkitkan sampel
+x32<-apply(x32,1,mean) #simpan rataan
+hist(x32, main = "Sebaran Percontohan Seragam 30 Sampel"); mean(x32); var(x32)
+```
+
+> 100 Sampel
+
+```{r}
+set.seed(15)
+k<-1000 # ulangan
+
+n<-100 #banyak sampel
+x33<-matrix(runif(n*k),k) #bangkitkan sampel
+x33<-apply(x33,1,mean) #simpan rataan
+hist(x33, main = "Sebaran Percontohan Seragam 100 Sampel"); mean(x33); var(x33)
+```
+
+#### Perbandingan
+
+```{r}
+par(mfrow=c(3,3))
+hist(x11, main = "Normal 10 Sampel",xlim = c(-2,2));hist(x12, main = "Normal 30 Sampel",xlim = c(-2,2));hist(x13, main = "Normal 100 Sampel",xlim = c(-2,2));
+hist(x21, main = "Eksponensial 10 Sampel",xlim = c(0,2));hist(x22, main = "Eksponensial 30 Sampel",xlim = c(0,2));hist(x23, main = "Eksponensial 100 Sampel",xlim = c(0,2));
+hist(x31, main = "Seragam 10 Sampel",xlim = c(0,1));hist(x32, main = "Seragam 30 Sampel",xlim = c(0,1));hist(x33, main = "Seragam 100 Sampel",xlim = c(0,1))
+```
+
+### Populasi Terhingga
+
+#### Membangkitkan Populasi
+
+```{r}
+y1<-rnorm(1000000)
+y2<-rexp(1000000)
+y3<-runif(1000000)
+hist(y1, main = "Populasi Terhingga Normal")
+
+hist(y2, main = "Populasi Terhingga Eksponensial")
+
+hist(y3, main = "Populasi Terhingga Uniform")
+```
+
+#### Normal
+
+```{r}
+k<-1000
+n<-10
+z11<-matrix(sample(y1,
+n*k),k)
+z21<-matrix(sample(y2,
+n*k),k)
+z31<-matrix(sample(y3,
+n*k),k)
+z11<-apply(z11,1,mean)
+z21<-apply(z21,1,mean)
+z31<-apply(z31,1,mean)
+hist(z11)
+
+hist(z21)
+
+hist(z31)
+```
+
+```{r}
+meandata10 = (c(mean(z11),mean(z21),mean(z31)))
+vardata10 = (c(var(z11),var(z21),var(z31)))
+normal10 = data.frame("Mean" = meandata10, "Var" = vardata10, row.names = c("Normal","Eksponensial","Seragam"))
+print(normal10)
+```
+
+#### Eksponensial
+
+```{r}
+k<-1000
+n<-30
+z12<-matrix(sample(y1,n*k),k)
+z22<-matrix(sample(y2,n*k),k)
+z32<-matrix(sample(y3,n*k),k)
+z12<-apply(z12,1,mean)
+z22<-apply(z22,1,mean)
+z32<-apply(z32,1,mean)
+hist(z12)
+
+hist(z22)
+
+hist(z32)
+```
+
+```{r}
+meandata30 = (c(mean(z12),mean(z22),mean(z32)))
+vardata30 = (c(var(z12),var(z22),var(z32)))
+normal30 = data.frame("Mean" = meandata30, "Var" = vardata30, row.names = c("Normal","Eksponensial","Seragam"))
+print(normal30)
+```
+
+#### Seragam
+
+```{r}
+k<-1000
+n<-100
+z13<-matrix(sample(y1,
+n*k),k)
+z23<-matrix(sample(y2,
+n*k),k)
+z33<-matrix(sample(y3,
+n*k),k)
+z13<-apply(z13,1,mean)
+z23<-apply(z23,1,mean)
+z33<-apply(z33,1,mean)
+hist(z13)
+
+hist(z23)
+
+hist(z33)
+```
+
+```{r}
+meandata100 = (c(mean(z13),mean(z23),mean(z33)))
+vardata100 = (c(var(z13),var(z23),var(z33)))
+normal100 = data.frame("Mean" = meandata100, "Var" = vardata100, row.names = c("Normal","Eksponensial","Seragam"))
+print(normal100)
+```
+
+```{r}
+par(mfrow=c(3,3))
+hist(z11, main = "Normal 10 Sampel",xlim = c(-2,2));hist(z12, main = "Normal 30 Sampel",xlim = c(-2,2));hist(z13, main = "Normal 100 Sampel",xlim = c(-2,2));
+hist(z21, main = "Eksponensial 10 Sampel",xlim = c(0,2));hist(z22, main = "Eksponensial 30 Sampel",xlim = c(0,2));hist(z23, main = "Eksponensial 100 Sampel",xlim = c(0,2));
+hist(z31, main = "Seragam 10 Sampel",xlim = c(0,1));hist(z32, main = "Seragam 30 Sampel",xlim = c(0,1));hist(z33, main = "Seragam 100 Sampel",xlim = c(0,1))
+```
+
+## Tugas Kelompok
+
+Lakukan simulasi seperti di atas (boleh populasi terhingga atau tak terhingga) menggunakan sebaran yang menjulur ke kiri dan n sebanyak 5, 50, dan 500! Contoh:
+
+Bandingkan dan jelaskan perbedaan hasil histogram masing-masing sebaran normal, eksponensial, seragam, dan sebaran yang menjulur ke kiri!
+
+```{r}
+y2<- -rexp(1000000)
+hist(y2, main = "Populasi Terhingga Eksponensial")
+```
+
+```{r}
+par(mfrow=c(3,3))
+hist(z11, main = "Normal 10 Sampel",xlim = c(-2,2));hist(z12, main = "Normal 30 Sampel",xlim = c(-2,2));hist(z13, main = "Normal 100 Sampel",xlim = c(-2,2));
+hist(z21, main = "Eksponensial 10 Sampel",xlim = c(0,2));hist(z22, main = "Eksponensial 30 Sampel",xlim = c(0,2));hist(z23, main = "Eksponensial 100 Sampel",xlim = c(0,2));
+hist(z31, main = "Seragam 10 Sampel",xlim = c(0,1));hist(z32, main = "Seragam 30 Sampel",xlim = c(0,1));hist(z33, main = "Seragam 100 Sampel",xlim = c(0,1))
+```
