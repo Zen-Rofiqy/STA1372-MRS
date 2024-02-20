@@ -763,10 +763,12 @@ Lakukan simulasi seperti di atas (boleh populasi terhingga atau tak terhingga) m
 
 Bandingkan dan jelaskan perbedaan hasil histogram masing-masing sebaran normal, eksponensial, seragam, dan sebaran yang menjulur ke kiri!
 
-```{r}
+> Menjulur Ke Kiri
+
+```{r dpi=300, fig.height = 14, fig.width = 20}
 k<-1000 # ulangan
 n<-5 #banyak sampel
-par(mfrow=c(3,3))
+par(mfrow=c(2,3))
 
 set.seed(15)
 y21<-matrix(-rexp(n*k),k) #bangkitkan sampel
@@ -793,9 +795,98 @@ yy22<-apply(y22,1,mean) #simpan rataan
 hist(yy22, main = "Sebaran Percontohan Eksponensial Negatif 50 Sampel")
 ```
 
-```{r}
-par(mfrow=c(3,3))
-hist(z11, main = "Normal 10 Sampel",xlim = c(-2,2));hist(z12, main = "Normal 30 Sampel",xlim = c(-2,2));hist(z13, main = "Normal 100 Sampel",xlim = c(-2,2));
-hist(z21, main = "Eksponensial 10 Sampel",xlim = c(0,2));hist(z22, main = "Eksponensial 30 Sampel",xlim = c(0,2));hist(z23, main = "Eksponensial 100 Sampel",xlim = c(0,2));
-hist(z31, main = "Seragam 10 Sampel",xlim = c(0,1));hist(z32, main = "Seragam 30 Sampel",xlim = c(0,1));hist(z33, main = "Seragam 100 Sampel",xlim = c(0,1))
+> Normal
+
+```{r dpi=300, fig.height = 14, fig.width = 20}
+k<-1000 # ulangan
+n<-5 #banyak sampel
+par(mfrow=c(2,3))
+
+set.seed(15)
+y21<-matrix(rnorm(n*k),k) #bangkitkan sampel
+hist(y21)
+
+n<-50 #banyak sampel
+set.seed(15)
+y22<-matrix(rnorm(n*k),k) #bangkitkan sampel
+hist(y22)
+
+n<-500 #banyak sampel
+set.seed(15)
+y23<-matrix(rnorm(n*k),k) #bangkitkan sampel
+hist(y23)
+
+
+yy23<-apply(y23,1,mean) #simpan rataan
+hist(yy23, main = "Sebaran Percontohan Normal 500 Sampel")
+
+yy21<-apply(y21,1,mean) #simpan rataan
+hist(yy21, main = "Sebaran Percontohan Normal 5 Sampel")
+
+yy22<-apply(y22,1,mean) #simpan rataan
+hist(yy22, main = "Sebaran Percontohan Normal 50 Sampel")
+```
+
+> Eksponensial
+
+```{r dpi=300, fig.height = 14, fig.width = 20}
+k<-1000 # ulangan
+n<-5 #banyak sampel
+par(mfrow=c(2,3))
+
+set.seed(15)
+y21<-matrix(rexp(n*k),k) #bangkitkan sampel
+hist(y21)
+
+n<-50 #banyak sampel
+set.seed(15)
+y22<-matrix(rexp(n*k),k) #bangkitkan sampel
+hist(y22)
+
+n<-500 #banyak sampel
+set.seed(15)
+y23<-matrix(rexp(n*k),k) #bangkitkan sampel
+hist(y23)
+
+
+yy23<-apply(y23,1,mean) #simpan rataan
+hist(yy23, main = "Sebaran Percontohan Eksponensial 500 Sampel")
+
+yy21<-apply(y21,1,mean) #simpan rataan
+hist(yy21, main = "Sebaran Percontohan Eksponensial 5 Sampel")
+
+yy22<-apply(y22,1,mean) #simpan rataan
+hist(yy22, main = "Sebaran Percontohan Eksponensial 50 Sampel")
+```
+
+> Seragam
+
+```{r dpi=300, fig.height = 14, fig.width = 20}
+k<-1000 # ulangan
+n<-5 #banyak sampel
+par(mfrow=c(2,3))
+
+set.seed(15)
+y21<-matrix(runif(n*k),k) #bangkitkan sampel
+hist(y21)
+
+n<-50 #banyak sampel
+set.seed(15)
+y22<-matrix(runif(n*k),k) #bangkitkan sampel
+hist(y22)
+
+n<-500 #banyak sampel
+set.seed(15)
+y23<-matrix(runif(n*k),k) #bangkitkan sampel
+hist(y23)
+
+
+yy23<-apply(y23,1,mean) #simpan rataan
+hist(yy23, main = "Sebaran Percontohan Seragam 500 Sampel")
+
+yy21<-apply(y21,1,mean) #simpan rataan
+hist(yy21, main = "Sebaran Percontohan Seragam 5 Sampel")
+
+yy22<-apply(y22,1,mean) #simpan rataan
+hist(yy22, main = "Sebaran Percontohan Seragam 50 Sampel")
 ```
