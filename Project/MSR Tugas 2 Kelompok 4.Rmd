@@ -48,15 +48,18 @@ y23<-matrix(-rexp(n*k),k) #bangkitkan sampel
 hist(y23)
 
 
-yy23<-apply(y23,1,mean) #simpan rataan
-hist(yy23, main = "Sebaran Percontohan Eksponensial Negatif 500 Sampel")
 
 yy21<-apply(y21,1,mean) #simpan rataan
 hist(yy21, main = "Sebaran Percontohan Eksponensial Negatif 5 Sampel")
 
 yy22<-apply(y22,1,mean) #simpan rataan
 hist(yy22, main = "Sebaran Percontohan Eksponensial Negatif 50 Sampel")
+
+yy23<-apply(y23,1,mean) #simpan rataan
+hist(yy23, main = "Sebaran Percontohan Eksponensial Negatif 500 Sampel")
 ```
+
+Histogram baris pertama menunjukkan bentuk sebaran alsi dari sebaran menjulur ke kiri. Sedangkan yang bawah merupakan sebaran menjulur ke kiri yang di rata-rata kan. Terlihat bahwa sebaran yang di rata-rata kan cenderung mengikuti sebaran normal seiring dengan bertambahnya besar sampelnya.
 
 ## Normal
 
@@ -80,15 +83,17 @@ y23<-matrix(rnorm(n*k),k) #bangkitkan sampel
 hist(y23)
 
 
-yy23<-apply(y23,1,mean) #simpan rataan
-hist(yy23, main = "Sebaran Percontohan Normal 500 Sampel")
-
 yy21<-apply(y21,1,mean) #simpan rataan
 hist(yy21, main = "Sebaran Percontohan Normal 5 Sampel")
 
 yy22<-apply(y22,1,mean) #simpan rataan
 hist(yy22, main = "Sebaran Percontohan Normal 50 Sampel")
+
+yy23<-apply(y23,1,mean) #simpan rataan
+hist(yy23, main = "Sebaran Percontohan Normal 500 Sampel")
 ```
+
+Histogram baris pertama menunjukkan bentuk sebaran alsi dari sebaran normal. Sedangkan yang bawah merupakan sebaran menjulur ke kiri yang di rata-rata kan. Terlihat bahwa sebaran yang di rata-rata kan cenderung mengikuti sebaran normal seiring dengan bertambahnya besar sampelnya.
 
 ## Eksponensial
 
