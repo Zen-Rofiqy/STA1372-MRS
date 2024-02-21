@@ -93,7 +93,7 @@ yy23<-apply(y23,1,mean) #simpan rataan
 hist(yy23, main = "Sebaran Percontohan Normal 500 Sampel")
 ```
 
-Histogram baris pertama menunjukkan bentuk sebaran alsi dari sebaran normal. Sedangkan yang bawah merupakan sebaran menjulur ke kiri yang di rata-rata kan. Terlihat bahwa sebaran yang di rata-rata kan cenderung mengikuti sebaran normal seiring dengan bertambahnya besar sampelnya.
+Histogram baris pertama menunjukkan bentuk sebaran alsi dari sebaran normal. Sedangkan yang bawah merupakan sebaran normal yang di rata-rata kan. Tentu untuk sebaran normal pun jika di rata-ratakan maka aka tetap menyebar normal.
 
 ## Eksponensial
 
@@ -117,15 +117,17 @@ y23<-matrix(rexp(n*k),k) #bangkitkan sampel
 hist(y23)
 
 
-yy23<-apply(y23,1,mean) #simpan rataan
-hist(yy23, main = "Sebaran Percontohan Eksponensial 500 Sampel")
-
 yy21<-apply(y21,1,mean) #simpan rataan
 hist(yy21, main = "Sebaran Percontohan Eksponensial 5 Sampel")
 
 yy22<-apply(y22,1,mean) #simpan rataan
 hist(yy22, main = "Sebaran Percontohan Eksponensial 50 Sampel")
+
+yy23<-apply(y23,1,mean) #simpan rataan
+hist(yy23, main = "Sebaran Percontohan Eksponensial 500 Sampel")
 ```
+
+Histogram baris pertama menunjukkan bentuk sebaran alsi dari sebaran menjulur ke kanan. Sedangkan yang bawah merupakan sebaran menjulur ke kanan yang di rata-rata kan. Terlihat bahwa sebaran yang di rata-rata kan cenderung mengikuti sebaran normal seiring dengan bertambahnya besar sampelnya.
 
 ## Seragam
 
@@ -149,12 +151,32 @@ y23<-matrix(runif(n*k),k) #bangkitkan sampel
 hist(y23)
 
 
-yy23<-apply(y23,1,mean) #simpan rataan
-hist(yy23, main = "Sebaran Percontohan Seragam 500 Sampel")
-
 yy21<-apply(y21,1,mean) #simpan rataan
 hist(yy21, main = "Sebaran Percontohan Seragam 5 Sampel")
 
 yy22<-apply(y22,1,mean) #simpan rataan
 hist(yy22, main = "Sebaran Percontohan Seragam 50 Sampel")
+
+yy23<-apply(y23,1,mean) #simpan rataan
+hist(yy23, main = "Sebaran Percontohan Seragam 500 Sampel")
 ```
+
+Histogram baris pertama menunjukkan bentuk sebaran alsi dari sebaran seragam. Sedangkan yang bawah merupakan sebaran seragam yang di rata-rata kan. Terlihat bahwa sebaran yang di rata-rata kan cenderung mengikuti sebaran normal seiring dengan bertambahnya besar sampelnya.
+
+## Kesimpulan
+
+Semakin besar ukuran contoh, maka sebaran rata-rata dari contoh acak yang berasal dari sebaran eksponensial dan uniform akan mendekati sebaran normal. Hal ini ditunjukkan dari histogram yang mana ketika n semakin besar akan semakin cenderung membentuk kurva normal.
+
+Pernyataan tersebut mencerminkan Teorema Limit Sentral (Central Limit Theorem, CLT) yang merupakan konsep penting dalam statistika. CLT menyatakan bahwa jika kita mengambil sejumlah besar contoh acak dari suatu populasi dengan distribusi apapun, maka rata-rata dari contoh-contoh tersebut akan memiliki distribusi yang mendekati distribusi normal, terlepas dari bentuk distribusi awalnya.
+
+Dengan kata lain, meskipun distribusi asli dari populasi mungkin bukan distribusi normal, distribusi rata-rata dari banyak sampel acak dari populasi tersebut akan cenderung menjadi distribusi normal saat ukuran sampel (n) menjadi cukup besar.
+
+Penjelasan lebih rinci:
+
+1.  *Sebaran Eksponensial:* Jika populasi memiliki distribusi eksponensial, maka rata-rata dari banyak sampel acak akan mendekati distribusi normal seiring dengan pertambahan ukuran sampel.
+
+2.  *Sebaran Uniform:* Begitu pula dengan distribusi uniform. Meskipun distribusi uniform mungkin terlihat datar, rata-rata dari banyak sampel acak akan membentuk kurva normal saat ukuran sampel meningkat.
+
+Proses ini sangat berguna dalam inferensi statistik dan pengambilan keputusan, karena distribusi normal memiliki properti matematis yang memudahkan analisis statistik lebih lanjut.
+
+Namun, penting untuk dicatat bahwa CLT memiliki asumsi tertentu, seperti ukuran sampel yang cukup besar, agar benar-benar berlaku. Selain itu, beberapa distribusi dengan ekor berat atau sifat khusus mungkin memerlukan ukuran sampel yang sangat besar untuk mendekati distribusi normal.
