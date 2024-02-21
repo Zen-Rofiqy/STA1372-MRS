@@ -20,6 +20,14 @@ pkgdown:
   as_is: true
 ---
 
+> **Anggota Kelompok**
+
+| NIM         | Nama                 |
+|-------------|----------------------|
+| G1401211006 | Angga Fathan Rofiqy  |
+| G1401211014 | Gladys Adya Zafira   |
+| G1401211029 | Kheni Hikmah Lestari |
+
 # Tugas Kelompok
 
 Lakukan simulasi seperti di atas (boleh populasi terhingga atau tak terhingga) menggunakan sebaran yang menjulur ke kiri dan n sebanyak 5, 50, dan 500! Contoh:
