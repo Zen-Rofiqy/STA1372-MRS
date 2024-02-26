@@ -139,6 +139,8 @@ boxplot(dataCity)
 
 > 1.  Bangkitan sampel baru dengan menghilangkan satu amatan pada setiap ulangan.
 
+Sehingga banyaknya ulangan yang dapat dilakukan adalah sebanyak n.
+
 ```{r}
 n <- nrow(dataCity)
 # menghilangkan satu amatan
@@ -208,6 +210,7 @@ for (i in 1:n) {
   y[i,] <- d1$item1[-i]
   x[i,] <- d1$item2[-i]
 }
+
 ybar <- apply(y, 1, mean)
 xbar <- apply(x, 1, mean)
 teta_i <- ybar/ (xbar+ybar)
