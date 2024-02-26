@@ -911,7 +911,7 @@ k = 1000 #ulangan
 set.seed(503)
 populasi = runif(k, min = -2, max = 0.8) 
 miu      = mean(populasi)
-sigma2   = var(populasi)*(100-1)/100
+sigma2   = var(populasi)
 
 sampel   = matrix(NA,k,n)
 for (i in 1:k) sampel[i,] = sample (populasi,n)
@@ -945,6 +945,8 @@ sigmaerror = 3
 
 betaduga   = matrix(NA,k,2)
 for (i in 1:k){
+  set.seed(503)
+  
   x = runif(n)*10
   epsilon = rnorm(n,0,sqrt(sigmaerror))
   X = cbind(1,x)
