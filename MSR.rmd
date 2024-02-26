@@ -908,9 +908,10 @@ hist(yy22, main = "Sebaran Percontohan Seragam 50 Sampel")
 ```{r}
 n = 10
 k = 1000 #ulangan
+set.seed(503)
 populasi = runif(k, min = -2, max = 0.8) 
 miu      = mean(populasi)
-sigma2   = var(populasi)
+sigma2   = var(populasi)*(100-1)/100
 
 sampel   = matrix(NA,k,n)
 for (i in 1:k) sampel[i,] = sample (populasi,n)
@@ -937,5 +938,50 @@ Dari hasil diatas nilai harapan dari $\bar{x}$ dan $s^2$ sudah mendekati atau ha
 ### No 2. Ketakbiasan Penduga Least-Square dalam Regresi Linier
 
 ```{r}
-Ketakbiasan Penduga Least-Square dalam Regresi Linier
+n = 10 #ukuran contoh
+k = 1000 #ulangan
+beta       = c(15, 45) # beta_0 = 15 dan beta_1 = 45
+sigmaerror = 3
+
+betaduga   = matrix(NA,k,2)
+for (i in 1:k){
+  x = runif(n)*10
+  epsilon = rnorm(n,0,sqrt(sigmaerror))
+  X = cbind(1,x)
+  y = X %*% beta + epsilon
+  betaduga[i,] = solve (t(X) %*% X) %*% (t(X) %*% y)
+}
+
+rataanbetaduga = apply(betaduga,2,mean)
+names(rataanbetaduga) = c("bo","b1")
+rataanbetaduga
+```
+
+Dari hasil diatas nilai harapan dari b0 dan b1 sudah mendekati atau hampir sama dengan nilai parameter $\beta_0$ dan $\beta_1$ sehingga dapat dikatakan bahwa :
+
+b merupakan penduga tak bias bagi $\beta$
+
+### No 3. Selang Kepercayaan
+
+```{r}
+n    = 50
+k    = 100 #ulangan
+alpha  = 0.005
+mu   = 50
+std  = 10
+
+set.seed(503)
+sampel = matrix(rnorm(n*k,mu,std),k)
+xbar = apply(sampel,1,mean)
+s    = apply(sampel,1,sd)
+SE   = s/sqrt(n)
+z    = qnorm(1-alpha/2)
+SK   = (xbar-z*SE < mu & mu < xbar+z*SE)
+
+sum(SK)/k #proporsi banyaknya SK yang memuat mu
+```
+
+```{r}
+matplot(rbind (xbar-z*SE, xbar+z*SE), rbind(1:k,1:k), col=ifelse(SK,"blue","red"), type = "l", lty = 1,main='Selang Kepercayaan', xlab='SK', ylab='banyak ulangan')
+abline(v=mu)
 ```
