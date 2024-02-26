@@ -67,7 +67,7 @@ Contoh acak berukuran kecil tidak jarang diperoleh dan bahkan tidak ada informas
 
 Pada awalnya metode jackknife atau leave-one-out **bertujuan** untuk **menduga bias** dari suatu penduga yang diperkenalkan oleh Maurice Quenouille pada tahun 1949 dan dikembangkan oleh John Tukey pada tahun 1957, yang dikenal dengan Quenouille-Tukey Jackknife. Metode jackknife **serupa** dengan metode **bootstrap** untuk **galat baku**. Metode ini **seperti tipe validasi silang leave-one-out**. Bila 𝒙=(𝑥1, 𝑥2, …, 𝑥𝑛) adalah contoh acak dan 𝒙((𝒊)) adalah subset dari 𝒙 tanpa pengamatan 𝑥𝑖, yaitu 𝒙((𝒊))=(𝑥1, …,𝑥((𝑖−1) ), 𝑥((𝑖+1) ), …, 𝑥𝑛). Jika 𝜃 duga=𝑓𝑛 (𝒙), maka definisikan bahwa 𝜃 duga=𝑓(𝑛−1) ( 𝒙((𝒊) ) ), 𝑖=1, 2, …, 𝑛.
 
-# Contoh Kasus
+# Kasus 1
 
 ## Data
 
@@ -148,3 +148,71 @@ index <- sapply(1:n, removeOne, data=dataCity)
 ```
 
 > 2.  Hitung penduga untuk setiap sampel baru
+
+```{r}
+#penduga theta
+thetaHat <- function(data) {mean(data$x) / mean(data$u)}
+thetaJack <- NULL
+for (i in 1:n){  
+thetaJack <- c(thetaJack, thetaHat(dataCity[index[ ,i], ]))
+}
+thetaJack
+```
+
+```{r}
+mean(thetaJack)
+```
+
+> 3.  Gunakan hasil pada b untuk menghitung ragam V(θduga). Ragam V(θduga) bisa didekati menggunakan ragam jacknife V(θ\^(Jack)).
+
+```{r}
+# ragam
+ragamTheta2 <- (((n-1)^2)/n)*var(thetaJack)
+ragamTheta2
+```
+
+```{r}
+# standard error
+sqrt(ragamTheta2)
+```
+
+# Kasus 2
+
+## Data
+
+```{r}
+store<-LETTERS[1:5]
+item1<-c(999,1432,969,1548,1557)
+item2<-c(1164,1424,1043,870,1101)
+d1<-data.frame(store,item1,item2)
+d1
+```
+
+```{r}
+boxplot(d1[,-1])
+```
+
+```{r}
+n<-nrow(d1)
+teta_hat<-mean(d1$item1)/ 
+(mean(d1$item1)+mean(d1$item2))
+y<-matrix(NA,n,n-1)
+x<-matrix(NA,n,n-1)
+for (i in 1:n) {
+y[i,]<-d1$item1[-i]
+x[i,]<-d1$item2[-i]
+}
+ybar<-apply(y,1,mean)
+xbar<-apply(x,1,mean)
+teta_i<-ybar/(xbar+ybar)
+teta_jk<-n*teta_hat-(n-1)*mean(teta_i)
+var_jk<-(n-1)/n*(sum(teta_i^2)-(n*mean(teta_i)^2))
+se_jk<-sqrt(var_jk)
+teta_jk;var_jk;se_jk
+```
+
+Jadi, perbandingan item1/total item = 0.5379. Sehingga dapat diketahui jumlah item1 dengan item2 cenderung berimbang. Hasil dugaan parameter yang didapatkan dari metode jackknife tidak berbeda jauh dengan bootstrap namun keragaman penduganya lebih besar.
+
+```{r}
+
+```
