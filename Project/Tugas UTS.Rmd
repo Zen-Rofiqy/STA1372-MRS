@@ -193,26 +193,47 @@ boxplot(d1[,-1])
 ```
 
 ```{r}
-n<-nrow(d1)
-teta_hat<-mean(d1$item1)/ 
-(mean(d1$item1)+mean(d1$item2))
-y<-matrix(NA,n,n-1)
-x<-matrix(NA,n,n-1)
+n <- nrow(d1)
+teta_hat <- mean(d1$item1)/ (mean(d1$item1) +mean(d1$item2))
+y <- matrix(NA,n,n-1)
+x <- matrix(NA,n,n-1)
 for (i in 1:n) {
-y[i,]<-d1$item1[-i]
-x[i,]<-d1$item2[-i]
+  y[i,] <- d1$item1[-i]
+  x[i,] <- d1$item2[-i]
 }
-ybar<-apply(y,1,mean)
-xbar<-apply(x,1,mean)
-teta_i<-ybar/(xbar+ybar)
-teta_jk<-n*teta_hat-(n-1)*mean(teta_i)
-var_jk<-(n-1)/n*(sum(teta_i^2)-(n*mean(teta_i)^2))
-se_jk<-sqrt(var_jk)
-teta_jk;var_jk;se_jk
+ybar <- apply(y,1,mean)
+xbar <- apply(x,1,mean)
+teta_i <- ybar/ (xbar+ybar)
+teta_jk <-n *teta_hat -(n-1) *mean(teta_i)
+var_jk <- (n-1)/ n *(sum(teta_i^2) -(n *mean(teta_i)^2))
+se_jk <- sqrt(var_jk)
+teta_jk; var_jk; se_jk
 ```
 
 Jadi, perbandingan item1/total item = 0.5379. Sehingga dapat diketahui jumlah item1 dengan item2 cenderung berimbang. Hasil dugaan parameter yang didapatkan dari metode jackknife tidak berbeda jauh dengan bootstrap namun keragaman penduganya lebih besar.
 
-```{r}
+# Perbandingan Semua Cara
 
+```{r}
+d1 <- dataCity
+n <- nrow(d1)
+teta_hat <- mean(d1[,1])/ (mean(d1[,1]) +mean(d1[,2]))
+y <- matrix(NA, n, n-1)
+x <- matrix(NA, n, n-1)
+
+for (i in 1:n) {
+  y[i,] <- d1[,1][-i]
+  x[i,] <- d1[,2][-i]
+}
+
+ybar <- apply(y, 1, mean)
+xbar <- apply(x, 1, mean)
+
+teta_i <- ybar/ (xbar +ybar)
+teta_jk <-n *teta_hat -(n-1) *mean(teta_i)
+
+var_jk <- (n-1)/ n *(sum(teta_i^2) -(n *mean(teta_i)^2))
+se_jk <- sqrt(var_jk)
+
+teta_jk; var_jk; se_jk
 ```
