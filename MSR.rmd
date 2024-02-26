@@ -890,3 +890,52 @@ hist(yy21, main = "Sebaran Percontohan Seragam 5 Sampel")
 yy22<-apply(y22,1,mean) #simpan rataan
 hist(yy22, main = "Sebaran Percontohan Seragam 50 Sampel")
 ```
+
+# Bab 6
+
+## Praktikum
+
+## Tugas Kelompok
+
+1.  Lakukan simulasi untuk membuktikan bahwa penduga mean dan penduga varian dari sebaran seragam (uniform) merupakan penduga Tak Bias
+
+2.  Lakukan simulasi untuk membuktikan bahwa b0 dan b1 merupakan penduga tak bias bagi $\beta_0$ dan $\beta_1$
+
+3.  Lakukan simulai untuk selang kepercayaan 99%
+
+### No 1. Ketakbiasan Penduga $\mu$ dan $\sigma^2$
+
+```{r}
+n = 10
+k = 1000 #ulangan
+populasi = runif(k, min = -2, max = 0.8) 
+miu      = mean(populasi)
+sigma2   = var(populasi)
+
+sampel   = matrix(NA,k,n)
+for (i in 1:k) sampel[i,] = sample (populasi,n)
+xbar     = apply (sampel,1,mean)
+s2       = apply(sampel,1,var)
+E.xbar   = mean(xbar)
+E.s2     = mean(s2)
+
+par(mfrow=c(1,2))
+hist(populasi); hist(sampel)
+
+hasil = data.frame( "."  = c("populasi","E(sampel)"), 
+                    mean   = c(miu, E.xbar), 
+                    varian = c(sigma2, E.s2))
+hasil
+```
+
+Dari hasil diatas nilai harapan dari $\bar{x}$ dan $s^2$ sudah mendekati atau hampir sama dengan nilai parameter $\mu$ dan $\sigma^2$ sehingga dapat dikatakan bahwa :
+
+-   $\bar{x}$ adalah penduga tak bias bagi $\mu$
+
+-   $s^2$ adalah penduga tak bisa bagi $\sigma^2$
+
+### No 2. Ketakbiasan Penduga Least-Square dalam Regresi Linier
+
+```{r}
+Ketakbiasan Penduga Least-Square dalam Regresi Linier
+```
