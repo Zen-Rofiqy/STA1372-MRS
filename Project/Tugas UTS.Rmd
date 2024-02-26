@@ -230,21 +230,21 @@ xbar <- apply(x, 1, mean)
 
 #3. Menghitung Jacknife Estimator
 teta_i <- ybar/ (xbar+ybar)
-teta_jk <-n *teta_hat -(n-1) *mean(teta_i)
+teta_jk <- n *teta_hat -(n-1) *mean(teta_i)
 var_jk <- (n-1)/ n *sum( (teta_i - mean(teta_i))^2 )
 se_jk <- sqrt(var_jk)
 teta_jk; var_jk; se_jk
 ```
 
-Jadi, perbandingan item1/total item = 0.5379. Sehingga dapat diketahui jumlah item1 dengan item2 cenderung berimbang. Hasil dugaan parameter yang didapatkan dari metode jackknife tidak berbeda jauh dengan bootstrap namun keragaman penduganya lebih besar.
-
-# Kasus 3
-
 ```{r}
-
+par(mfrow=c(2,2))
+hist(d1[,2]); hist(d1[,3])
+hist(y); hist(x)
 ```
 
-# Perbandingan Semua Cara
+Jadi, perbandingan item1/total item = 0.5379. Sehingga dapat diketahui jumlah item1 dengan item2 cenderung berimbang. Hasil dugaan parameter yang didapatkan dari metode jackknife tidak berbeda jauh dengan bootstrap namun keragaman penduganya lebih besar.
+
+# Kasus 1 cara 2
 
 ```{r}
 d1 <- dataCity
@@ -261,11 +261,25 @@ for (i in 1:n) {
 ybar <- apply(y, 1, mean)
 xbar <- apply(x, 1, mean)
 
-teta_i <- ybar/ (xbar +ybar)
-teta_jk <-n *teta_hat -(n-1) *mean(teta_i)
+teta. <- ybar/ (xbar +ybar)
+teta_jk <-n *teta_hat -(n-1) *mean(teta.)
 
-var_jk <- (n-1)/ n *(sum(teta_i^2) -(n *mean(teta_i)^2))
+var_jk <- (n-1)/ n *(sum(teta.^2) -(n *mean(teta.)^2))
 se_jk <- sqrt(var_jk)
 
 teta_jk; var_jk; se_jk
+```
+
+Bandingkan dengan cara 1:
+
+```{r}
+ragamTheta2; sqrt(ragamTheta2)
+```
+
+Sebaran
+
+```{r}
+par(mfrow=c(2,2))
+hist(d1[,1]); hist(d1[,1])
+hist(y); hist(x)
 ```
