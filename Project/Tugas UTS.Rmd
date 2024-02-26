@@ -57,6 +57,12 @@ install_load("DT","dplyr","ggplot2","gridExtra")
 
 ## Pendahuluan
 
-Proses **pendugaan parameter** selalu didasari dengan **asumsi sebaran** dan **ukuran contoh** yang memadai. Asumsi sebaran ini menjadi dasar penentuan selang kepercayaan bagi parameter (misal 𝜇). Selang kepercayaan bagi 𝜇 juga bisa diperoleh meskipun contoh acak berukuran kecil tetapi kita mengasumsikan populasinya memiliki sebaran Normal. Seandainya contoh acak berukuran kecil dan sebaran populasinya tidak diketahui, selang kepercayaan bagi parameter tidak bisa diperoleh tanpa sebaran.
+Proses **pendugaan parameter** selalu didasari dengan **asumsi sebaran** dan **ukuran contoh** yang memadai. **Asumsi sebaran** ini menjadi dasar penentuan **selang kepercayaan** bagi parameter (misal 𝜇). Selang kepercayaan bagi 𝜇 juga **bisa diperoleh** meskipun **contoh acak berukuran kecil** tetapi kita mengasumsikan populasinya memiliki **sebaran Normal**. Seandainya contoh acak berukuran kecil dan sebaran populasinya tidak diketahui, selang kepercayaan bagi parameter **tidak bisa diperoleh** tanpa sebaran.
 
-Contoh acak berukuran kecil tidak jarang diperoleh dan bahkan tidak ada informasi tentang sebarannya.Pendugaan selang bagi parameter harus dengan metode yang didasarkan pada asumsi sebaran. Sebaran populasi data tidak diketahui sehingga kita tidak mempunyai dasar yang kuat untuk menduga selang kepecayaan tanpa sebaran. Bootstrap dan Jackknife dapat digunakan sebagai cara pendugaan selang dalam kondisi data berukuran kecil dan tidak memenuhi asumsi sebaran.
+Contoh acak berukuran kecil tidak jarang diperoleh dan bahkan tidak ada informasi tentang sebarannya. Pendugaan selang bagi parameter harus dengan metode yang didasarkan pada asumsi sebaran. Sebaran populasi data tidak diketahui sehingga kita tidak mempunyai dasar yang kuat untuk menduga selang kepecayaan tanpa sebaran.
+
+> **Jackknife** dapat digunakan sebagai cara **pendugaan selang** dalam kondisi **data berukuran kecil** dan **tidak memenuhi asumsi sebaran**.
+
+### Tujuan
+
+Pada awalnya metode jackknife atau leave-one-out **bertujuan** untuk **menduga bias** dari suatu penduga yang diperkenalkan oleh Maurice Quenouille pada tahun 1949 dan dikembangkan oleh John Tukey pada tahun 1957, yang dikenal dengan Quenouille-Tukey Jackknife. Metode jackknife **serupa** dengan metode **bootstrap** untuk **galat baku**. Metode ini **seperti tipe validasi silang leave-one-out**. Bila 𝒙=(𝑥1, 𝑥2, …, 𝑥𝑛) adalah contoh acak dan 𝒙((𝒊)) adalah subset dari 𝒙 tanpa pengamatan 𝑥𝑖, yaitu 𝒙((𝒊))=(𝑥1, …,𝑥((𝑖−1) ), 𝑥((𝑖+1) ), …, 𝑥𝑛). Jika 𝜃 duga=𝑓𝑛 (𝒙), maka definisikan bahwa 𝜃 duga=𝑓(𝑛−1) ( 𝒙((𝒊) ) ), 𝑖=1, 2, …, 𝑛.
