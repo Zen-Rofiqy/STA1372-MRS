@@ -24,10 +24,10 @@ pkgdown:
 path <- function() gsub  ( "\\\\",  "/",  readClipboard ()  )
 
 require("knitr")
-opts_knit$set(root.dir = "C:/Users/Fathan/Documents/Obsidian Vault/2. Kuliah/Smt 6/2. Teknik Pembelajaran Mesin/Project/Kuliah Tugas Individu 1")
+opts_knit$set(root.dir = "C:/Users/Fathan/Documents/Obsidian Vault/2. Kuliah/Smt 6/1. Metode Simulasi dan Resampling/Project/Tugas UTS")
 
 #Export chart
-export.chart <- "C:/Users/Fathan/Documents/Obsidian Vault/2. Kuliah/Smt 6/2. Teknik Pembelajaran Mesin/Project/Kuliah Tugas Individu 1/Chart"
+export.chart <- "C:/Users/Fathan/Documents/Obsidian Vault/2. Kuliah/Smt 6/1. Metode Simulasi dan Resampling/Project/Tugas UTS/Chart"
 
 #                      -=( Install & Load Package Function )=-
 install_load <- function (package1, ...)  {   
@@ -50,7 +50,7 @@ install_load <- function (package1, ...)  {
    } 
 }
 
-install_load("DT","dplyr","ggplot2","gridExtra")
+install_load("DT","dplyr","ggplot2","gridExtra","readxl")
 ```
 
 # Resampling Jackknife
@@ -79,67 +79,18 @@ Sama seperti metode bootstrap, Ide dasar dari jackknife adalah **membangun data 
 
 Pada awalnya metode jackknife atau leave-one-out **bertujuan** untuk **menduga bias** dari suatu penduga yang diperkenalkan oleh Maurice Quenouille pada tahun 1949 dan dikembangkan oleh John Tukey pada tahun 1957, yang dikenal dengan Quenouille-Tukey Jackknife. Metode jackknife **serupa** dengan metode **bootstrap** untuk **galat baku**. Metode ini **seperti tipe validasi silang leave-one-out**. Bila 𝒙=(𝑥1, 𝑥2, …, 𝑥𝑛) adalah contoh acak dan 𝒙((𝒊)) adalah subset dari 𝒙 tanpa pengamatan 𝑥𝑖, yaitu 𝒙((𝒊))=(𝑥1, …,𝑥((𝑖−1) ), 𝑥((𝑖+1) ), …, 𝑥𝑛). Jika 𝜃 duga=𝑓𝑛 (𝒙), maka definisikan bahwa 𝜃 duga=𝑓(𝑛−1) ( 𝒙((𝒊) ) ), 𝑖=1, 2, …, 𝑛.
 
-# Kasus 1
+# Kasus
 
 ## Data
 
-Tabel di bawah ini melaporkan jumlah populasi dari n=49 kota di USA pada tahun 1920 dan 1930, yang dinotasikan dengan u dan x.
+Data merupakan data persentase penduduk miskin menurut provinsi (persen) tahun 2022 per 6 bulan.
 
 ```{r}
-# Import data ke R
-dataCity <- read.table(header = TRUE,text=
-'u  x 
-138 143
-93  104
-61  69
-179 260
-48  75
-37  63
-29  50
-23  48
-30  111
-2   50
-38  52
-46  53
-71  79
-25  57
-298 317
-74  93
-50  58
-76  80
-381 464
-387 459
-78  106
-60  57
-507 634
-50  64
-77  89
-64  77
-40  60
-136 139
-243 291
-256 288
-94  85
-36  46
-45  53
-67  67
-120 115
-172 183
-66  86
-46  65
-121 113
-44  58
-64  63
-56  142
-40  64
-116 130
-87  105
-43  61
-43  50
-161 232
-36  54
-')
-str(dataCity)
+raw.data <- read_xlsx("Persentase Penduduk Miskin Menurut Provinsi .xlsx", sheet="R")
+data <- raw.data
+
+datatable(raw.data, filter = 'top', 
+          options = list(pageLength = 5))
 ```
 
 Berdasarkan data ini, peniliti tertarik untuk menghitung **rasio dari mean** yang nantinya dapat digunakan untuk **menduga populasi** total USA pada **tahun 1930** **berdasarkan** jumlah **populasi** pada **tahun 1920**. Jika kota-kota ini merupakan sampel acak dengan (U,X) menotasikan pasangan nilai populasi dari kota yang terpilih secara acak, maka **total populasi 1930** merupakan **hasil perkalian** antara **total populasi 1920** dengan **rasio** dari ekspetasi **θ=E(X)/E(U)**,yang merupakan **parameter rasio** yang akan **diduga**. Dengan menggunakan JACKNIFE, hitunglah **galat baku** (standard error) dari θ duga, yang merupakan akar dari V(θduga), jika diketahui θduga=x_bar/u_bar!
