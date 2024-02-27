@@ -92,8 +92,8 @@ Pada awalnya metode jackknife atau leave-one-out **bertujuan** untuk **menduga b
 Data merupakan data persentase penduduk miskin menurut provinsi (persen) tahun 2022 per 6 bulan.
 
 ```{r}
-raw.data <- read_xlsx("Persentase Penduduk Miskin Menurut Provinsi .xlsx", sheet="R")
-data <- raw.data %>% as.data.frame()
+raw.data <- read.csv("Data PSD.csv")
+data <- raw.data[-nrow(raw.data), c("BJR","TL")] %>% as.data.frame()
 
 datatable(raw.data, filter = 'top', 
           options = list(pageLength = 5))
@@ -123,20 +123,20 @@ Tidak ada data kosong.
 
 ```{r}
 par(mfrow=c(1,2))
-hist(data[,2]); hist(data[,3])
+hist(data[,1]); hist(data[,2])
 ```
 
 ```{r}
 n <- nrow(data)
 #1. Hitung Teta Duga
-teta_hat <- mean(data[,2])/ ( mean(data[,2]) +mean(data[,3]) )
+teta_hat <- mean(data[,1])/ ( mean(data[,1]) +mean(data[,2]) )
 
 #2. Jacknife Sampling
 x1 <- matrix(NA, n, n-1)
 x2 <- matrix(NA, n, n-1)
 for (i in 1:n) {
-  x1[i,] <- data[,2][-i]
-  x2[i,] <- data[,3][-i]
+  x1[i,] <- data[,1][-i]
+  x2[i,] <- data[,2][-i]
 }
 x1bar <- apply(x1, 1, mean)
 x2bar <- apply(x2, 1, mean)
@@ -151,7 +151,7 @@ teta_jk; var_jk; se_jk
 
 ```{r}
 par(mfrow=c(2,2))
-hist(data[,2]); hist(data[,3])
+hist(data[,1]); hist(data[,2])
 hist(x1); hist(x2)
 ```
 
