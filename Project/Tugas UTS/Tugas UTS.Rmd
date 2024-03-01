@@ -93,7 +93,7 @@ Data merupakan data persentase penduduk miskin menurut provinsi (persen) tahun 2
 
 ```{r}
 raw.data <- read.csv("Data PSD.csv")
-data <- raw.data[-nrow(raw.data), c("BJR","TL")] %>% as.data.frame()
+data <- raw.data[-nrow(raw.data), c("BJR","BB")] %>% as.data.frame()
 
 datatable(raw.data, filter = 'top', 
           options = list(pageLength = 5))
