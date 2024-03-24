@@ -1,0 +1,116 @@
+Algoritma/Prosedur-Prosedur
+
+---------------- SIMULASI ---------------
+1. Nyatakan masalah/kejadiannya
+2. Nyatakan asumsinya
+3. Tetapkan angka untuk mewakili hasil
+4. Simulasikan banyak pengulangan
+5. Nyatakan kesimpulan
+
+------------------------------------------------------------------------
+                   DISKRIT
+
+-------------- SEBARAN SERAGAM ---------------
+Uniform[0,1] ke Uniform[a,b]
+y = (b-a)x + a
+misal 
+   Uniform[5,10]
+   y = (10-5)x+5 = 5x+5
+   hist(y)
+
+
+---------------- BERNOULLI(P) ---------------------
+
+Bangkitkan p.a BERNOULLI(0.6) dari UNIFORM(0,1)
+
+X~Uniform(0,1)
+0<=Fx(x)<=1
+0<=X<=1
+|--------|------|
+0       0.6     1
+   Y=1      Y=0
+
+P(Y=y)=0.6 -> Y=1 maka P(Y=0.6)=1  
+P(Y=y)=0.4 -> Y=0 maka P(Y=0.4)=0  
+Y~Bernoulli(0.6)
+
+
+---------------- BINOMIAL(n,p) -------------------
+
+Bangkitkan p.a BINOMIAL(3,0.5) dari UNIFORM(0,1)
+
+|--|-----|-----|--|
+0 1/8   4/8   7/8 1
+ 0    1     2    3  --> X~Binom(3,0.5)
+
+         1/8 untuk x=0,3
+P(X=x) = 3/8 untuk x=1,2
+         0   untuk x lainnya
+
+---------------- POISSON(λ) ------------------
+
+- fmp=f(x)=(𝒆^(−𝝀)*λ^(𝒙))/𝒙!, nilai harapan=λ, ragam=λ
+- U~uniform(0,1) ke S~eksponensial -> S = -ln(U)/λ
+- S~eksponensial(λ) ke X~poisson(λ)
+
+
+----------INVERSE TRANSFORM METHOD------------
+Algoritma mendapat bilangan acak X dgn sebaran tertentu
+- Tentukan bentuk fungsi sebaran kumulatif yg diinginkan, F(x)
+- Cari invers atau fungsi kebalikan, yaitu F^-1(x)
+- Bangkitkan bil. acak seragam(0,1)
+- Hitung X = F^-1(U)
+
+
+-------------- ITM SERAGAM(a,b) ---------------
+Membangkitkan X~Seragam(a,b)
+- Tentukan bentuk fungsi sebaran kumulatif yg diinginkan
+  F(x) = (x-a)/(x-b)
+- Cari invers atau fungsi kebalikan, yaitu F^-1(x)
+  F(x) = U
+  U    = (x-a)/(x-b)
+  X    = (b-a)U + a
+- Bangkitkan U, bil. acak seragam(0,1)  
+- Hitung X = F^-1(U) = (b-a)U + a
+- Ulangi sebanyak yang diinginkan
+
+
+---------------------------------------------------------------------------------------
+                   KONTINU
+
+- Banyak kejadian yg terjadi pada selang waktu t ~poisson(λt)
+- Waktu antar kejadian ~Eksponensial(λ)
+
+
+--------------- EKSPONENSIAL(λ) --------------------
+- kasus khusus dari gamma(1,λ)
+- fkp=f(x)= λ𝒆^(−λ𝒙), nilai harapan 1/λ, ragam 1/λ^2
+- U~uniform(0,1) ke X~eksponensial -> X = -ln(U)/λ
+  
+
+---------------- RUN TEST ---------------
+
+# UNTUK SAMPEL KECIL n1 dan n2 <= 20 
+1. Ubah data dalam dua kategori dan beri tanda tanpa mengubah urutan kejadian
+2. Tentukan hipotesis H0: data acak dan H1: data tidak acak
+3. Hitung banyaknya n1 dan n2
+4. Hitung statistik uji r dengan menghitung banyaknya runtun (run) yang terbentuk
+5. Tentukan signifikansi dengan tabel F1 dan F2
+   - Tabel F1 merupakan nilai2 batas terkecil r untuk tolak H0
+   - Tabel F2 merupakan nilai2 batas terbesar r untuk tolak H0
+6. Bandingkan nilai statistik uji r dengan nilai F1 dan F2
+   - Jika r < F1 atau r > F2 maka tolak H0
+   - Jika F1 < r < F2 maka terima H0
+
+# UNTUK SAMPEL BESAR n1 dan n2 > 20
+1. Tentukan hipotesis H0: data ... acak dan H1: data ... tidak acak, serta taraf signifikansi α
+2. Susun amatan n1 dan n2 berdasarkan urutan kejadian
+3. Hitung banyaknya run (r) yang terbentuk 
+4. Hitung nilai statistik uji Z
+   Z = (r - miu)/sigma
+   dimana
+       miu = (2n1n2/n1+n2)+1 -> rataan
+       sigma = akar(2n1n2(2n1n2-N)/N^2(N-1)) -> standar deviasi
+5. Bandingkan Zhitung dengan tabel sebaran normal untuk menentukan keacakan data
+   Jika Zhitung > 1,96 atau Zhitung < -1,96 maka tolak H0 (tidak acak)
+   Jika -1,96 < Zhitung < 1,96 maka terima H0 (acak)
