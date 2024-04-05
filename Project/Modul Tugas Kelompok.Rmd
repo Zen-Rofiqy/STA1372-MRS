@@ -91,5 +91,39 @@ print(xi)
 ```
 
 ```{r}
+x0 = 75; n = 200; a = 7; b = 3; m = 256 
+xi <- matrix(NA, n, 3) 
+colnames(xi) <- c("aX(i-1)+b","Xi","Ui") 
+for (i in 1:n) { 
+  xi[i,1] <- (a * x0 + b) 
+  xi[i,2] <- xi[i,1] %% m 
+  xi[i,3] <- xi[i,2] / m 
+  x0 <- xi[i,2] 
+} 
+hist(xi[,3]) 
+```
 
+```{r}
+datatable(xi)
+```
+
+```{r}
+x0 = 75; n = 200; a = 7; b = 3; m = 273
+xi <- matrix(NA, n, 3) 
+colnames(xi) <- c("aX(i-1)+b","Xi","Ui") 
+for (i in 1:n) { 
+  xi[i,1] <- (a * x0 + b) 
+  xi[i,2] <- xi[i,1] %% m 
+  xi[i,3] <- xi[i,2] / m 
+  x0 <- xi[i,2] 
+} 
+hist(xi[,3]) 
+```
+
+```{r}
+u0 = 0.7; n = 200
+for (i in 2:n){
+  u0[i] <- (pi + u0[i-1])^5 %% 1
+}
+hist(u0) 
 ```
