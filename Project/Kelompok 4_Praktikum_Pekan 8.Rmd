@@ -111,22 +111,24 @@ hist(exp_means, main = "Histogram Exponential Mean",
 
 ```{r fig.height=3.5, fig.width=10, dpi=300}
 par(mfrow = c(1, 3))
-qqnorm(norm_means, main = "Normal QQ Plot", col = "#8DC16D", lwd = 5,
+qqnorm(norm_means, main = "Normal QQ Plot", col = "#8DC16D", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(norm_means, col = "red", lwd=2)
 
-qqnorm(unif_means, main = "Uniform QQ Plot", col = "#4493CA", lwd = 5,
+qqnorm(unif_means, main = "Uniform QQ Plot", col = "#4493CA", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(unif_means, col = "red", lwd=2)
 
-qqnorm(exp_means, main = "Exponential QQ Plot", col = "#D44155", lwd = 5,
+qqnorm(exp_means, main = "Exponential QQ Plot", col = "#D44155", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(exp_means, col = "red", lwd=2)
 ```
 
 # Bagian B
 
-**Bangkitkan dua gugus data**
+## Poin 1 {.tabset}
+
+> Bangkitkan **dua gugus data**
 
 1.  Data dari sebaran normal
 2.  Data campuran:
@@ -136,9 +138,12 @@ qqline(exp_means, col = "red", lwd=2)
 
     -   25% sebaran chisquare dengan parameter a + 25% sebaran chisuqare dengan parameter b + 25% sebaran normal dengan paramater a + 25% sebaran normal parameter b
 
-```{=html}
-<!-- -->
-```
+### Normal
+
+### Campuran
+
+## Poin 2
+
 3.  Ambil sample dengan ukuran n = 4, 12, 20, 60, 100
 
 ```{=html}
