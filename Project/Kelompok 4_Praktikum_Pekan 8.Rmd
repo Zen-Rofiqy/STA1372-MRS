@@ -42,7 +42,7 @@ install_load <- function (package1, ...)  {
    } 
 }
 
-install_load("fitdistrplus","ggplot2","gridExtra")
+install_load("fitdistrplus","ggplot2","gridExtra","cowplot")
 ```
 
 ![](images/clipboard-1024985539.png){width="613"}
@@ -249,43 +249,14 @@ for (n in sample_sizes) {
 }
 ```
 
-```{r}
-plot_distribution <- function(data, title) {
+```{r fig.height=20, fig.width=25, dpi=300}
+sample_sizes <- c(4, 12, 20, 60, 100)
+
+plot_distribution <- function(data, title, color) {
   df <- data.frame(x = data)
   p1 <- ggplot(data = df, aes(x = x)) +
-    geom_histogram(bins = 20, fill = "blue", alpha = 0.7) +
-    geom_density(aes(y = ..count..), fill = "red", alpha = 0.4) + # Poligon densitas
-    labs(title = paste("Histogram", title)) +
-    theme_minimal()
-  
-  p2 <- ggplot(data = df, aes(sample = x)) +
-    stat_qq() +
-    stat_qq_line() +
-    labs(title = paste("Normal QQ Plot", title)) +
-    theme_minimal()
-  
-  grid.arrange(p1, p2, ncol = 2)
-}
-
-for (size in sample_sizes) {
-  samples <- list(
-    "Mixed Data 1" = mixed_data_1,
-    "Mixed Data 2" = mixed_data_2,
-    "Mixed Data 3" = mixed_data_3
-  )
-  for (title in names(samples)) {
-    sample <- sample(samples[[title]], size, replace = FALSE)
-    plot_distribution(sample, paste0(title, " (n=", size,")"))
-  }
-}
-```
-
-```{r}
-plot_distribution <- function(data, title) {
-  df <- data.frame(x = data)
-  p1 <- ggplot(data = df, aes(x = x)) +
-    geom_histogram(bins = 20, fill = "blue", alpha = 0.7) +
-    geom_density(aes(y = ..count..), fill = "red", alpha = 0.4) + # Poligon densitas
+    geom_histogram(bins = 20, fill = color, alpha = 0.7) +
+    geom_density(aes(y = ..count..), fill = color, alpha = 0.4) + # Poligon densitas
     labs(title = paste("Histogram", title)) +
     theme_minimal()
   
@@ -312,9 +283,12 @@ for (size in sample_sizes) {
   # Inisialisasi list untuk menyimpan plot dari setiap iterasi ukuran sampel
   plots_for_size <- list()
   
-  for (title in names(samples)) {
+  colors <- c("blue", "green", "orange")  # warna yang berbeda untuk setiap jenis mixed data
+  
+  for (i in 1:length(samples)) {
+    title <- names(samples)[i]
     sample <- sample(samples[[title]], size, replace = FALSE)
-    plots <- plot_distribution(sample, paste0(title, " (n=", size,")"))
+    plots <- plot_distribution(sample, paste0(title, " (n=", size,")"), colors[i])
     plots_for_size <- c(plots_for_size, plots)
   }
   
@@ -324,5 +298,5 @@ for (size in sample_sizes) {
 
 # Menggabungkan semua plot menjadi satu menggunakan cowplot
 library(cowplot)
-plot_grid(plotlist = all_plots, ncol = 2)
+plot_grid(plotlist = all_plots, ncol = 6)
 ```
