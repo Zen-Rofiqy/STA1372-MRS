@@ -55,7 +55,7 @@ install_load("DT","dplyr","ggplot2","gridExtra","readxl")
 
 # Latihan 1
 
-![](images/Screenshot 2024-04-05 053916.png)
+![](images/Screenshot%202024-04-05%20053916.png)
 
 ```{r}
 # 0 = Tails, 1 = Heads 
