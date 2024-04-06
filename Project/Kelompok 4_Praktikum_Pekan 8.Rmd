@@ -98,21 +98,30 @@ print(exp_means)
 ```{r, fig.height=3.5, fig.width=10, dpi=300}
 par(mfrow = c(1, 3))
 hist(normal_means, main = "Histogram Normal Mean", 
-     xlab = "Mean", ylab = "Frequency", col = "#774FA0")
+     xlab = "Mean", ylab = "Frequency", col = "#8DC16D")
 hist(uniform_means, main = "Histogram Uniform Mean", 
-     xlab = "Mean", ylab = "Frequency", col = "#EF8743")
+     xlab = "Mean", ylab = "Frequency", col = "#4493CA")
 hist(exponential_means, main = "Histogram Exponential Mean", 
-     xlab = "Mean", ylab = "Frequency", col = "#D44627")
+     xlab = "Mean", ylab = "Frequency", col = "#D44155")
 ```
 
-```{r}
-# Membuat QQ Plot untuk masing-masing distribusi
-qqnorm(normal_means, main = "Normal QQ Plot", xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(normal_means)
+## Poin 3
 
-qqnorm(uniform_means, main = "Uniform QQ Plot", xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(uniform_means)
+> Buat **normal qq-plot** dari masing-masing n
 
-qqnorm(exponential_means, main = "Exponential QQ Plot", xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(exponential_means)
+```{r, fig.height=3.5, fig.width=10, dpi=300}
+par(mfrow = c(1, 3))
+qqnorm(norm_means, main = "Normal QQ Plot", col = "#8DC16D", lwd = 5,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(norm_means, col = "red", lwd=2)
+
+qqnorm(unif_means, main = "Uniform QQ Plot", col = "#4493CA", lwd = 5,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(unif_means, col = "red", lwd=2)
+
+qqnorm(exp_means, main = "Exponential QQ Plot", col = "#D44155", lwd = 5,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(exp_means, col = "red", lwd=2)
 ```
+
+# Bagian B
