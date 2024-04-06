@@ -62,7 +62,7 @@ print(exp_samples)
 
 Sebaran Eksponensial dengan ukuran contoh (n) **2, 5, 25**
 
-## Poin 2 {.tabset}
+## Poin 2
 
 > Buat **histogram** dari **rataan contoh**nya
 
@@ -73,32 +73,36 @@ unif_means <- sapply(unif_samples, mean)
 exp_means <- sapply(exp_samples, mean)
 ```
 
-**Rata-rata contoh** masing-masing sebaran:
+### **Rata-rata contoh** masing-masing sebaran: {.tabset}
 
-### **Normal**
+#### **Normal**
 
 ```{r}
 print(norm_means)
 ```
 
-### **Seragam**
+#### **Seragam**
 
 ```{r}
 print(unif_means)
 ```
 
-### **Eksponensial**
+#### **Eksponensial**
 
 ```{r}
 print(exp_means)
 ```
 
-```{r}
-# Membuat histogram dari rataan contoh
+### **Histogram dari rata-rata contoh**
+
+```{r, fig.height=3.5, fig.width=10, dpi=300}
 par(mfrow = c(1, 3))
-hist(normal_means, main = "Histogram Normal Mean", xlab = "Mean", ylab = "Frequency")
-hist(uniform_means, main = "Histogram Uniform Mean", xlab = "Mean", ylab = "Frequency")
-hist(exponential_means, main = "Histogram Exponential Mean", xlab = "Mean", ylab = "Frequency")
+hist(normal_means, main = "Histogram Normal Mean", 
+     xlab = "Mean", ylab = "Frequency", col = "#774FA0")
+hist(uniform_means, main = "Histogram Uniform Mean", 
+     xlab = "Mean", ylab = "Frequency", col = "#EF8743")
+hist(exponential_means, main = "Histogram Exponential Mean", 
+     xlab = "Mean", ylab = "Frequency", col = "#D44627")
 ```
 
 ```{r}
