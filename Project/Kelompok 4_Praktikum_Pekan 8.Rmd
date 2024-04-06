@@ -95,7 +95,7 @@ print(exp_means)
 
 ### **Histogram dari rata-rata contoh**
 
-```{r, fig.height=3.5, fig.width=10, dpi=300}
+```{r fig.height=3.5, fig.width=10, dpi=300}
 par(mfrow = c(1, 3))
 hist(normal_means, main = "Histogram Normal Mean", 
      xlab = "Mean", ylab = "Frequency", col = "#8DC16D")
@@ -109,7 +109,7 @@ hist(exponential_means, main = "Histogram Exponential Mean",
 
 > Buat **normal qq-plot** dari masing-masing n
 
-```{r, fig.height=3.5, fig.width=10, dpi=300}
+```{r fig.height=3.5, fig.width=10, dpi=300}
 par(mfrow = c(1, 3))
 qqnorm(norm_means, main = "Normal QQ Plot", col = "#8DC16D", lwd = 5,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
