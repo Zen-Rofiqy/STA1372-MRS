@@ -97,11 +97,11 @@ print(exp_means)
 
 ```{r fig.height=3.5, fig.width=10, dpi=300}
 par(mfrow = c(1, 3))
-hist(normal_means, main = "Histogram Normal Mean", 
+hist(norm_means, main = "Histogram Normal Mean", 
      xlab = "Mean", ylab = "Frequency", col = "#8DC16D")
-hist(uniform_means, main = "Histogram Uniform Mean", 
+hist(unif_means, main = "Histogram Uniform Mean", 
      xlab = "Mean", ylab = "Frequency", col = "#4493CA")
-hist(exponential_means, main = "Histogram Exponential Mean", 
+hist(exp_means, main = "Histogram Exponential Mean", 
      xlab = "Mean", ylab = "Frequency", col = "#D44155")
 ```
 
