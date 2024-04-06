@@ -19,3 +19,11 @@ output:
 pkgdown:
   as_is: true
 ---
+
+![](images/clipboard-1024985539.png){width="613"}
+
+# Bagian A
+
+## Poin 1
+
+> Bangkitkan sebaran **normal**, **seragam**, dan **eksponensial** dengan ukuran contoh **2, 5, 25**
