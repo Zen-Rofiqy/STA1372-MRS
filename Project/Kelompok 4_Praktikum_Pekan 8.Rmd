@@ -62,7 +62,7 @@ print(exp_samples)
 
 Sebaran Eksponensial dengan ukuran contoh (n) **2, 5, 25**
 
-## Poin 2
+## Poin 2 {.tabset}
 
 > Buat **histogram** dari **rataan contoh**nya
 
@@ -75,7 +75,23 @@ exp_means <- sapply(exp_samples, mean)
 
 **Rata-rata contoh** masing-masing sebaran:
 
-### 
+### **Normal**
+
+```{r}
+print(norm_means)
+```
+
+### **Seragam**
+
+```{r}
+print(unif_means)
+```
+
+### **Eksponensial**
+
+```{r}
+print(exp_means)
+```
 
 ```{r}
 # Membuat histogram dari rataan contoh
