@@ -28,44 +28,56 @@ pkgdown:
 
 > Bangkitkan sebaran **Normal**, **Seragam**, dan **Eksponensial** dengan ukuran contoh **2, 5, 25**
 
-### Sebaran **Normal**
+Berikut merupakan hasil pembangkitan masing-masing serbaran dengan ukuran contoh 2, 5, 25:
+
+### **Normal**
 
 ```{r}
 sample_size <- c(2, 5, 25)
 
-normal_samples <- lapply(sample_size, function(n) rnorm(n))
+norm_samples <- lapply(sample_size, function(n) rnorm(n))
 
-print(normal_samples)
+print(norm_samples)
 ```
 
 Sebaran Normal dengan ukuran contoh (n) **2, 5, 25**
 
-### Sebaran **Seragam**
+### **Seragam**
 
 ```{r}
-uniform_samples <- lapply(sample_size, function(n) runif(n))
+unif_samples <- lapply(sample_size, function(n) runif(n))
 
-print(uniform_samples)
+print(unif_samples)
 ```
 
 Sebaran Seragam dengan ukuran contoh (n) **2, 5, 25**
 
-### Sebaran **Eksponensial**
+### **Eksponensial**
 
 ```{r}
-exponential_samples <- lapply(sample_size, function(n) rexp(n))
+exp_samples <- lapply(sample_size, function(n) rexp(n))
 
-print(exponential_samples)|
+print(exp_samples)
 ```
 
 Sebaran Eksponensial dengan ukuran contoh (n) **2, 5, 25**
 
+## Poin 2
+
+> Buat **histogram** dari **rataan contoh**nya
+
 ```{r}
 # Menghitung rata-rata dari masing-masing sampel
-normal_means <- sapply(normal_samples, mean)
-uniform_means <- sapply(uniform_samples, mean)
-exponential_means <- sapply(exponential_samples, mean)
+norm_means <- sapply(norm_samples, mean)
+unif_means <- sapply(unif_samples, mean)
+exp_means <- sapply(exp_samples, mean)
+```
 
+**Rata-rata contoh** masing-masing sebaran:
+
+### 
+
+```{r}
 # Membuat histogram dari rataan contoh
 par(mfrow = c(1, 3))
 hist(normal_means, main = "Histogram Normal Mean", xlab = "Mean", ylab = "Frequency")
