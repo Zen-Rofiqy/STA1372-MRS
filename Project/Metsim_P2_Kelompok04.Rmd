@@ -115,7 +115,7 @@ Jawab : 
 
 1.  Kembali ke langkah 3, U \< F (0.59 \< 1) maka dapat ditetapkan X = i = 1 dan iterasi berhenti
 
-	**Amatan Kedua**
+    **Amatan Kedua**
 
 -   **Iterasi 1**
 
@@ -143,9 +143,9 @@ Hasil dari ketiga amatan berturut-turut memperoleh Xi = 0, 1, 1
     4.  Hitung pr = pri + 1 , F = F + pr, i = i +1
     5.  Kembali ke langkah 3
 
-	Jawab : 
+    Jawab : 
 
-	**Amatan pertama**
+    **Amatan pertama**
 
 -   **Iterasi 1**
 
@@ -191,7 +191,9 @@ pr = pri + 1 = 3(0.2241)2+ 1= 0,2241, F = 0,4233 + 0,2241= 0,6474, i= 2+1=3
 
 pr = pri + 1 = 3(0.2241)3+ 1= 0,1681, F = 0,6474 + 0,1681= 0,8155, i= 3+1=4
 
-	**Amatan Kedua**
+```         
+**Amatan Kedua**
+```
 
 -   **Iterasi 1**
 
@@ -245,7 +247,9 @@ pr = pri + 1 = 3(0.2241)3+ 1= 0,1681, F = 0,6474 + 0,1681= 0,8155, i= 3+1=4
 
 pr = pri + 1 = 3(0.1681)4+ 1= 0,1008, F = 0,8155 + 0,1008= 0,9163, i= 4+1=5
 
-	**Amatan Ketiga**
+```         
+**Amatan Ketiga**
+```
 
 -   **Iterasi 1**
 
@@ -291,7 +295,9 @@ pr = pri + 1 = 3(0.2241)2+ 1= 0,2241, F = 0,4233 + 0,2241= 0,6474, i= 2+1=3
 
 pr = pri + 1 = 3(0.2241)3+ 1= 0,1681, F = 0,6474 + 0,1681= 0,8155, i= 3+1=4
 
-	Iterasi 5
+```         
+Iterasi 5
+```
 
 1.  U = 0,7 \> F= 0,8155
 

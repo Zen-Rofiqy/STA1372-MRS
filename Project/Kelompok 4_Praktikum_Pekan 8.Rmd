@@ -20,7 +20,40 @@ pkgdown:
   as_is: true
 ---
 
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE, message = FALSE}
+#                      -=( Install & Load Package Function )=-
+install_load <- function (package1, ...)  {   
+
+   # convert arguments to vector
+   packages <- c(package1, ...)
+
+   # start loop to determine if each package is installed
+   for(package in packages){
+
+       # if package is installed locally, load
+       if(package %in% rownames(installed.packages()))
+          do.call('library', list(package))
+
+       # if package is not installed locally, download, then load
+       else {
+          install.packages(package)
+          do.call("library", list(package))
+       }
+   } 
+}
+
+install_load("fitdistrplus","ggplot2","gridExtra")
+```
+
 ![](images/clipboard-1024985539.png){width="613"}
+
+**Kelompok 4 Pararel 2**
+
+| Nama                 | NIM         |
+|----------------------|-------------|
+| Angga Fathan Rofiqy  | G1401211006 |
+| Gladys Adya Zafira   | G1401211014 |
+| Kheni Hikmah Lestari | G1401211029 |
 
 # Bagian A
 
@@ -97,12 +130,12 @@ print(exp_means)
 
 ```{r fig.height=3.5, fig.width=10, dpi=300}
 par(mfrow = c(1, 3))
-hist(norm_means, main = "Histogram Normal Mean", 
-     xlab = "Mean", ylab = "Frequency", col = "#8DC16D")
-hist(unif_means, main = "Histogram Uniform Mean", 
-     xlab = "Mean", ylab = "Frequency", col = "#4493CA")
-hist(exp_means, main = "Histogram Exponential Mean", 
-     xlab = "Mean", ylab = "Frequency", col = "#D44155")
+hist(norm_means, main = "Histogram Mean Normal", 
+     xlab = "Rata-rata", ylab = "Frekuensi", col = "#8DC16D")
+hist(unif_means, main = "Histogram Mean Seragam", 
+     xlab = "Rata-rata", ylab = "Frekuensi", col = "#4493CA")
+hist(exp_means, main = "Histogram Mean Exponensial", 
+     xlab = "Rata-rata", ylab = "Frekuensi", col = "#D44155")
 ```
 
 ## Poin 3
@@ -119,7 +152,7 @@ qqnorm(unif_means, main = "Uniform QQ Plot", col = "#4493CA", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(unif_means, col = "red", lwd=2)
 
-qqnorm(exp_means, main = "Exponential QQ Plot", col = "#D44155", lwd = 7,
+qqnorm(exp_means, main = "Exponensial QQ Plot", col = "#D44155", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(exp_means, col = "red", lwd=2)
 ```
@@ -131,27 +164,165 @@ qqline(exp_means, col = "red", lwd=2)
 > Bangkitkan **dua gugus data**
 
 1.  Data dari sebaran normal
+
 2.  Data campuran:
-    -   50% dari sebaran normal + 50% dari sebaran chisquare
 
-    -   50% sebaran chisquare dengan paramenter a + 50% sebaran chisquare dengan paramenter b
+    -   50% dari sebaran normal + 50% dari sebaran chi-square
 
-    -   25% sebaran chisquare dengan parameter a + 25% sebaran chisuqare dengan parameter b + 25% sebaran normal dengan paramater a + 25% sebaran normal parameter b
+    -   50% sebaran chi-square dengan paramenter a + 50% sebaran chi-square dengan paramenter b
 
-### Normal
+    -   25% sebaran chi-square dengan parameter a + 25% sebaran chi-suqare dengan parameter b + 25% sebaran normal dengan paramater a + 25% sebaran normal parameter b
 
-### Campuran
+### **Normal**
+
+```{r fig.height=6.5, fig.width=15, dpi=300}
+norm_data <- rnorm(1000, mean = 0, sd = 1)
+hist(norm_data, main = "Histogram Normal", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
+```
+
+### **Campuran 1**
+
+> **50%** dari sebaran **normal** + **50%** dari sebaran **chi-square**
+
+```{r fig.height=6.5, fig.width=15, dpi=300}
+csq_data <- rchisq(1000, df = 1)
+mixed_data_1 <- c(norm_data[1:500], csq_data[1:500])
+hist(mixed_data_1, main = "Histogram Campuran 1", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#9F4274")
+```
+
+### **Campuran 2**
+
+> **50%** sebaran **chi-square** dengan paramenter **a + 50%** sebaran chi-square dengan paramenter **b**
+
+```{r fig.height=6.5, fig.width=15, dpi=300}
+csq_data_a <- rchisq(500, df = 1)
+csq_data_b <- rchisq(500, df = 2)
+mixed_data_2 <- c(csq_data_a, csq_data_b)
+hist(mixed_data_2, main = "Histogram Campuran 2", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#66C8CC")
+```
+
+### **Campuran 3**
+
+> **25%** sebaran **chi-square** dengan parameter **a** + **25%** sebaran chi-suqare dengan parameter **b** + **25%** sebaran **normal** dengan paramater **a** + **25%** sebaran **normal** parameter **b**
+
+```{r fig.height=6.5, fig.width=15, dpi=300}
+norm_data_a <- rnorm(250, mean = 0, sd = 1)
+norm_data_b <- rnorm(250, mean = 1, sd = 1)
+mixed_data_3 <- c(csq_data_a, csq_data_b, norm_data_a, norm_data_b)
+hist(mixed_data_3, main = "Histogram Campuran 3", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#F8D054")
+```
 
 ## Poin 2
 
 3.  Ambil sample dengan ukuran n = 4, 12, 20, 60, 100
-
-```{=html}
-<!-- -->
-```
 4.  Buat histogram dan normal qq-plot
-
-```{=html}
-<!-- -->
-```
 5.  Pada n berapa sebaran rataan dari masing-masing data mulai simeteris atau mendekati sebaran normal?
+
+```{r}
+sample_sizes <- c(4, 12, 20, 60, 100)
+
+sample_and_plot <- function(data, n) {
+  sample_data <- sample(data, n)
+  
+  hist(sample_data, main = paste("Histogram (n =", n, ")"), 
+       xlab = "Value", ylab = "Frequency", col = "#8DC16D")
+  
+  qqnorm(sample_data, main = paste("Normal QQ Plot (n =", n, ")"), 
+         xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+  qqline(sample_data)
+}
+
+for (n in sample_sizes) {
+  cat("Ukuran sampel n =", n, "\n")
+  
+  cat("Data dari sebaran normal:\n")
+  sample_and_plot(norm_data, n)
+  cat("\n")
+  
+  cat("Data campuran:\n")
+  sample_and_plot(mixed_data_3, n)
+  cat("\n\n")
+}
+```
+
+```{r}
+plot_distribution <- function(data, title) {
+  df <- data.frame(x = data)
+  p1 <- ggplot(data = df, aes(x = x)) +
+    geom_histogram(bins = 20, fill = "blue", alpha = 0.7) +
+    geom_density(aes(y = ..count..), fill = "red", alpha = 0.4) + # Poligon densitas
+    labs(title = paste("Histogram", title)) +
+    theme_minimal()
+  
+  p2 <- ggplot(data = df, aes(sample = x)) +
+    stat_qq() +
+    stat_qq_line() +
+    labs(title = paste("Normal QQ Plot", title)) +
+    theme_minimal()
+  
+  grid.arrange(p1, p2, ncol = 2)
+}
+
+for (size in sample_sizes) {
+  samples <- list(
+    "Mixed Data 1" = mixed_data_1,
+    "Mixed Data 2" = mixed_data_2,
+    "Mixed Data 3" = mixed_data_3
+  )
+  for (title in names(samples)) {
+    sample <- sample(samples[[title]], size, replace = FALSE)
+    plot_distribution(sample, paste0(title, " (n=", size,")"))
+  }
+}
+```
+
+```{r}
+plot_distribution <- function(data, title) {
+  df <- data.frame(x = data)
+  p1 <- ggplot(data = df, aes(x = x)) +
+    geom_histogram(bins = 20, fill = "blue", alpha = 0.7) +
+    geom_density(aes(y = ..count..), fill = "red", alpha = 0.4) + # Poligon densitas
+    labs(title = paste("Histogram", title)) +
+    theme_minimal()
+  
+  p2 <- ggplot(data = df, aes(sample = x)) +
+    stat_qq() +
+    stat_qq_line() +
+    labs(title = paste("Normal QQ Plot", title)) +
+    theme_minimal()
+  
+  # Mengembalikan list plot
+  return(list(p1, p2))
+}
+
+# Inisialisasi list untuk menyimpan plot dari setiap iterasi
+all_plots <- list()
+
+for (size in sample_sizes) {
+  samples <- list(
+    "Mixed Data 1" = mixed_data_1,
+    "Mixed Data 2" = mixed_data_2,
+    "Mixed Data 3" = mixed_data_3
+  )
+  
+  # Inisialisasi list untuk menyimpan plot dari setiap iterasi ukuran sampel
+  plots_for_size <- list()
+  
+  for (title in names(samples)) {
+    sample <- sample(samples[[title]], size, replace = FALSE)
+    plots <- plot_distribution(sample, paste0(title, " (n=", size,")"))
+    plots_for_size <- c(plots_for_size, plots)
+  }
+  
+  # Menggabungkan plot dari setiap iterasi ukuran sampel menjadi satu plot
+  all_plots <- c(all_plots, plots_for_size)
+}
+
+# Menggabungkan semua plot menjadi satu menggunakan cowplot
+library(cowplot)
+plot_grid(plotlist = all_plots, ncol = 2)
+```
