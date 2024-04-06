@@ -125,3 +125,28 @@ qqline(exp_means, col = "red", lwd=2)
 ```
 
 # Bagian B
+
+**Bangkitkan dua gugus data**
+
+1.  Data dari sebaran normal
+2.  Data campuran:
+    -   50% dari sebaran normal + 50% dari sebaran chisquare
+
+    -   50% sebaran chisquare dengan paramenter a + 50% sebaran chisquare dengan paramenter b
+
+    -   25% sebaran chisquare dengan parameter a + 25% sebaran chisuqare dengan parameter b + 25% sebaran normal dengan paramater a + 25% sebaran normal parameter b
+
+```{=html}
+<!-- -->
+```
+3.  Ambil sample dengan ukuran n = 4, 12, 20, 60, 100
+
+```{=html}
+<!-- -->
+```
+4.  Buat histogram dan normal qq-plot
+
+```{=html}
+<!-- -->
+```
+5.  Pada n berapa sebaran rataan dari masing-masing data mulai simeteris atau mendekati sebaran normal?
