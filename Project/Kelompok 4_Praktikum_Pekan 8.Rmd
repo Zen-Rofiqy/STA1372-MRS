@@ -35,27 +35,30 @@ sample_size <- c(2, 5, 25)
 
 normal_samples <- lapply(sample_size, function(n) rnorm(n))
 
-print("Sebaran Normal dengan n = {2, 5, 25} :")
 print(normal_samples)
 ```
+
+Sebaran Normal dengan ukuran contoh (n) **2, 5, 25**
 
 ### Sebaran **Seragam**
 
 ```{r}
 uniform_samples <- lapply(sample_size, function(n) runif(n))
 
-print("Sebaran Seragam dengan n = {2, 5, 25} :")
 print(uniform_samples)
 ```
+
+Sebaran Seragam dengan ukuran contoh (n) **2, 5, 25**
 
 ### Sebaran **Eksponensial**
 
 ```{r}
 exponential_samples <- lapply(sample_size, function(n) rexp(n))
 
-print("Sebaran Eksmponensial dengan n = {2, 5, 25} :")
-print(exponential_samples)
+print(exponential_samples)|
 ```
+
+Sebaran Eksponensial dengan ukuran contoh (n) **2, 5, 25**
 
 ```{r}
 # Menghitung rata-rata dari masing-masing sampel
