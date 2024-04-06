@@ -24,6 +24,60 @@ pkgdown:
 
 # Bagian A
 
-## Poin 1
+## Poin 1 {.tabset}
 
-> Bangkitkan sebaran **normal**, **seragam**, dan **eksponensial** dengan ukuran contoh **2, 5, 25**
+> Bangkitkan sebaran **Normal**, **Seragam**, dan **Eksponensial** dengan ukuran contoh **2, 5, 25**
+
+### Sebaran **Normal**
+
+```{r}
+sample_size <- c(2, 5, 25)
+
+normal_samples <- lapply(sample_size, function(n) rnorm(n))
+
+print("Sebaran Normal dengan n = {2, 5, 25} :")
+print(normal_samples)
+```
+
+### Sebaran **Seragam**
+
+```{r}
+uniform_samples <- lapply(sample_size, function(n) runif(n))
+
+print("Sebaran Seragam dengan n = {2, 5, 25} :")
+print(uniform_samples)
+```
+
+### Sebaran **Eksponensial**
+
+```{r}
+exponential_samples <- lapply(sample_size, function(n) rexp(n))
+
+print("Sebaran Eksmponensial dengan n = {2, 5, 25} :")
+print(exponential_samples)
+```
+
+```{r}
+# Menghitung rata-rata dari masing-masing sampel
+normal_means <- sapply(normal_samples, mean)
+uniform_means <- sapply(uniform_samples, mean)
+exponential_means <- sapply(exponential_samples, mean)
+
+# Membuat histogram dari rataan contoh
+par(mfrow = c(1, 3))
+hist(normal_means, main = "Histogram Normal Mean", xlab = "Mean", ylab = "Frequency")
+hist(uniform_means, main = "Histogram Uniform Mean", xlab = "Mean", ylab = "Frequency")
+hist(exponential_means, main = "Histogram Exponential Mean", xlab = "Mean", ylab = "Frequency")
+```
+
+```{r}
+# Membuat QQ Plot untuk masing-masing distribusi
+qqnorm(normal_means, main = "Normal QQ Plot", xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(normal_means)
+
+qqnorm(uniform_means, main = "Uniform QQ Plot", xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(uniform_means)
+
+qqnorm(exponential_means, main = "Exponential QQ Plot", xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(exponential_means)
+```
