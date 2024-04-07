@@ -222,33 +222,6 @@ hist(mixed_data_3, main = "Histogram Campuran 3",
 4.  Buat histogram dan normal qq-plot
 5.  Pada n berapa sebaran rataan dari masing-masing data mulai simeteris atau mendekati sebaran normal?
 
-```{r}
-sample_sizes <- c(4, 12, 20, 60, 100)
-
-sample_and_plot <- function(data, n) {
-  sample_data <- sample(data, n)
-  
-  hist(sample_data, main = paste("Histogram (n =", n, ")"), 
-       xlab = "Value", ylab = "Frequency", col = "#8DC16D")
-  
-  qqnorm(sample_data, main = paste("Normal QQ Plot (n =", n, ")"), 
-         xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-  qqline(sample_data)
-}
-
-for (n in sample_sizes) {
-  cat("Ukuran sampel n =", n, "\n")
-  
-  cat("Data dari sebaran normal:\n")
-  sample_and_plot(norm_data, n)
-  cat("\n")
-  
-  cat("Data campuran:\n")
-  sample_and_plot(mixed_data_3, n)
-  cat("\n\n")
-}
-```
-
 ```{r fig.height=20, fig.width=25, dpi=300}
 sample_sizes <- c(4, 12, 20, 60, 100)
 
@@ -300,3 +273,5 @@ for (size in sample_sizes) {
 library(cowplot)
 plot_grid(plotlist = all_plots, ncol = 6)
 ```
+
+s
