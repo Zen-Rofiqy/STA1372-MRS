@@ -45,6 +45,8 @@ install_load <- function (package1, ...)  {
 install_load("fitdistrplus","ggplot2","gridExtra","cowplot")
 ```
 
+> <mark style="background-color: #e9865b">**Code/Syntax :** [File.rmd](https://github.com/Zen-Rofiqy/STA1372-MRS/blob/main/Project/Kelompok%204_Praktikum_Pekan%208.Rmd) </mark>
+
 ![](images/clipboard-1024985539.png){width="613"}
 
 **Kelompok 4 Pararel 2**
@@ -281,4 +283,4 @@ for (size in sample_sizes) {
 plot_grid(plotlist = all_plots, ncol = 6)
 ```
 
-Dalam analisis ini, **tiga** jenis **data campuran** dieksplorasi dengan variasi ukuran sampel **(n = 4, 12, 20, 60, 100)**, menghasilkan total 15 histogram dan 15 QQ plot. Melalui observasi visual ini, ditemukan bahwa **titik di mana distribusi mulai menyerupai distribusi normal** adalah ketika **ukuran sampel melebihi 20**, dengan **pengecualian** pada jenis **data campuran kedua**. Temuan ini secara substansial **mendukung** teori statistik yang dikenal sebagai **teorema limit pusat**. Teorema ini menyatakan bahwa, *"dengan pertambahan ukuran sampel, distribusi rata-rata dari sampel yang diambil dari populasi, terlepas dari distribusi aslinya, akan cenderung mendekati distribusi normal"*. Dalam literatur statistik, penekanan sering diberikan pada ukuran sampel yang besar, umumnya lebih dari 20, sebagai titik di mana pendekatan ke distribusi normal menjadi semakin akurat.
+Dalam analisis ini, **tiga** jenis **data campuran** dieksplorasi dengan variasi ukuran sampel **(n = 4, 12, 20, 60, 100)**, menghasilkan total 15 histogram dan 15 QQ plot. Melalui observasi visual ini, ditemukan bahwa **titik di mana distribusi mulai menyerupai distribusi normal** adalah ketika <mark style="background-color: #F8D054">**ukuran sampel melebihi 20**</mark>, dengan <mark style="background-color: #e9865b">**pengecualian**</mark> pada jenis <mark style="background-color: #e9865b">**data campuran kedua**</mark>. Temuan ini secara substansial **mendukung** teori statistik yang dikenal sebagai **teorema limit pusat**. Teorema ini menyatakan bahwa, <mark style="background-color: #F8D054">*"dengan pertambahan ukuran sampel, distribusi rata-rata dari sampel yang diambil dari populasi, terlepas dari distribusi aslinya, akan cenderung mendekati distribusi normal"*. </mark> Dalam literatur statistik, penekanan sering diberikan pada ukuran sampel yang besar, umumnya **lebih dari 20**, sebagai titik di mana pendekatan ke distribusi normal menjadi semakin akurat.
