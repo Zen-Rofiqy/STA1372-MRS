@@ -232,16 +232,20 @@ plot_distribution <- function(data, title, color) {
   p1 <- ggplot(data = df, aes(x = x)) +
     geom_histogram(bins = 20, fill = color, alpha = 1) +
     geom_density(aes(y = ..count..), fill = color, alpha = 0.4) + 
-    labs(title = paste(title)) +
-    theme_minimal()
+    labs(title = paste0("\n\n",title)) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(size = 22, face = "bold", hjust = 3)  
+    )
   
   # QQ plot
   p2 <- ggplot(data = df, aes(sample = x)) +
     stat_qq(color = color, size =5) +
     stat_qq_line(color = "red", linewidth =2) +
-    theme_minimal()
+    labs(title = paste0("\n\n\n\n")) +
+    theme_minimal() 
   
-  return(list(p1, p2))
+  return(list(p1, p2))  
 }
 
 all_plots <- list()
@@ -253,7 +257,6 @@ for (size in sample_sizes) {
     "Mixed Data 3" = mixed_data_3
   )
   
-  # Inisialisasi list untuk menyimpan plot dari setiap iterasi ukuran sampel
   plots_for_size <- list()
   
   colors <- c("#4664AF", "#9F4274", "#66C8CC") 
@@ -265,11 +268,8 @@ for (size in sample_sizes) {
     plots_for_size <- c(plots_for_size, plots)
   }
   
-  # Menggabungkan plot dari setiap iterasi ukuran sampel menjadi satu plot
   all_plots <- c(all_plots, plots_for_size)
 }
 
-# Menggabungkan semua plot menjadi satu menggunakan cowplot
-library(cowplot)
 plot_grid(plotlist = all_plots, ncol = 6)
 ```
