@@ -67,35 +67,59 @@ Berikut merupakan hasil pembangkitan masing-masing serbaran dengan ukuran contoh
 
 ### **Normal**
 
-```{r}
-set.seed(361)
+```{r fig.height=3.5, fig.width=10, dpi=300}
+set.seed(58)
 sample_size <- c(2, 5, 25)
 
 norm_samples <- lapply(sample_size, function(n) rnorm(n))
 
 print(norm_samples)
+
+par(mfrow = c(1, 3))
+hist(norm_samples[[1]], main = "Histogram Normal n=2", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#d9eacb")
+hist(norm_samples[[2]], main = "Histogram Normal n=5", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#b4e69e")
+hist(norm_samples[[3]], main = "Histogram Normal n=25", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#8DC16D")
 ```
 
 Sebaran Normal dengan ukuran contoh (n) **2, 5, 25**
 
 ### **Seragam**
 
-```{r}
-set.seed(361)
+```{r fig.height=3.5, fig.width=10, dpi=300}
+set.seed(22)
 unif_samples <- lapply(sample_size, function(n) runif(n))
 
 print(unif_samples)
+
+par(mfrow = c(1, 3))
+hist(unif_samples[[1]], main = "Histogram Seragam n=2", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#c8daf0")
+hist(unif_samples[[2]], main = "Histogram Seragam n=5", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#a2c6eb")
+hist(unif_samples[[3]], main = "Histogram Seragam n=25", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#4493CA")
 ```
 
 Sebaran Seragam dengan ukuran contoh (n) **2, 5, 25**
 
 ### **Eksponensial**
 
-```{r}
-set.seed(361)
+```{r fig.height=3.5, fig.width=10, dpi=300}
+set.seed(88)
 exp_samples <- lapply(sample_size, function(n) rexp(n))
 
 print(exp_samples)
+
+par(mfrow = c(1, 3))
+hist(exp_samples[[1]], main = "Histogram Eksponensial n=2", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#E4B3BA")
+hist(exp_samples[[2]], main = "Histogram Eksponensial n=5", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#DE7C8A")
+hist(exp_samples[[3]], main = "Histogram Eksponensial n=25", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#D44155")
 ```
 
 Sebaran Eksponensial dengan ukuran contoh (n) **2, 5, 25**
