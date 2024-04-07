@@ -227,23 +227,23 @@ sample_sizes <- c(4, 12, 20, 60, 100)
 
 plot_distribution <- function(data, title, color) {
   df <- data.frame(x = data)
+  
+  # Histogram
   p1 <- ggplot(data = df, aes(x = x)) +
     geom_histogram(bins = 20, fill = color, alpha = 1) +
-    geom_density(aes(y = ..count..), fill = color, alpha = 0.4) + # Poligon densitas
-    labs(title = paste("Histogram", title)) +
+    geom_density(aes(y = ..count..), fill = color, alpha = 0.4) + 
+    labs(title = paste(title)) +
     theme_minimal()
   
+  # QQ plot
   p2 <- ggplot(data = df, aes(sample = x)) +
     stat_qq(color = color, size =5) +
     stat_qq_line(color = "red", linewidth =2) +
-    labs(title = paste("Normal QQ Plot", title)) +
     theme_minimal()
   
-  # Mengembalikan list plot
   return(list(p1, p2))
 }
 
-# Inisialisasi list untuk menyimpan plot dari setiap iterasi
 all_plots <- list()
 
 for (size in sample_sizes) {
@@ -256,7 +256,7 @@ for (size in sample_sizes) {
   # Inisialisasi list untuk menyimpan plot dari setiap iterasi ukuran sampel
   plots_for_size <- list()
   
-  colors <- c("#4664AF", "#9F4274", "#66C8CC")  # warna yang berbeda untuk setiap jenis mixed data
+  colors <- c("#4664AF", "#9F4274", "#66C8CC") 
   
   for (i in 1:length(samples)) {
     title <- names(samples)[i]
