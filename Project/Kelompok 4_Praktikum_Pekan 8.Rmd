@@ -228,14 +228,14 @@ sample_sizes <- c(4, 12, 20, 60, 100)
 plot_distribution <- function(data, title, color) {
   df <- data.frame(x = data)
   p1 <- ggplot(data = df, aes(x = x)) +
-    geom_histogram(bins = 20, fill = color, alpha = 0.7) +
+    geom_histogram(bins = 20, fill = color, alpha = 1) +
     geom_density(aes(y = ..count..), fill = color, alpha = 0.4) + # Poligon densitas
     labs(title = paste("Histogram", title)) +
     theme_minimal()
   
   p2 <- ggplot(data = df, aes(sample = x)) +
-    stat_qq() +
-    stat_qq_line() +
+    stat_qq(color = color, size =5) +
+    stat_qq_line(color = "red", linewidth =2) +
     labs(title = paste("Normal QQ Plot", title)) +
     theme_minimal()
   
@@ -256,7 +256,7 @@ for (size in sample_sizes) {
   # Inisialisasi list untuk menyimpan plot dari setiap iterasi ukuran sampel
   plots_for_size <- list()
   
-  colors <- c("blue", "green", "orange")  # warna yang berbeda untuk setiap jenis mixed data
+  colors <- c("#4664AF", "#9F4274", "#66C8CC")  # warna yang berbeda untuk setiap jenis mixed data
   
   for (i in 1:length(samples)) {
     title <- names(samples)[i]
@@ -273,5 +273,3 @@ for (size in sample_sizes) {
 library(cowplot)
 plot_grid(plotlist = all_plots, ncol = 6)
 ```
-
-s
