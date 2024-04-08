@@ -326,10 +326,22 @@ plot_grid(plotlist = all_plots, ncol = 9)
 
 ### **Normal**
 
-```{r fig.height=6.5, fig.width=15, dpi=300}
+```{r fig.height=6.5, fig.width=30, dpi=300}
 set.seed(361)
-norm_data <- rnorm(1000, mean = 0, sd = 1)
-hist(norm_data, main = "Histogram Normal", 
+k <- 1000
+sample_sizes <- c(4, 12, 20, 60, 100)
+
+par(mfrow = c(1, 5))
+norm_data <- lapply(sample_sizes, function(n) matrix(rnorm(n*k, mean = 0, sd = 1),k))
+hist(norm_data[[1]], main = "Sebaran Normal\nUkuran sample (n=4)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
+hist(norm_data[[2]], main = "Sebaran Normal\nUkuran sample (n=12)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
+hist(norm_data[[3]], main = "Sebaran Normal\nUkuran sample (n=20)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
+hist(norm_data[[4]], main = "Sebaran Normal\nUkuran sample (n=60)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
+hist(norm_data[[5]], main = "Sebaran Normal\nUkuran sample (n=100)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
 ```
 
