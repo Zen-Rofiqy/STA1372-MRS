@@ -181,23 +181,59 @@ hist(exp_means[[3]], main = "Sebaran Eksponensial\nRata-rata sample (n=25)",
      xlab = "Nilai", ylab = "Frekuensi", col = "#D44155")
 ```
 
-## Poin 3
+## Poin 3 {.tabset}
 
 > Buat **normal qq-plot** dari masing-masing n
 
+### **Normal**
+
 ```{r fig.height=3.5, fig.width=10, dpi=300}
 par(mfrow = c(1, 3))
-qqnorm(norm_means, main = "Normal QQ Plot", col = "#8DC16D", lwd = 7,
+qqnorm(norm_means[[1]], main = "QQ-Plot Normal", col = "#8DC16D", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(norm_means, col = "red", lwd=2)
+qqline(norm_means[[1]], col = "red", lwd=2)
 
-qqnorm(unif_means, main = "Uniform QQ Plot", col = "#4493CA", lwd = 7,
+qqnorm(norm_means[[2]], main = "QQ-Plot Normal", col = "#8DC16D", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(unif_means, col = "red", lwd=2)
+qqline(norm_means[[2]], col = "red", lwd=2)
 
-qqnorm(exp_means, main = "Exponensial QQ Plot", col = "#D44155", lwd = 7,
+qqnorm(norm_means[[3]], main = "QQ-Plot Normal", col = "#8DC16D", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(exp_means, col = "red", lwd=2)
+qqline(norm_means[[3]], col = "red", lwd=2)
+```
+
+### **Seragam**
+
+```{r fig.height=3.5, fig.width=10, dpi=300}
+par(mfrow = c(1, 3))
+qqnorm(unif_means[[1]], main = "QQ-Plot Seragam", col = "#4493CA", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(unif_means[[1]], col = "red", lwd=2)
+
+qqnorm(unif_means[[2]], main = "QQ-Plot Seragam", col = "#4493CA", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(unif_means[[2]], col = "red", lwd=2)
+
+qqnorm(unif_means[[3]], main = "QQ-Plot Seragam", col = "#4493CA", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(unif_means[[3]], col = "red", lwd=2)
+```
+
+### **Eksponensial**
+
+```{r fig.height=3.5, fig.width=10, dpi=300}
+par(mfrow = c(1, 3))
+qqnorm(exp_means[[1]], main = "QQ-Plot Eksponensial\nUkuran Sample (n=2)", col = "#D44155", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(exp_means[[1]], col = "red", lwd=2)
+
+qqnorm(exp_means[[2]], main = "QQ-Plot Eksponensial\nUkuran Sample (n=5)", col = "#D44155", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(exp_means[[2]], col = "red", lwd=2)
+
+qqnorm(exp_means[[3]], main = "QQ-Plot Eksponensial\nUkuran Sample (n=25)", col = "#D44155", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(exp_means[[3]], col = "red", lwd=2)
 ```
 
 # Bagian B
