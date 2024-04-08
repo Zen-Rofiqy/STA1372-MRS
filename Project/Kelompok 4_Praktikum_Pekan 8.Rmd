@@ -580,6 +580,35 @@ qqline(mixed_data3[[3]], col = "black", lwd=2)
 
 > 5.  Pada **n berapa** sebaran rataan dari masing-masing data **mulai simeteris** atau **mendekati** sebaran **normal**?
 
+```{r}
+histo(mix_data_1, paste0("Campuran 1"), color="#792b9a")
+```
+
+```{r fig.height=3.5, fig.width=6*4, dpi=300}
+histo <- function(dist, title, color){
+  df <- data.frame(x = dist)
+  
+  # Histogram rataan sampel
+  p1 <- ggplot(data = df, aes(x = x)) +
+    geom_histogram(bins = 20, fill = color, color="black",alpha = 1, aes(y = ..density..)) +
+    geom_density(fill = color, adjust = 3, size = 1, alpha=.5) +
+    labs(title = paste0("Sebaran Populasi ", title)) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
+    )
+  return(list(p1)
+}
+
+all_plots <- c(
+  histo(norm_data, paste0("Normal"), color="#357a87"),
+  histo(mix_data_1, paste0("Campuran 1"), color="#792b9a"),
+  histo(mix_data_2, paste0("Campuran 2"), color="#96336c"),
+  histo(mix_data_3, paste0("Campuran 3"), color="#9a3b1a")  
+)
+plot_grid(plotlist = all_plots, ncol = 3)
+```
+
 ```{r fig.height=3.5*4, fig.width=6*4, dpi=300}
 plot_distribution2 <- function(data_rataan, title, color) {
   df_rataan <- data.frame(x = data_rataan)
@@ -607,30 +636,29 @@ plot_distribution2 <- function(data_rataan, title, color) {
   return(list(p2, p3))
 }
 
-
 all_plots <- list()
 
-histo <- function(dist, title, color) {
-  df <- data.frame(x = c(dist))
+histo <- function(dist, title, color){
+  df <- data.frame(x = dist)
   
   # Histogram rataan sampel
   p1 <- ggplot(data = df, aes(x = x)) +
-    geom_histogram(bins = 20, fill = color, color="black", alpha = 1, aes(y = ..density..)) +
+    geom_histogram(bins = 20, fill = color, color="black",alpha = 1, aes(y = ..density..)) +
     geom_density(fill = color, adjust = 3, size = 1, alpha=.5) +
     labs(title = paste0("Sebaran Populasi ", title)) +
     theme_minimal() +
     theme(
       plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
     )
-  
-  return(p1)
+  hist(norm_data, main = "Sebaran Populasi Campuran 1", 
+       xlab = "Nilai", ylab = "Frekuensi", col = "#357a87") 
 }
 
 all_plots <- c(
   histo(norm_data, paste0("Normal"), color="#357a87"),
   histo(mix_data_1, paste0("Campuran 1"), color="#792b9a"),
   histo(mix_data_2, paste0("Campuran 2"), color="#96336c"),
-  histo(mix_data_3, paste0("Campuran 3"), color="#9a3b1a")
+  histo(mix_data_3, paste0("Campuran 3"), color="#9a3b1a")  
 )
 
 for (size in sample_sizes) {
@@ -662,9 +690,7 @@ for (size in sample_sizes) {
   all_plots <- c(all_plots, plots_for_size)
 }
 
-# Menentukan tinggi relatif dari setiap baris
-rel_heights <- c(rep(2/8, 4), rep(1/8, 7))
-plot_grid(plotlist = all_plots, ncol = 8, rel_heights = rel_heights)
+plot_grid(plotlist = all_plots, ncol = 8)
 ```
 
 ```{r fig.height=3.5*4, fig.width=6*4, dpi=300}
