@@ -47,6 +47,8 @@ install_load("fitdistrplus","ggplot2","gridExtra","cowplot","gridExtra")
 
 > <mark style="background-color: #e9865b">**Code/Syntax :** [File.rmd](https://github.com/Zen-Rofiqy/STA1372-MRS/blob/main/Project/Kelompok%204_Praktikum_Pekan%208.Rmd) </mark>
 
+> <mark style="background-color: #6ec1c1">**Rpubs :** <https://rpubs.com/ZenR_Prog/MSR-Prak-08></mark>
+
 ![](images/clipboard-1024985539.png){width="613"}
 
 **Kelompok 4 Pararel 2**
@@ -377,7 +379,7 @@ hist(mix_data_3, main = "Sebaran Populasi Campuran 3",
      xlab = "Nilai", ylab = "Frekuensi", col = "#9a3b1a")
 ```
 
-## Poin 3 & 4 {.tabset}
+## Poin 3 & 4
 
 3.  Ambil **sample** dengan ukuran **n = 4, 12, 20, 60, 100**
 4.  Buat **histogram** (Rata-rata contoh) dan **normal qq-plot**
@@ -580,6 +582,8 @@ qqline(mixed_data3[[3]], col = "black", lwd=2)
 
 > 5.  Pada **n berapa** sebaran rataan dari masing-masing data **mulai simeteris** atau **mendekati** sebaran **normal**?
 
+Menggunakan library `ggplot2` & `cowplot` untuk menggabungkan nya.
+
 ```{r fig.height=3.5*5, fig.width=6*4, dpi=300}
 # Plot atas
 histo <- function(dist, title, color){
@@ -622,7 +626,7 @@ plot_distribution2 <- function(data_rataan, title, color) {
   
   # QQ plot
   p3 <- ggplot(data = df_rataan, aes(sample = x)) +
-    stat_qq(color = color, size = 5) +
+    stat_qq(color = color, size = 3.5) +
     stat_qq_line(color = "black", linewidth = 1.5) +
     labs(title = paste0(title, "\nQQ-Plot")) +
     theme_minimal() +
@@ -670,56 +674,4 @@ plot_grid_bottom <- plot_grid(plotlist = all_plots, ncol = 8)
 plot_grid(plot_grid_top, plot_grid_bottom, ncol=1, rel_heights = c(0.2, 1))
 ```
 
-```{r fig.height=25, fig.width=25, dpi=300}
-sample_sizes <- c(4, 12, 20, 60, 100)
-
-plot_distribution <- function(data, title, color) {
-  df <- data.frame(x = data)
-  
-  # Histogram
-  p1 <- ggplot(data = df, aes(x = x)) +
-    geom_histogram(bins = 20, fill = color, alpha = 1) +
-    geom_density(aes(y = after_stat(count)), fill = color, alpha = 0.4) + 
-    labs(title = paste0("\n\n",title)) +
-    theme_minimal() +
-    theme(
-      plot.title = element_text(size = 22, face = "bold", hjust = 3)  
-    )
-  
-  # QQ plot
-  p2 <- ggplot(data = df, aes(sample = x)) +
-    stat_qq(color = color, size =5) +
-    stat_qq_line(color = "red", linewidth =2) +
-    labs(title = paste0("\n\n\n\n")) +
-    theme_minimal() 
-  
-  return(list(p1, p2))  
-}
-
-all_plots <- list()
-
-for (size in sample_sizes) {
-  samples <- list(
-    "Mixed Data 1" = mixed_data_1,
-    "Mixed Data 2" = mixed_data_2,
-    "Mixed Data 3" = mixed_data_3
-  )
-  
-  plots_for_size <- list()
-  
-  colors <- c("#4664AF", "#9F4274", "#66C8CC") 
-  
-  for (i in 1:length(samples)) {
-    title <- names(samples)[i]
-    sample <- sample(samples[[title]], size, replace = FALSE)
-    plots <- plot_distribution(sample, paste0(title, " (n=", size,")"), colors[i])
-    plots_for_size <- c(plots_for_size, plots)
-  }
-  
-  all_plots <- c(all_plots, plots_for_size)
-}
-
-plot_grid(plotlist = all_plots, ncol = 6)
-```
-
-Dalam analisis ini, **tiga** jenis **data campuran** dieksplorasi dengan variasi ukuran sampel **(n = 4, 12, 20, 60, 100)**, menghasilkan total 15 histogram dan 15 QQ plot. Melalui observasi visual ini, ditemukan bahwa **titik di mana distribusi mulai menyerupai distribusi normal** adalah ketika <mark style="background-color: #F8D054">**ukuran sampel melebihi 20**</mark>, dengan <mark style="background-color: #e9865b">**pengecualian**</mark> pada jenis <mark style="background-color: #e9865b">**data campuran kedua**</mark>. Temuan ini secara substansial **mendukung** teori statistik yang dikenal sebagai **teorema limit pusat**. Teorema ini menyatakan bahwa, <mark style="background-color: #F8D054">*"dengan pertambahan ukuran sampel, distribusi rata-rata dari sampel yang diambil dari populasi, terlepas dari distribusi aslinya, akan cenderung mendekati distribusi normal"*. </mark> Dalam literatur statistik, penekanan sering diberikan pada ukuran sampel yang besar, umumnya **lebih dari 20**, sebagai titik di mana pendekatan ke distribusi normal menjadi semakin akurat.
+Dalam analisis ini, **tiga** jenis **data campuran** dieksplorasi dengan variasi ukuran sampel **(n = 4, 12, 20, 60, 100)**, menghasilkan total 15 histogram dan 15 QQ plot. Melalui observasi visual ini, ditemukan bahwa **titik di mana distribusi mulai menyerupai distribusi normal** adalah ketika <mark style="background-color: #F8D054">**ukuran sampel melebihi 20**</mark>. Temuan ini secara substansial **mendukung** teori statistik yang dikenal sebagai **teorema limit pusat**. Teorema ini menyatakan bahwa, <mark style="background-color: #F8D054">*"dengan pertambahan ukuran sampel, distribusi rata-rata dari sampel yang diambil dari populasi, terlepas dari distribusi aslinya, akan cenderung mendekati distribusi normal"*. </mark> Dalam literatur statistik, penekanan sering diberikan pada ukuran sampel yang besar, umumnya **lebih dari 20**, sebagai titik di mana pendekatan ke distribusi normal menjadi semakin akurat.
