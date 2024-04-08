@@ -337,15 +337,15 @@ norm_data <- lapply(sample_sizes, function(n) matrix(rnorm(n*k, mean = 0, sd = 1
 
 par(mfrow = c(1, 5))
 hist(norm_data[[1]], main = "Sebaran Normal\nUkuran sample (n=4)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#eae1f8")
+     xlab = "Nilai", ylab = "Frekuensi", col = "#e3f4f1")
 hist(norm_data[[2]], main = "Sebaran Normal\nUkuran sample (n=12)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#d5bbf3")
+     xlab = "Nilai", ylab = "Frekuensi", col = "#a9ded7")
 hist(norm_data[[3]], main = "Sebaran Normal\nUkuran sample (n=20)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#9d48c7")
+     xlab = "Nilai", ylab = "Frekuensi", col = "#6ec1c1")
 hist(norm_data[[4]], main = "Sebaran Normal\nUkuran sample (n=60)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
+     xlab = "Nilai", ylab = "Frekuensi", col = "#357a87")
 hist(norm_data[[5]], main = "Sebaran Normal\nUkuran sample (n=100)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#48185b")
+     xlab = "Nilai", ylab = "Frekuensi", col = "#0f2c3a")
 ```
 
 ### **Campuran 1**
