@@ -503,23 +503,23 @@ qqline(normal_data[[3]], col = "black", lwd=2)
 
 ```{r fig.height=6.5, fig.width=30, dpi=300}
 par(mfrow = c(1, 5))
-qqnorm(mixed_data1[[1]], main = "QQ-Plot Campuran 1\nUkuran Sample (n=4)", col = "#e3f4f1", lwd = 7,
+qqnorm(mixed_data1[[1]], main = "QQ-Plot Campuran 1\nUkuran Sample (n=4)", col = "#eae1f8", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(mixed_data1[[1]], col = "black", lwd=2)
 
-qqnorm(mixed_data1[[2]], main = "QQ-Plot Campuran 1\nUkuran Sample (n=12)", col = "#a9ded7", lwd = 7,
+qqnorm(mixed_data1[[2]], main = "QQ-Plot Campuran 1\nUkuran Sample (n=12)", col = "#d5bbf3", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(mixed_data1[[2]], col = "black", lwd=2)
 
-qqnorm(mixed_data1[[3]], main = "QQ-Plot Campuran 1\nUkuran Sample (n=20)", col = "#6ec1c1", lwd = 7,
+qqnorm(mixed_data1[[3]], main = "QQ-Plot Campuran 1\nUkuran Sample (n=20)", col = "#9d48c7", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(mixed_data1[[3]], col = "black", lwd=2)
 
-qqnorm(mixed_data1[[3]], main = "QQ-Plot Campuran 1\nUkuran Sample (n=60)", col = "#357a87", lwd = 7,
+qqnorm(mixed_data1[[3]], main = "QQ-Plot Campuran 1\nUkuran Sample (n=60)", col = "#792b9a", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(mixed_data1[[3]], col = "black", lwd=2)
 
-qqnorm(mixed_data1[[3]], main = "QQ-Plot Campuran 1\nUkuran Sample (n=100)", col = "#0f2c3a", lwd = 7,
+qqnorm(mixed_data1[[3]], main = "QQ-Plot Campuran 1\nUkuran Sample (n=100)", col = "#48185b", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(mixed_data1[[3]], col = "black", lwd=2)
 ```
@@ -528,28 +528,51 @@ qqline(mixed_data1[[3]], col = "black", lwd=2)
 
 ```{r fig.height=6.5, fig.width=30, dpi=300}
 par(mfrow = c(1, 5))
-qqnorm(mixed_data2[[1]], main = "QQ-Plot Campuran 2\nUkuran Sample (n=4)", col = "#e3f4f1", lwd = 7,
+qqnorm(mixed_data2[[1]], main = "QQ-Plot Campuran 2\nUkuran Sample (n=4)", col = "#fae7fd", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(mixed_data2[[1]], col = "black", lwd=2)
 
-qqnorm(mixed_data2[[2]], main = "QQ-Plot Campuran 2\nUkuran Sample (n=12)", col = "#a9ded7", lwd = 7,
+qqnorm(mixed_data2[[2]], main = "QQ-Plot Campuran 2\nUkuran Sample (n=12)", col = "#eb91f2", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(mixed_data2[[2]], col = "black", lwd=2)
 
-qqnorm(mixed_data2[[3]], main = "QQ-Plot Campuran 2\nUkuran Sample (n=20)", col = "#6ec1c1", lwd = 7,
+qqnorm(mixed_data2[[3]], main = "QQ-Plot Campuran 2\nUkuran Sample (n=20)", col = "#e44cb5", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(mixed_data2[[3]], col = "black", lwd=2)
 
-qqnorm(mixed_data2[[3]], main = "QQ-Plot Campuran 2\nUkuran Sample (n=60)", col = "#357a87", lwd = 7,
+qqnorm(mixed_data2[[3]], main = "QQ-Plot Campuran 2\nUkuran Sample (n=60)", col = "#96336c", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(mixed_data2[[3]], col = "black", lwd=2)
 
-qqnorm(mixed_data2[[3]], main = "QQ-Plot Campuran 2\nUkuran Sample (n=100)", col = "#0f2c3a", lwd = 7,
+qqnorm(mixed_data2[[3]], main = "QQ-Plot Campuran 2\nUkuran Sample (n=100)", col = "#61283f", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
 qqline(mixed_data2[[3]], col = "black", lwd=2)
 ```
 
 #### Campuran 3
+
+```{r fig.height=6.5, fig.width=30, dpi=300}
+par(mfrow = c(1, 5))
+qqnorm(mixed_data3[[1]], main = "QQ-Plot Campuran 3\nUkuran Sample (n=4)", col = "#f5d0bf", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(mixed_data3[[1]], col = "black", lwd=2)
+
+qqnorm(mixed_data3[[2]], main = "QQ-Plot Campuran 3\nUkuran Sample (n=12)", col = "#e9865b", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(mixed_data3[[2]], col = "black", lwd=2)
+
+qqnorm(mixed_data3[[3]], main = "QQ-Plot Campuran 3\nUkuran Sample (n=20)", col = "#ce572b", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(mixed_data3[[3]], col = "black", lwd=2)
+
+qqnorm(mixed_data3[[3]], main = "QQ-Plot Campuran 3\nUkuran Sample (n=60)", col = "#9a3b1a", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(mixed_data3[[3]], col = "black", lwd=2)
+
+qqnorm(mixed_data3[[3]], main = "QQ-Plot Campuran 3\nUkuran Sample (n=100)", col = "#59230c", lwd = 7,
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
+qqline(mixed_data3[[3]], col = "black", lwd=2)
+```
 
 ## Poin 3 {.tabset}
 
