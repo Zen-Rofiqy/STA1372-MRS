@@ -324,6 +324,8 @@ plot_grid(plotlist = all_plots, ncol = 9)
 
     -   **25%** sebaran **chi-square** dengan parameter **a** + **25%** sebaran chi-suqare dengan parameter **b** + **25%** sebaran **normal** dengan paramater **a** + **25%** sebaran **normal** parameter **b**
 
+3.  Ambil **sample** dengan ukuran **n = 4, 12, 20, 60, 100**
+
 ### **Normal**
 
 ```{r fig.height=6.5, fig.width=30, dpi=300}
@@ -331,62 +333,77 @@ set.seed(361)
 k <- 1000
 sample_sizes <- c(4, 12, 20, 60, 100)
 
-norm_data <- lapply(sample_sizes, function(n) matrix(rnorm(n*k, mean = 0, sd = 1),k))
+norm_data <- lapply(sample_sizes, function(n) matrix(rnorm(n*k, mean = 0, sd = 1), k))
 
 par(mfrow = c(1, 5))
 hist(norm_data[[1]], main = "Sebaran Normal\nUkuran sample (n=4)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
+     xlab = "Nilai", ylab = "Frekuensi", col = "#eae1f8")
 hist(norm_data[[2]], main = "Sebaran Normal\nUkuran sample (n=12)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
+     xlab = "Nilai", ylab = "Frekuensi", col = "#d5bbf3")
 hist(norm_data[[3]], main = "Sebaran Normal\nUkuran sample (n=20)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
+     xlab = "Nilai", ylab = "Frekuensi", col = "#9d48c7")
 hist(norm_data[[4]], main = "Sebaran Normal\nUkuran sample (n=60)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
+     xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
 hist(norm_data[[5]], main = "Sebaran Normal\nUkuran sample (n=100)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
+     xlab = "Nilai", ylab = "Frekuensi", col = "#48185b")
 ```
 
 ### **Campuran 1**
 
 > **50%** dari sebaran **normal** + **50%** dari sebaran **chi-square**
 
-```{r}
-set.seed(361)
-k <- 1000
-sample_sizes <- c(4, 12, 20, 60, 100)
+```{r fig.height=6.5, fig.width=30, dpi=300}
+# Data campuran: 50% dari sebaran normal + 50% dari sebaran chi-square
+mix_data_1 <- lapply(seq_along(sample_sizes), function(i) {
+  n <- sample_sizes[i]
+  norm_part <- norm_data[[i]][1:(k /2), 1:n]
+  chisq_part <- matrix(rchisq(n *k /2, df =5), k /2)
+  rbind(norm_part, chisq_part)
+})
 
-csq_data <- lapply(sample_sizes, function(n) matrix(rchisq(n*k, df = 1), k))
-
-mixed_data_1 <- c(norm_data[1:500], csq_data[1:500])
 
 par(mfrow = c(1, 5))
-hist(norm_data[[1]], main = "Sebaran Normal\nUkuran sample (n=4)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
-hist(norm_data[[2]], main = "Sebaran Normal\nUkuran sample (n=12)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
-hist(norm_data[[3]], main = "Sebaran Normal\nUkuran sample (n=20)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
-hist(norm_data[[4]], main = "Sebaran Normal\nUkuran sample (n=60)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
-hist(norm_data[[5]], main = "Sebaran Normal\nUkuran sample (n=100)", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#4664AF")
-```
-
-```{r fig.height=6.5, fig.width=15, dpi=300}
-set.seed(361)
-
-csq_data <- rchisq(1000, df = 1)
-
-
-mixed_data_1 <- c(norm_data[1:500], csq_data[1:500])
-
-hist(mixed_data_1, main = "Histogram Campuran 1", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#9F4274")
+hist(mix_data_1[[1]], main = "Sebaran Campuran 1\n50% Normal + 50% Chi-Square\nUkuran sample (n=4)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#eae1f8")
+hist(mix_data_1[[2]], main = "Sebaran Campuran 1\n50% Normal + 50% Chi-Square\nUkuran sample (n=12)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#d5bbf3")
+hist(mix_data_1[[3]], main = "Sebaran Campuran 1\n50% Normal + 50% Chi-Square\nUkuran sample (n=20)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#9d48c7")
+hist(mix_data_1[[4]], main = "Sebaran Campuran 1\n50% Normal + 50% Chi-Square\nUkuran sample (n=60)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
+hist(mix_data_1[[5]], main = "Sebaran Campuran 1\n50% Normal + 50% Chi-Square\nUkuran sample (n=100)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#48185b")
 ```
 
 ### **Campuran 2**
 
 > **50%** sebaran **chi-square** dengan paramenter **a + 50%** sebaran chi-square dengan paramenter **b**
+
+```{r fig.height=6.5, fig.width=30, dpi=300}
+# Data campuran: 50% sebaran chi-square parameter a + 50% sebaran chi-square parameter b
+mix_data_2 <- lapply(sample_sizes, function(n) {
+  chisq_a <- matrix(rchisq(n*k/2, df = 3), k/2)
+  chisq_b <- matrix(rchisq(n*k/2, df = 8), k/2)
+  rbind(chisq_a, chisq_b)
+})
+
+par(mfrow = c(1, 5))
+hist(mix_data_2[[1]], 
+     main = "Sebaran Campuran 2\n50% Chi-Square df(a) + 50% Chi-Square df(b)\nUkuran sample (n=4)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#eae1f8")
+hist(mix_data_2[[2]], 
+     main = "Sebaran Campuran 2\n50% Chi-Square df(a) + 50% Chi-Square df(b)\nUkuran sample (n=12)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#d5bbf3")
+hist(mix_data_2[[3]], 
+     main = "Sebaran Campuran 2\n50% Chi-Square df(a) + 50% Chi-Square df(b)\nUkuran sample (n=20)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#9d48c7")
+hist(mix_data_2[[4]], 
+     main = "Sebaran Campuran 2\n50% Chi-Square df(a) + 50% Chi-Square df(b)\nUkuran sample (n=60)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
+hist(mix_data_2[[5]], 
+     main = "Sebaran Campuran 2\n50% Chi-Square df(a) + 50% Chi-Square df(b)\nUkuran sample (n=100)", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#48185b")
+```
 
 ```{r fig.height=6.5, fig.width=15, dpi=300}
 set.seed(361)
@@ -401,6 +418,17 @@ hist(mixed_data_2, main = "Histogram Campuran 2",
 
 > **25%** sebaran **chi-square** dengan parameter **a** + **25%** sebaran chi-suqare dengan parameter **b** + **25%** sebaran **normal** dengan paramater **a** + **25%** sebaran **normal** parameter **b**
 
+```{r}
+# Data campuran: 25% sebaran chi-square parameter a + 25% sebaran chi-square parameter b + 25% sebaran normal parameter a + 25% sebaran normal parameter b
+mix_data_3 <- lapply(sample_sizes, function(n) {
+  chisq_a <- matrix(rchisq(n*k/4, df = 3), n*k/4)
+  chisq_b <- matrix(rchisq(n*k/4, df = 8), n*k/4)
+  norm_a <- norm_data[[which(sample_sizes == n)]][1:(n*k/4), ]
+  norm_b <- matrix(rnorm(n*k/4, mean = 2, sd = 1.5), n*k/4)
+  rbind(chisq_a, chisq_b, norm_a, norm_b)
+})
+```
+
 ```{r fig.height=6.5, fig.width=15, dpi=300}
 set.seed(361)
 norm_data_a <- rnorm(250, mean = 0, sd = 1)
@@ -412,9 +440,8 @@ hist(mixed_data_3, main = "Histogram Campuran 3",
 
 ## Poin 2
 
-3.  Ambil **sample** dengan ukuran **n = 4, 12, 20, 60, 100**
-4.  Buat **histogram** dan **normal qq-plot**
-5.  Pada **n berapa** sebaran rataan dari masing-masing data **mulai simeteris** atau **mendekati** sebaran **normal**?
+3.  Buat **histogram** dan **normal qq-plot**
+4.  Pada **n berapa** sebaran rataan dari masing-masing data **mulai simeteris** atau **mendekati** sebaran **normal**?
 
 ```{r fig.height=25, fig.width=25, dpi=300}
 sample_sizes <- c(4, 12, 20, 60, 100)
