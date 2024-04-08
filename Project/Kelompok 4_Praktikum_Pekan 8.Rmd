@@ -470,6 +470,15 @@ qqline(norm_data_means[[5]], col = "black", lwd=2)
 ### Campuran 1
 
 ```{r fig.height=6.5, fig.width=30, dpi=300}
+par(mfrow = c(1, 5))
+hist(apply(mix_data_1[[1]], 1, mean))
+hist(apply(mix_data_1[[2]], 1, mean))
+hist(apply(mix_data_1[[3]], 1, mean))
+hist(apply(mix_data_1[[4]], 1, mean))
+hist(apply(mix_data_1[[5]], 1, mean))
+```
+
+```{r fig.height=6.5, fig.width=30, dpi=300}
 #fungsi penghitung rata-rata sebaran per ukuran sample
 dist_mean <- function(n, dist_samples){
   dist_means <- list()
