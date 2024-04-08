@@ -236,6 +236,76 @@ qqnorm(exp_means[[3]], main = "QQ-Plot Eksponensial\nUkuran Sample (n=25)", col 
 qqline(exp_means[[3]], col = "red", lwd=2)
 ```
 
+## Hasil Keseluruhan
+
+Menggunakan library `ggplot2`, `cowplot` untuk menggabungkan nya.
+
+```{r fig.height=3.5*3, fig.width=10*3, dpi=300}
+plot_distribution <- function(data_awal, data_rataan, title, color) {
+  df_awal <- data.frame(x = c(data_awal))
+  df_rataan <- data.frame(x = data_rataan)
+  
+  # Histogram sebaran awal
+  p1 <- ggplot(data = df_awal, aes(x = x)) +
+    geom_histogram(bins = 20, fill = color, alpha = 1) +
+    geom_density(aes(y = after_stat(count)), fill = color, alpha = 0.4) +
+    labs(title = paste0(title, "\nSebaran Awal")) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
+    )
+  
+  # Histogram rataan sampel
+  p2 <- ggplot(data = df_rataan, aes(x = x)) +
+    geom_histogram(bins = 20, fill = color, alpha = 1) +
+    geom_density(aes(y = after_stat(count)), fill = color, alpha = 0.4) +
+    labs(title = paste0(title, "\nRata-rata Sampel")) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
+    )
+  
+  # QQ plot
+  p3 <- ggplot(data = df_rataan, aes(sample = x)) +
+    stat_qq(color = color, size = 5) +
+    stat_qq_line(color = "red", linewidth = 2) +
+    labs(title = paste0(title, "\nQQ-Plot")) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
+    )
+  
+  return(list(p1, p2, p3))
+}
+
+all_plots <- list()
+
+for (size in sample_sizes) {
+  plots_for_size <- list()
+  
+  colors <- c("#d9eacb", "#c8daf0", "#E4B3BA")
+  
+  plots <- plot_distribution(norm_samples[[which(sample_sizes == size)]], # Data Awal
+                              norm_means[[which(sample_sizes == size)]], # Data Rataan
+                              paste0("Distribusi Normal (n=", size, ")"), colors[1]) # Title & Colors
+  plots_for_size <- c(plots_for_size, plots)
+  
+  plots <- plot_distribution(unif_samples[[which(sample_sizes == size)]], # Data Awal
+                             unif_means[[which(sample_sizes == size)]], # Data Rataan
+                             paste0("Distribusi Seragam (n=", size, ")"), colors[2]) # Title & Colors
+  plots_for_size <- c(plots_for_size, plots)
+  
+  plots <- plot_distribution(exp_samples[[which(sample_sizes == size)]], # Data Awal
+                             exp_means[[which(sample_sizes == size)]], # Data Rataan
+                             paste0("Distribusi Eksponensial (n=", size, ")"), colors[3]) # Title & Colors
+  plots_for_size <- c(plots_for_size, plots)
+  
+  all_plots <- c(all_plots, plots_for_size)
+}
+
+plot_grid(plotlist = all_plots, ncol = 9)
+```
+
 # Bagian B
 
 ## Poin 1 {.tabset}
