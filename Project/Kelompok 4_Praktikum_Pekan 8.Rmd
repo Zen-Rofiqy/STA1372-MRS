@@ -312,7 +312,7 @@ plot_grid(plotlist = all_plots, ncol = 9)
 
 # Bagian B
 
-## Poin 1 {.tabset}
+## Poin 1 & 2 {.tabset}
 
 > Bangkitkan **dua gugus data**
 
@@ -377,7 +377,7 @@ hist(mix_data_3, main = "Sebaran Populasi Campuran 3",
      xlab = "Nilai", ylab = "Frekuensi", col = "#9a3b1a")
 ```
 
-## Poin 2 {.tabset}
+## Poin 3 & 4 {.tabset}
 
 3.  Ambil **sample** dengan ukuran **n = 4, 12, 20, 60, 100**
 4.  Buat **histogram** (Rata-rata contoh) dan **normal qq-plot**
@@ -576,7 +576,7 @@ qqnorm(mixed_data3[[3]], main = "QQ-Plot Campuran 3\nUkuran Sample (n=100)", col
 qqline(mixed_data3[[3]], col = "black", lwd=2)
 ```
 
-## Poin 3 {.tabset}
+## Poin 5 {.tabset}
 
 > 5.  Pada **n berapa** sebaran rataan dari masing-masing data **mulai simeteris** atau **mendekati** sebaran **normal**?
 
@@ -616,25 +616,27 @@ for (size in sample_sizes) {
   if (size == 5) colors <- c("#b4e69e", "#a2c6eb", "#DE7C8A")
   if (size == 25) colors <- c("#8DC16D", "#4493CA", "#D44155")
   
-  plots <- plot_distribution2(norm_samples[[which(sample_sizes == size)]], # Data Awal
-                              norm_means[[which(sample_sizes == size)]], # Data Rataan
+  plots <- plot_distribution2(normal_data[[which(sample_sizes == size)]], # Data Rataan
                               paste0("Distribusi Normal (n=", size, ")"), colors[1]) # Title & Colors
   plots_for_size <- c(plots_for_size, plots)
   
-  plots <- plot_distribution2(unif_samples[[which(sample_sizes == size)]], # Data Awal
-                             unif_means[[which(sample_sizes == size)]], # Data Rataan
-                             paste0("Distribusi Seragam (n=", size, ")"), colors[2]) # Title & Colors
+  plots <- plot_distribution2(mixed_data1[[which(sample_sizes == size)]], # Data Rataan
+                              paste0("Distribusi Campuran 1 (n=", size, ")"), colors[1]) # Title & Colors
   plots_for_size <- c(plots_for_size, plots)
   
-  plots <- plot_distribution2(exp_samples[[which(sample_sizes == size)]], # Data Awal
-                             exp_means[[which(sample_sizes == size)]], # Data Rataan
-                             paste0("Distribusi Eksponensial (n=", size, ")"), colors[3]) # Title & Colors
+  plots <- plot_distribution2(mixed_data2[[which(sample_sizes == size)]], # Data Rataan
+                              paste0("Distribusi Campuran 2 (n=", size, ")"), colors[1]) # Title & Colors
   plots_for_size <- c(plots_for_size, plots)
+  
+  plots <- plot_distribution2(mixed_data3[[which(sample_sizes == size)]], # Data Rataan
+                              paste0("Distribusi Campuran 3 (n=", size, ")"), colors[1]) # Title & Colors
+  plots_for_size <- c(plots_for_size, plots)
+
   
   all_plots <- c(all_plots, plots_for_size)
 }
 
-plot_grid(plotlist = all_plots, ncol = 9)
+plot_grid(plotlist = all_plots, ncol = 8)
 ```
 
 ```{r fig.height=25, fig.width=25, dpi=300}
