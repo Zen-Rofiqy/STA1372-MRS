@@ -352,30 +352,37 @@ hist(norm_data[[5]], main = "Sebaran Normal\nUkuran sample (n=100)",
 
 > **50%** dari sebaran **normal** + **50%** dari sebaran **chi-square**
 
-```{r fig.height=6.5, fig.width=30, dpi=300}
-set.seed(361)
-mix_data_1 <- lapply(seq_along(sample_sizes), function(i) {
-  n <- sample_sizes[i]
-  norm_part <- matrix(rnorm(n*k/2, mean = 0, sd = 1), k/2)
-  chisq_part <- matrix(rchisq(n *k /2, df =5), k /2)
-  rbind(norm_part, chisq_part)
-})
-
+```{r fig.height=5, fig.width=15, dpi=300}
 k <- 1000; n <- 1
 mix_data_1 <- rbind(matrix(rnorm(n*k/2, mean = 0, sd = 1), k/2), 
                     matrix(rchisq(n *k /2, df =5), k /2))
+hist(mix_data_1, main = "Sebaran Populasi Campuran 1", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
+```
 
+```{r fig.height=6.5, fig.width=30, dpi=300}
+set.seed(361)
+k <- 1000
+
+mean_dist <- function(dist, n){
+  means <- rep(NA, k) 
+  for (i in c(1:k)) 
+       means[i] <- mean(sample(dist, size = n, replace = FALSE)) 
+  return(means)
+}
+
+mixed_data1 <- lapply(sample_sizes, function(n) mean_dist(mix_data_1, n))
 
 par(mfrow = c(1, 5))
-hist(mix_data_1[[1]], main = "Sebaran Campuran 1\nUkuran sample (n=4)", 
+hist(mixed_data1[[1]], main = "Sebaran Campuran 1\nUkuran sample (n=4)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#eae1f8")
-hist(mix_data_1[[2]], main = "Sebaran Campuran 1\nUkuran sample (n=12)", 
+hist(mixed_data1[[2]], main = "Sebaran Campuran 2\nUkuran sample (n=12)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#d5bbf3")
-hist(mix_data_1[[3]], main = "Sebaran Campuran 1\nUkuran sample (n=20)", 
+hist(mixed_data1[[3]], main = "Sebaran Campuran 3\nUkuran sample (n=20)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#9d48c7")
-hist(mix_data_1[[4]], main = "Sebaran Campuran 1\nUkuran sample (n=60)", 
+hist(mixed_data1[[4]], main = "Sebaran Campuran 4\nUkuran sample (n=60)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
-hist(mix_data_1[[5]], main = "Sebaran Campuran 1\nUkuran sample (n=100)", 
+hist(mixed_data1[[5]], main = "Sebaran Campuran 5\nUkuran sample (n=100)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#48185b")
 ```
 
@@ -383,29 +390,29 @@ hist(mix_data_1[[5]], main = "Sebaran Campuran 1\nUkuran sample (n=100)",
 
 > **50%** sebaran **chi-square** dengan paramenter **a + 50%** sebaran chi-square dengan paramenter **b**
 
+```{r fig.height=5, fig.width=15, dpi=300}
+k <- 1000; n <- 1
+mix_data_2 <- rbind(matrix(rchisq(n*k/2, df = 3), k/2), 
+                    matrix(rchisq(n*k/2, df = 8), k/2))
+hist(mix_data_2, main = "Sebaran Populasi Campuran 2", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#96336c")
+```
+
 ```{r fig.height=6.5, fig.width=30, dpi=300}
 set.seed(361)
-mix_data_2 <- lapply(sample_sizes, function(n) {
-  chisq_a <- matrix(rchisq(n*k/2, df = 3), k/2)
-  chisq_b <- matrix(rchisq(n*k/2, df = 8), k/2)
-  rbind(chisq_a, chisq_b)
-})
+
+mixed_data2 <- lapply(sample_sizes, function(n) mean_dist(mix_data_2, n))
 
 par(mfrow = c(1, 5))
-hist(mix_data_2[[1]], 
-     main = "Sebaran Campuran 2\nUkuran sample (n=4)", 
+hist(mixed_data2[[1]], main = "Sebaran Campuran 1\nUkuran sample (n=4)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#fae7fd")
-hist(mix_data_2[[2]], 
-     main = "Sebaran Campuran 2\nUkuran sample (n=12)", 
+hist(mixed_data2[[2]], main = "Sebaran Campuran 2\nUkuran sample (n=12)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#eb91f2")
-hist(mix_data_2[[3]], 
-     main = "Sebaran Campuran 2\nUkuran sample (n=20)", 
+hist(mixed_data2[[3]], main = "Sebaran Campuran 3\nUkuran sample (n=20)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#e44cb5")
-hist(mix_data_2[[4]], 
-     main = "Sebaran Campuran 2\nUkuran sample (n=60)", 
+hist(mixed_data2[[4]], main = "Sebaran Campuran 4\nUkuran sample (n=60)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#96336c")
-hist(mix_data_2[[5]], 
-     main = "Sebaran Campuran 2\nUkuran sample (n=100)", 
+hist(mixed_data2[[5]], main = "Sebaran Campuran 5\nUkuran sample (n=100)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#61283f")
 ```
 
