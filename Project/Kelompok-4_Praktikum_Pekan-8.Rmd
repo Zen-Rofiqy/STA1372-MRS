@@ -45,9 +45,9 @@ install_load <- function (package1, ...)  {
 install_load("fitdistrplus","ggplot2","gridExtra","cowplot","gridExtra")
 ```
 
-> <mark style="background-color: #e9865b">**Code/Syntax :** </mark> [File.rmd](https://github.com/Zen-Rofiqy/STA1372-MRS/blob/main/Project/Kelompok%204_Praktikum_Pekan%208.Rmd)
+> <mark style="background-color: #e9865b">**Code/Syntax :** [File.rmd](https://github.com/Zen-Rofiqy/STA1372-MRS/blob/main/Project/Kelompok%204_Praktikum_Pekan%208.Rmd) </mark>
 
-> <mark style="background-color: #6ec1c1">**Rpubs :**</mark><https://rpubs.com/ZenR_Prog/MSR-Prak-08>
+> <mark style="background-color: #6ec1c1">**Rpubs :** <https://rpubs.com/ZenR_Prog/MSR-Prak-08></mark>
 
 ![](images/clipboard-1024985539.png){width="613"}
 
