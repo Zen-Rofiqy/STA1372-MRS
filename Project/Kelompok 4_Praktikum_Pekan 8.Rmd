@@ -191,15 +191,15 @@ hist(exp_means[[3]], main = "Sebaran Eksponensial\nRata-rata sample (n=25)",
 par(mfrow = c(1, 3))
 qqnorm(norm_means[[1]], main = "QQ-Plot Normal", col = "#d9eacb", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(norm_means[[1]], col = "red", lwd=2)
+qqline(norm_means[[1]], col = "black", lwd=2)
 
 qqnorm(norm_means[[2]], main = "QQ-Plot Normal", col = "#b4e69e", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(norm_means[[2]], col = "red", lwd=2)
+qqline(norm_means[[2]], col = "black", lwd=2)
 
 qqnorm(norm_means[[3]], main = "QQ-Plot Normal", col = "#8DC16D", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(norm_means[[3]], col = "red", lwd=2)
+qqline(norm_means[[3]], col = "black", lwd=2)
 ```
 
 ### **Seragam**
@@ -208,15 +208,15 @@ qqline(norm_means[[3]], col = "red", lwd=2)
 par(mfrow = c(1, 3))
 qqnorm(unif_means[[1]], main = "QQ-Plot Seragam\nUkuran Sample (n=2)", col = "#c8daf0", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(unif_means[[1]], col = "red", lwd=2)
+qqline(unif_means[[1]], col = "black", lwd=2)
 
 qqnorm(unif_means[[2]], main = "QQ-Plot Seragam\nUkuran Sample (n=5)", col = "#a2c6eb", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(unif_means[[2]], col = "red", lwd=2)
+qqline(unif_means[[2]], col = "black", lwd=2)
 
 qqnorm(unif_means[[3]], main = "QQ-Plot Seragam\nUkuran Sample (n=25)", col = "#4493CA", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(unif_means[[3]], col = "red", lwd=2)
+qqline(unif_means[[3]], col = "black", lwd=2)
 ```
 
 ### **Eksponensial**
@@ -225,20 +225,20 @@ qqline(unif_means[[3]], col = "red", lwd=2)
 par(mfrow = c(1, 3))
 qqnorm(exp_means[[1]], main = "QQ-Plot Eksponensial\nUkuran Sample (n=2)", col = "#E4B3BA", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(exp_means[[1]], col = "red", lwd=2)
+qqline(exp_means[[1]], col = "black", lwd=2)
 
 qqnorm(exp_means[[2]], main = "QQ-Plot Eksponensial\nUkuran Sample (n=5)", col = "#DE7C8A", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(exp_means[[2]], col = "red", lwd=2)
+qqline(exp_means[[2]], col = "black", lwd=2)
 
 qqnorm(exp_means[[3]], main = "QQ-Plot Eksponensial\nUkuran Sample (n=25)", col = "#D44155", lwd = 7,
        xlab = "Theoretical Quantiles", ylab = "Sample Quantiles")
-qqline(exp_means[[3]], col = "red", lwd=2)
+qqline(exp_means[[3]], col = "black", lwd=2)
 ```
 
 ## Hasil Keseluruhan
 
-Menggunakan library `ggplot2`, `cowplot` untuk menggabungkan nya.
+Menggunakan library `ggplot2` & `cowplot` untuk menggabungkan nya.
 
 ```{r fig.height=3.5*3, fig.width=10*3, dpi=300}
 plot_distribution <- function(data_awal, data_rataan, title, color) {
@@ -247,8 +247,8 @@ plot_distribution <- function(data_awal, data_rataan, title, color) {
   
   # Histogram sebaran awal
   p1 <- ggplot(data = df_awal, aes(x = x)) +
-    geom_histogram(bins = 20, fill = color, alpha = 1) +
-    geom_density(aes(y = ..density..), adjust = 3, fill = color, alpha = 0.4) + # Adjust density
+    geom_histogram(bins = 20, fill = color, color="black",alpha = 1, aes(y = ..density..)) +
+    geom_density(fill = color, adjust = 3, size = 1, alpha=.5) +
     labs(title = paste0(title, "\nSebaran Awal")) +
     theme_minimal() +
     theme(
@@ -257,8 +257,8 @@ plot_distribution <- function(data_awal, data_rataan, title, color) {
   
   # Histogram rataan sampel
   p2 <- ggplot(data = df_rataan, aes(x = x)) +
-    geom_histogram(bins = 20, fill = color, alpha = 1) +
-    geom_density(aes(y = ..density..), adjust = 3, fill = color, alpha = 0.4) + # Adjust density
+    geom_histogram(bins = 20, fill = color, color="black",alpha = 1, aes(y = ..density..)) +
+    geom_density(fill = color, adjust = 3, size = 1, alpha=.5) +
     labs(title = paste0(title, "\nRata-rata Sampel")) +
     theme_minimal() +
     theme(
@@ -268,7 +268,7 @@ plot_distribution <- function(data_awal, data_rataan, title, color) {
   # QQ plot
   p3 <- ggplot(data = df_rataan, aes(sample = x)) +
     stat_qq(color = color, size = 5) +
-    stat_qq_line(color = "red", linewidth = 2) +
+    stat_qq_line(color = "black", linewidth = 1.5) +
     labs(title = paste0(title, "\nQQ-Plot")) +
     theme_minimal() +
     theme(
@@ -284,6 +284,8 @@ for (size in sample_sizes) {
   plots_for_size <- list()
   
   colors <- c("#d9eacb", "#c8daf0", "#E4B3BA")
+  if (size == 5) colors <- c("#b4e69e", "#a2c6eb", "#DE7C8A")
+  if (size == 25) colors <- c("#8DC16D", "#4493CA", "#D44155")
   
   plots <- plot_distribution(norm_samples[[which(sample_sizes == size)]], # Data Awal
                               norm_means[[which(sample_sizes == size)]], # Data Rataan
