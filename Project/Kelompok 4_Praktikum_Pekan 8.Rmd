@@ -53,13 +53,15 @@ install_load("fitdistrplus","ggplot2","gridExtra","cowplot","gridExtra")
 
 **Kelompok 4 Pararel 2**
 
-| Nama                 | NIM         |
-|----------------------|-------------|
-| Angga Fathan Rofiqy  | G1401211006 |
-| Gladys Adya Zafira   | G1401211014 |
-| Kheni Hikmah Lestari | G1401211029 |
+| Nama                 | NIM           |
+|----------------------|---------------|
+| Angga Fathan Rofiqy  | `G1401211006` |
+| Gladys Adya Zafira   | `G1401211014` |
+| Kheni Hikmah Lestari | `G1401211029` |
 
 # Bagian A
+
+> 💡Pada bagian A, populasi dianggap tidak terbatas. Sejalan dengan fungsi pembangkit bilaganan acak dalam R merupakan sampling dari sebaran asli. Sehingga ketika kita melakukan pembangkitan bilangan acak, itu bisa langsung dianggap sampling jika langsung menggunakan fungsi pembangkit bilangan acak seperti `rexp`. Ini tidak berlaku jika kita mencampur fungsi nya, seperti pada kasus bagian B.
 
 ## Poin 1 {.tabset}
 
@@ -242,7 +244,7 @@ qqline(exp_means[[3]], col = "black", lwd=2)
 
 Menggunakan library `ggplot2` & `cowplot` untuk menggabungkan nya.
 
-```{r fig.height=3.5*3, fig.width=10*3, dpi=300}
+```{r fig.height=3.5*3, fig.width=10*3, message=FALSE, warning=FALSE, dpi=300}
 sample_size <- c(2, 5, 25)
 
 plot_distribution <- function(data_awal, data_rataan, title, color) {
@@ -584,7 +586,7 @@ qqline(mixed_data3[[3]], col = "black", lwd=2)
 
 Menggunakan library `ggplot2` & `cowplot` untuk menggabungkan nya.
 
-```{r fig.height=3.5*5, fig.width=6*4, dpi=300}
+```{r fig.height=3.5*5, fig.width=6*4, message=FALSE, warning=FALSE, dpi=300}
 # Plot atas
 histo <- function(dist, title, color){
   df <- data.frame(x = dist)
