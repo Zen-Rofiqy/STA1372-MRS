@@ -248,7 +248,7 @@ plot_distribution <- function(data_awal, data_rataan, title, color) {
   # Histogram sebaran awal
   p1 <- ggplot(data = df_awal, aes(x = x)) +
     geom_histogram(bins = 20, fill = color, alpha = 1) +
-    geom_density(aes(y = after_stat(count)), fill = color, alpha = 0.4) +
+    geom_density(aes(y = ..density..), adjust = 3, fill = color, alpha = 0.4) + # Adjust density
     labs(title = paste0(title, "\nSebaran Awal")) +
     theme_minimal() +
     theme(
@@ -258,7 +258,7 @@ plot_distribution <- function(data_awal, data_rataan, title, color) {
   # Histogram rataan sampel
   p2 <- ggplot(data = df_rataan, aes(x = x)) +
     geom_histogram(bins = 20, fill = color, alpha = 1) +
-    geom_density(aes(y = after_stat(count)), fill = color, alpha = 0.4) +
+    geom_density(aes(y = ..density..), adjust = 3, fill = color, alpha = 0.4) + # Adjust density
     labs(title = paste0(title, "\nRata-rata Sampel")) +
     theme_minimal() +
     theme(
