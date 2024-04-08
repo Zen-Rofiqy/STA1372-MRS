@@ -42,7 +42,7 @@ install_load <- function (package1, ...)  {
    } 
 }
 
-install_load("fitdistrplus","ggplot2","gridExtra","cowplot")
+install_load("fitdistrplus","ggplot2","gridExtra","cowplot","gridExtra")
 ```
 
 > <mark style="background-color: #e9865b">**Code/Syntax :** [File.rmd](https://github.com/Zen-Rofiqy/STA1372-MRS/blob/main/Project/Kelompok%204_Praktikum_Pekan%208.Rmd) </mark>
@@ -597,16 +597,22 @@ histo <- function(dist, title, color){
     theme(
       plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
     )
-  return(list(p1)
+  return(list(p1))
 }
 
-all_plots <- c(
+atas <- c(
   histo(norm_data, paste0("Normal"), color="#357a87"),
   histo(mix_data_1, paste0("Campuran 1"), color="#792b9a"),
   histo(mix_data_2, paste0("Campuran 2"), color="#96336c"),
   histo(mix_data_3, paste0("Campuran 3"), color="#9a3b1a")  
 )
-plot_grid(plotlist = all_plots, ncol = 3)
+atas <- plot_grid(plotlist = atas, ncol = 4)
+atas
+```
+
+```{r fig.height=3.5*4, fig.width=6*4, dpi=300}
+
+plot_grid(atas, all_plots, ncol = 8)
 ```
 
 ```{r fig.height=3.5*4, fig.width=6*4, dpi=300}
@@ -637,113 +643,6 @@ plot_distribution2 <- function(data_rataan, title, color) {
 }
 
 all_plots <- list()
-
-histo <- function(dist, title, color){
-  df <- data.frame(x = dist)
-  
-  # Histogram rataan sampel
-  p1 <- ggplot(data = df, aes(x = x)) +
-    geom_histogram(bins = 20, fill = color, color="black",alpha = 1, aes(y = ..density..)) +
-    geom_density(fill = color, adjust = 3, size = 1, alpha=.5) +
-    labs(title = paste0("Sebaran Populasi ", title)) +
-    theme_minimal() +
-    theme(
-      plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
-    )
-  hist(norm_data, main = "Sebaran Populasi Campuran 1", 
-       xlab = "Nilai", ylab = "Frekuensi", col = "#357a87") 
-}
-
-all_plots <- c(
-  histo(norm_data, paste0("Normal"), color="#357a87"),
-  histo(mix_data_1, paste0("Campuran 1"), color="#792b9a"),
-  histo(mix_data_2, paste0("Campuran 2"), color="#96336c"),
-  histo(mix_data_3, paste0("Campuran 3"), color="#9a3b1a")  
-)
-
-for (size in sample_sizes) {
-  plots_for_size <- list()
-  
-  colors <-                 c("#e3f4f1", "#eae1f8", "#fae7fd", "#f5d0bf")
-  if (size == 12) colors <- c("#a9ded7", "#d5bbf3", "#eb91f2", "#e9865b")
-  if (size == 20) colors <- c("#6ec1c1", "#9d48c7", "#e44cb5", "#ce572b")
-  if (size == 60) colors <- c("#357a87", "#792b9a", "#96336c", "#9a3b1a")
-  if (size == 100) colors <-c("#0f2c3a", "#48185b", "#61283f", "#59230c")
-  
-  plots <- plot_distribution2(normal_data[[which(sample_sizes == size)]], # Data Rataan
-                              paste0("Distribusi Normal (n=", size, ")"), colors[1]) # Title & Colors
-  plots_for_size <- c(plots_for_size, plots)
-  
-  plots <- plot_distribution2(mixed_data1[[which(sample_sizes == size)]], # Data Rataan
-                              paste0("Distribusi Campuran 1 (n=", size, ")"), colors[2]) # Title & Colors
-  plots_for_size <- c(plots_for_size, plots)
-  
-  plots <- plot_distribution2(mixed_data2[[which(sample_sizes == size)]], # Data Rataan
-                              paste0("Distribusi Campuran 2 (n=", size, ")"), colors[3]) # Title & Colors
-  plots_for_size <- c(plots_for_size, plots)
-  
-  plots <- plot_distribution2(mixed_data3[[which(sample_sizes == size)]], # Data Rataan
-                              paste0("Distribusi Campuran 3 (n=", size, ")"), colors[4]) # Title & Colors
-  plots_for_size <- c(plots_for_size, plots)
-
-  
-  all_plots <- c(all_plots, plots_for_size)
-}
-
-plot_grid(plotlist = all_plots, ncol = 8)
-```
-
-```{r fig.height=3.5*4, fig.width=6*4, dpi=300}
-plot_distribution2 <- function(data_rataan, title, color) {
-  df_rataan <- data.frame(x = data_rataan)
-  
-  # Histogram rataan sampel
-  p2 <- ggplot(data = df_rataan, aes(x = x)) +
-    geom_histogram(bins = 20, fill = color, color="black",alpha = 1, aes(y = ..density..)) +
-    geom_density(fill = color, adjust = 3, size = 1, alpha=.5) +
-    labs(title = paste0(title, "\nRata-rata Sampel")) +
-    theme_minimal() +
-    theme(
-      plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
-    )
-  
-  # QQ plot
-  p3 <- ggplot(data = df_rataan, aes(sample = x)) +
-    stat_qq(color = color, size = 5) +
-    stat_qq_line(color = "black", linewidth = 1.5) +
-    labs(title = paste0(title, "\nQQ-Plot")) +
-    theme_minimal() +
-    theme(
-      plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
-    )
-  
-  return(list(p2, p3))
-}
-
-all_plots <- list()
-
-histo <- function(dist, title, color){
-  df <- data.frame(x = dist)
-  
-  # Histogram rataan sampel
-  p1 <- ggplot(data = df, aes(x = x)) +
-    geom_histogram(bins = 20, fill = color, color="black",alpha = 1, aes(y = ..density..)) +
-    geom_density(fill = color, adjust = 3, size = 1, alpha=.5) +
-    labs(title = paste0("Sebaran Populasi ", title)) +
-    theme_minimal() +
-    theme(
-      plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
-    )
-  hist(norm_data, main = "Sebaran Populasi Campuran 1", 
-       xlab = "Nilai", ylab = "Frekuensi", col = "#357a87") 
-}
-
-all_plots <- c(
-  histo(norm_data, paste0("Normal"), color="#357a87"),
-  histo(mix_data_1, paste0("Campuran 1"), color="#792b9a"),
-  histo(mix_data_2, paste0("Campuran 2"), color="#96336c"),
-  histo(mix_data_3, paste0("Campuran 3"), color="#9a3b1a")  
-)
 
 for (size in sample_sizes) {
   plots_for_size <- list()
