@@ -68,12 +68,11 @@ Berikut merupakan hasil pembangkitan masing-masing serbaran dengan ukuran contoh
 ### **Normal**
 
 ```{r fig.height=3.5, fig.width=10, dpi=300}
-set.seed(58)
+set.seed(361)
+k <- 100 # ulangan (gak ada ketentuan berapa nya, alias bebas berapa aja)
 sample_size <- c(2, 5, 25)
 
-norm_samples <- lapply(sample_size, function(n) rnorm(n))
-
-print(norm_samples)
+norm_samples <- lapply(sample_size, function(n) matrix(rnorm(n*k),k))
 
 par(mfrow = c(1, 3))
 hist(norm_samples[[1]], main = "Histogram Normal n=2", 
@@ -89,10 +88,11 @@ Sebaran Normal dengan ukuran contoh (n) **2, 5, 25**
 ### **Seragam**
 
 ```{r fig.height=3.5, fig.width=10, dpi=300}
-set.seed(22)
-unif_samples <- lapply(sample_size, function(n) runif(n))
+set.seed(361)
+k <- 100 # ulangan (gak ada ketentuan berapa nya, alias bebas berapa aja)
+sample_size <- c(2, 5, 25)
 
-print(unif_samples)
+unif_samples <- lapply(sample_size, function(n) matrix(runif(n*k),k))
 
 par(mfrow = c(1, 3))
 hist(unif_samples[[1]], main = "Histogram Seragam n=2", 
@@ -108,10 +108,11 @@ Sebaran Seragam dengan ukuran contoh (n) **2, 5, 25**
 ### **Eksponensial**
 
 ```{r fig.height=3.5, fig.width=10, dpi=300}
-set.seed(88)
-exp_samples <- lapply(sample_size, function(n) rexp(n))
+set.seed(361)
+k <- 100 # ulangan (gak ada ketentuan berapa nya, alias bebas berapa aja)
+sample_size <- c(2, 5, 25)
 
-print(exp_samples)
+exp_samples <- lapply(sample_size, function(n) matrix(rexp(n*k),k))
 
 par(mfrow = c(1, 3))
 hist(exp_samples[[1]], main = "Histogram Eksponensial n=2", 
@@ -128,56 +129,22 @@ Sebaran Eksponensial dengan ukuran contoh (n) **2, 5, 25**
 
 > Buat **histogram** dari **rataan contoh**nya
 
-```{r}
-# Menghitung rata-rata dari masing-masing sampel
-norm_means <- sapply(norm_samples, mean)
-unif_means <- sapply(unif_samples, mean)
-exp_means <- sapply(exp_samples, mean)
-```
-
-```{r fig.height=7, fig.width=15, dpi=300}
-par(mfrow = c(1, 3))
-hist(apply(norm_samples[[1]], 1, mean))
-hist(apply(norm_samples[[2]], 1, mean))
-hist(apply(norm_samples[[3]], 1, mean))
-```
-
 ### **Rata-rata contoh** masing-masing sebaran: {.tabset}
 
 #### **Normal**
 
-```{r}
-population <- rexp(1000)
-means <- rep(NA, 1000) 
+```{r fig.height=3.5, fig.width=10, dpi=300}
 
- for (i in c(1:1000)) means[i] <- mean(rexp(100)) 
-
- str(means)
- 
- str(norm_means)
-```
-
-```{r fig.height=7, fig.width=15, dpi=300}
-set.seed(361)
-k <- 100 # ulangan
-sample_size <- c(2, 5, 25)
-
-norm_samples <- lapply(sample_size, function(n) matrix(rnorm(n*k),k))
-
-par(mfrow = c(2, 3))
-hist(norm_samples[[1]], main = "Histogram Normal n=2", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#d9eacb")
-hist(norm_samples[[2]], main = "Histogram Normal n=5", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#b4e69e")
-hist(norm_samples[[3]], main = "Histogram Normal n=25", 
-     xlab = "Nilai", ylab = "Frekuensi", col = "#8DC16D")
-
-norm_means <- list()
-
-for (i in seq_along(sample_sizes)) {
-  norm_means[[i]] <- apply(norm_samples[[i]], 1, mean)
+dist_mean <- function(n, dist_samples){
+  dist_means <- list()
+  for (i in seq_along(n)) 
+    dist_means[[i]] <- apply(dist_samples[[i]], 1, mean)
+  return(dist_means)
 }
 
+norm_means <- dist_mean(sample_size, norm_samples)
+
+par(mfrow = c(1, 3))
 hist(norm_means[[1]], main = "Histogram Normal n=2", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#d9eacb")
 hist(norm_means[[2]], main = "Histogram Normal n=5", 
