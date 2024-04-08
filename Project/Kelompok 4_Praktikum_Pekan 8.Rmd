@@ -580,11 +580,8 @@ qqline(mixed_data3[[3]], col = "black", lwd=2)
 
 > 5.  Pada **n berapa** sebaran rataan dari masing-masing data **mulai simeteris** atau **mendekati** sebaran **normal**?
 
-```{r}
-histo(mix_data_1, paste0("Campuran 1"), color="#792b9a")
-```
-
-```{r fig.height=3.5, fig.width=6*4, dpi=300}
+```{r fig.height=3.5*5, fig.width=6*4, dpi=300}
+# Plot atas
 histo <- function(dist, title, color){
   df <- data.frame(x = dist)
   
@@ -606,16 +603,10 @@ atas <- c(
   histo(mix_data_2, paste0("Campuran 2"), color="#96336c"),
   histo(mix_data_3, paste0("Campuran 3"), color="#9a3b1a")  
 )
-atas <- plot_grid(plotlist = atas, ncol = 4)
-atas
-```
 
-```{r fig.height=3.5*4, fig.width=6*4, dpi=300}
+plot_grid_top <- plot_grid(plotlist = atas, ncol = 4)
 
-plot_grid(atas, all_plots, ncol = 8)
-```
-
-```{r fig.height=3.5*4, fig.width=6*4, dpi=300}
+# Plot bawah
 plot_distribution2 <- function(data_rataan, title, color) {
   df_rataan <- data.frame(x = data_rataan)
   
@@ -673,7 +664,10 @@ for (size in sample_sizes) {
   all_plots <- c(all_plots, plots_for_size)
 }
 
-plot_grid(plotlist = all_plots, ncol = 8)
+plot_grid_bottom <- plot_grid(plotlist = all_plots, ncol = 8)
+
+# Gabung
+plot_grid(plot_grid_top, plot_grid_bottom, ncol=1, rel_heights = c(0.2, 1))
 ```
 
 ```{r fig.height=25, fig.width=25, dpi=300}
