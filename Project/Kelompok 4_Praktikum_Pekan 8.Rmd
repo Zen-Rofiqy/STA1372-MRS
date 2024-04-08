@@ -612,24 +612,26 @@ all_plots <- list()
 for (size in sample_sizes) {
   plots_for_size <- list()
   
-  colors <- c("#d9eacb", "#c8daf0", "#E4B3BA")
-  if (size == 5) colors <- c("#b4e69e", "#a2c6eb", "#DE7C8A")
-  if (size == 25) colors <- c("#8DC16D", "#4493CA", "#D44155")
+  colors <-                 c("#e3f4f1", "#eae1f8", "#fae7fd", "#f5d0bf")
+  if (size == 12) colors <- c("#a9ded7", "#d5bbf3", "#eb91f2", "#e9865b")
+  if (size == 20) colors <- c("#6ec1c1", "#9d48c7", "#e44cb5", "#ce572b")
+  if (size == 60) colors <- c("#357a87", "#792b9a", "#96336c", "#9a3b1a")
+  if (size == 100) colors <-c("#0f2c3a", "#48185b", "#61283f", "#59230c")
   
   plots <- plot_distribution2(normal_data[[which(sample_sizes == size)]], # Data Rataan
                               paste0("Distribusi Normal (n=", size, ")"), colors[1]) # Title & Colors
   plots_for_size <- c(plots_for_size, plots)
   
   plots <- plot_distribution2(mixed_data1[[which(sample_sizes == size)]], # Data Rataan
-                              paste0("Distribusi Campuran 1 (n=", size, ")"), colors[1]) # Title & Colors
+                              paste0("Distribusi Campuran 1 (n=", size, ")"), colors[2]) # Title & Colors
   plots_for_size <- c(plots_for_size, plots)
   
   plots <- plot_distribution2(mixed_data2[[which(sample_sizes == size)]], # Data Rataan
-                              paste0("Distribusi Campuran 2 (n=", size, ")"), colors[1]) # Title & Colors
+                              paste0("Distribusi Campuran 2 (n=", size, ")"), colors[3]) # Title & Colors
   plots_for_size <- c(plots_for_size, plots)
   
   plots <- plot_distribution2(mixed_data3[[which(sample_sizes == size)]], # Data Rataan
-                              paste0("Distribusi Campuran 3 (n=", size, ")"), colors[1]) # Title & Colors
+                              paste0("Distribusi Campuran 3 (n=", size, ")"), colors[4]) # Title & Colors
   plots_for_size <- c(plots_for_size, plots)
 
   
