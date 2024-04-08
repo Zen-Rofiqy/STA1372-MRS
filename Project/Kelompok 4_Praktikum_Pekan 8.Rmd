@@ -140,7 +140,31 @@ exp_means <- sapply(exp_samples, mean)
 #### **Normal**
 
 ```{r}
-print(norm_means)
+# Inisialisasi ukuran sampel yang diinginkan
+sample_sizes <- c(2, 5, 25)
+
+# Inisialisasi list untuk menyimpan histogram dari setiap sampel
+sample_histograms <- list()
+
+# Inisialisasi list untuk menyimpan rata-rata dari masing-masing sampel
+norm_means <- numeric(length(sample_sizes))
+
+# Loop untuk menghasilkan sampel dan histogram dari masing-masing sampel
+for (i in seq_along(sample_sizes)) {
+  samp <- rnorm(sample_sizes[i])  # Generate sampel
+  sample_histograms[[i]] <- hist(samp, plot = FALSE)  # Buat histogram untuk sampel dan simpan dalam list
+  norm_means[i] <- mean(samp)  # Hitung rata-rata sampel
+}
+
+# Buat histogram dari rata-rata sampel
+hist(norm_means, main = "Histogram Mean Normal", 
+     xlab = "Rata-rata", ylab = "Frekuensi", col = "#8DC16D")
+
+# Tampilkan histogram dari masing-masing sampel
+par(mfrow = c(1, length(sample_sizes)))  # Atur layout grafik menjadi satu baris
+for (i in seq_along(sample_sizes)) {
+  plot(sample_histograms[[i]], main = paste("Histogram Sample Size", sample_sizes[i]), col = "#8DC16D")
+}
 ```
 
 #### **Seragam**
