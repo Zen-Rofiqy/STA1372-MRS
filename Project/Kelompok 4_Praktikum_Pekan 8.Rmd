@@ -241,6 +241,8 @@ qqline(exp_means[[3]], col = "black", lwd=2)
 Menggunakan library `ggplot2` & `cowplot` untuk menggabungkan nya.
 
 ```{r fig.height=3.5*3, fig.width=10*3, dpi=300}
+sample_size <- c(2, 5, 25)
+
 plot_distribution <- function(data_awal, data_rataan, title, color) {
   df_awal <- data.frame(x = c(data_awal))
   df_rataan <- data.frame(x = data_rataan)
@@ -280,25 +282,25 @@ plot_distribution <- function(data_awal, data_rataan, title, color) {
 
 all_plots <- list()
 
-for (size in sample_sizes) {
+for (size in sample_size) {
   plots_for_size <- list()
   
   colors <- c("#d9eacb", "#c8daf0", "#E4B3BA")
   if (size == 5) colors <- c("#b4e69e", "#a2c6eb", "#DE7C8A")
   if (size == 25) colors <- c("#8DC16D", "#4493CA", "#D44155")
   
-  plots <- plot_distribution(norm_samples[[which(sample_sizes == size)]], # Data Awal
-                              norm_means[[which(sample_sizes == size)]], # Data Rataan
+  plots <- plot_distribution(norm_samples[[which(sample_size == size)]], # Data Awal
+                              norm_means[[which(sample_size == size)]], # Data Rataan
                               paste0("Distribusi Normal (n=", size, ")"), colors[1]) # Title & Colors
   plots_for_size <- c(plots_for_size, plots)
   
-  plots <- plot_distribution(unif_samples[[which(sample_sizes == size)]], # Data Awal
-                             unif_means[[which(sample_sizes == size)]], # Data Rataan
+  plots <- plot_distribution(unif_samples[[which(sample_size == size)]], # Data Awal
+                             unif_means[[which(sample_size == size)]], # Data Rataan
                              paste0("Distribusi Seragam (n=", size, ")"), colors[2]) # Title & Colors
   plots_for_size <- c(plots_for_size, plots)
   
-  plots <- plot_distribution(exp_samples[[which(sample_sizes == size)]], # Data Awal
-                             exp_means[[which(sample_sizes == size)]], # Data Rataan
+  plots <- plot_distribution(exp_samples[[which(sample_size == size)]], # Data Awal
+                             exp_means[[which(sample_size == size)]], # Data Rataan
                              paste0("Distribusi Eksponensial (n=", size, ")"), colors[3]) # Title & Colors
   plots_for_size <- c(plots_for_size, plots)
   
@@ -577,6 +579,63 @@ qqline(mixed_data3[[3]], col = "black", lwd=2)
 ## Poin 3 {.tabset}
 
 > 5.  Pada **n berapa** sebaran rataan dari masing-masing data **mulai simeteris** atau **mendekati** sebaran **normal**?
+
+```{r fig.height=3.5*5, fig.width=10*5, dpi=300}
+plot_distribution2 <- function(data_rataan, title, color) {
+  df_rataan <- data.frame(x = data_rataan)
+  
+  # Histogram rataan sampel
+  p2 <- ggplot(data = df_rataan, aes(x = x)) +
+    geom_histogram(bins = 20, fill = color, color="black",alpha = 1, aes(y = ..density..)) +
+    geom_density(fill = color, adjust = 3, size = 1, alpha=.5) +
+    labs(title = paste0(title, "\nRata-rata Sampel")) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
+    )
+  
+  # QQ plot
+  p3 <- ggplot(data = df_rataan, aes(sample = x)) +
+    stat_qq(color = color, size = 5) +
+    stat_qq_line(color = "black", linewidth = 1.5) +
+    labs(title = paste0(title, "\nQQ-Plot")) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5)
+    )
+  
+  return(list(p2, p3))
+}
+
+all_plots <- list()
+
+for (size in sample_sizes) {
+  plots_for_size <- list()
+  
+  colors <- c("#d9eacb", "#c8daf0", "#E4B3BA")
+  if (size == 5) colors <- c("#b4e69e", "#a2c6eb", "#DE7C8A")
+  if (size == 25) colors <- c("#8DC16D", "#4493CA", "#D44155")
+  
+  plots <- plot_distribution2(norm_samples[[which(sample_sizes == size)]], # Data Awal
+                              norm_means[[which(sample_sizes == size)]], # Data Rataan
+                              paste0("Distribusi Normal (n=", size, ")"), colors[1]) # Title & Colors
+  plots_for_size <- c(plots_for_size, plots)
+  
+  plots <- plot_distribution2(unif_samples[[which(sample_sizes == size)]], # Data Awal
+                             unif_means[[which(sample_sizes == size)]], # Data Rataan
+                             paste0("Distribusi Seragam (n=", size, ")"), colors[2]) # Title & Colors
+  plots_for_size <- c(plots_for_size, plots)
+  
+  plots <- plot_distribution2(exp_samples[[which(sample_sizes == size)]], # Data Awal
+                             exp_means[[which(sample_sizes == size)]], # Data Rataan
+                             paste0("Distribusi Eksponensial (n=", size, ")"), colors[3]) # Title & Colors
+  plots_for_size <- c(plots_for_size, plots)
+  
+  all_plots <- c(all_plots, plots_for_size)
+}
+
+plot_grid(plotlist = all_plots, ncol = 9)
+```
 
 ```{r fig.height=25, fig.width=25, dpi=300}
 sample_sizes <- c(4, 12, 20, 60, 100)
