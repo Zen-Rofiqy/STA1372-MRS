@@ -361,6 +361,11 @@ mix_data_1 <- lapply(seq_along(sample_sizes), function(i) {
   rbind(norm_part, chisq_part)
 })
 
+k <- 1000; n <- 1
+mix_data_1 <- rbind(matrix(rnorm(n*k/2, mean = 0, sd = 1), k/2), 
+                    matrix(rchisq(n *k /2, df =5), k /2))
+
+
 par(mfrow = c(1, 5))
 hist(mix_data_1[[1]], main = "Sebaran Campuran 1\nUkuran sample (n=4)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#eae1f8")
