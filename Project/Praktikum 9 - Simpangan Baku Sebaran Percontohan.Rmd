@@ -1,0 +1,144 @@
+---
+title: "Praktikum 9 - Simpangan Baku"
+author: "Zaki Ramadhan Muchlish G1401201015"
+date: "2024-04-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Percobaan Simpangan Baku
+
+1. Menentukan populasi 
+2. Mengambil contoh sebanyak n 
+3. Menghitung mean contoh dan simpan 
+4. Mengulang langkah 1-4 sebanyak k kali 
+5. Menghitung simpangan baku dari mean contoh
+
+## n = 40
+
+```{r}
+set.seed(50)
+sample.means <- rep(NA, 1000)
+for (i in 1:1000) {
+  sample.40 <- rnorm(40, mean = 60, sd = 4)
+  sample.means[i] <- mean(sample.40)
+}
+means40 <- mean(sample.means)
+sd40 <- sd(sample.means)
+cat("mean = ", means40, "\nSD = ", sd40)
+hist(sample.means)
+```
+
+## n = 100
+
+```{r}
+set.seed(50)
+sample.means <- rep(NA, 1000)
+for (i in 1:1000) {
+  sample.100 <- rnorm(100, mean = 60, sd = 4)
+  sample.means[i] <- mean(sample.100)
+}
+means100 <- mean(sample.means)
+sd100 <- sd(sample.means)
+cat("mean = ", means100, "\nSD = ", sd100)
+hist(sample.means)
+```
+
+Terlihat bahwa: 
+1. ketika ukuran contoh diperbesar, simpangan baku dari sebaran percontohan mean contoh menyusut.
+
+```{r}
+cat(sd40, sd100)
+```
+
+2.  Ketika ukuran contoh diperbesar, mean dari sebaran percontohan mendekati mean populasi.
+
+```{r}
+cat('Contoh 40  =', means40,'\n')
+cat('Contoh 100 =', means100,'\n')
+cat('Populasi   =', 60)
+```
+
+3.  Terdapat hubungan antara simpangan baku populasi dan simpangan baku sebaran percontohan.
+
+$\sigma_\bar x = \sigma / \sqrt{n}$
+
+```{r}
+cat('Perhitungan manual 40 contoh  = ', 4/sqrt(40),'Simulasi =', sd40,"\n")
+cat('Perhitungan manual 100 contoh = ', 4/sqrt(100),'      Simulasi =', sd100)
+```
+
+# Selang Kepercayaan 95% mean contoh 
+
+Misal kita punya suatu sekumpulan contoh dari populasi yang menyebar normal dengan mean dan simpangan baku yang diketahui. Kita dapat menduga mean populasi menggunakan sebaran percontohan beserta simpangan baku menggunakan rumus di atas.
+
+## 11 Contoh
+```{r}
+set.seed(50)
+sample.11 <- rnorm(11, mean = 60, sd = 4)
+sample.11
+```
+
+```{r}
+(estimated.mean <- mean(sample.11))
+```
+
+```{r}
+popSD <- 4
+sample.size <- length(sample.11)
+(sigma.mu <- popSD/sqrt(sample.size))
+```
+
+$\bar x \pm (2 \times \sigma_\bar x) = 59.220 \pm (2 \times 1.206)$
+
+## 44 Contoh 
+
+```{r}
+set.seed(50)
+sample.44 <- rnorm(44, mean = 60, sd = 4)
+sample.44
+```
+
+```{r}
+(estimated.mean <- mean(sample.44))
+```
+
+```{r}
+popSD <- 4
+sample.size <- length(sample.44)
+(sigma.mu <- popSD/sqrt(sample.size))
+```
+
+$\bar x \pm (2 \times \sigma_\bar x) = 59.597 \pm (2 \times 0.603)$
+
+Ketika banyak contoh diperbesar, selang kepercayaan 95% yang didapatkan lebih kecil. 
+
+# Inferensi Praktis (Penduga tak bias Sigma)
+
+Sejauh ini percontohan dilakukan terhadap populasi yang diketahui mean dan simpangan bakunya. Namun, umumnya kita tidak tahu parameter populasi dan perlu dilakukan pendugaan menggunakan simpangan baku contoh (s). Sehingga rumus di atas menjadi rumus Standard Error:
+
+$SE_\bar x = s/ \sqrt{n}$
+
+Apakah s dapat digunakan sebagai penduga yang baik untuk $\sigma$?
+
+```{r}
+set.seed(50)
+sample.sds <- rep(NA, 1000)
+for (i in c(1:1000)) {
+  sample.40 <- rnorm(40, mean = 60, sd = 4)
+  sample.sds[i] <- sd(sample.40)
+}
+hist(sample.sds)
+```
+
+Terlihat bahwa sebaran percontohan simpangan baku menyebar normal dan mendekati nilai simpangan baku populasi (4), sehingga telah dibuktikan secara simulasi bahwa s adalah penduga tak bias terhadap $\sigma$.
+
+# Latihan
+
+1. Ulangi simulasi percobaan simpangan baku untuk n = 100 dan n = 500, bandingkan hasilnya!
+2. Ulangi simulasi selang kepercayaan untuk n = 250, apa kesimpulannya?
+3. Uangi simulasi penduga tak bias untuk sebaran eksponensial dan seragam, apakah s tetap tak bias?
