@@ -5,18 +5,13 @@ date: "2024-04-21"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-
 # Percobaan Simpangan Baku
 
-1. Menentukan populasi 
-2. Mengambil contoh sebanyak n 
-3. Menghitung mean contoh dan simpan 
-4. Mengulang langkah 1-4 sebanyak k kali 
-5. Menghitung simpangan baku dari mean contoh
+1.  Menentukan populasi
+2.  Mengambil contoh sebanyak n
+3.  Menghitung mean contoh dan simpan
+4.  Mengulang langkah 1-4 sebanyak k kali
+5.  Menghitung simpangan baku dari mean contoh
 
 ## n = 40
 
@@ -48,8 +43,7 @@ cat("mean = ", means100, "\nSD = ", sd100)
 hist(sample.means)
 ```
 
-Terlihat bahwa: 
-1. ketika ukuran contoh diperbesar, simpangan baku dari sebaran percontohan mean contoh menyusut.
+Terlihat bahwa: 1. ketika ukuran contoh diperbesar, simpangan baku dari sebaran percontohan mean contoh menyusut.
 
 ```{r}
 cat(sd40, sd100)
@@ -72,11 +66,12 @@ cat('Perhitungan manual 40 contoh  = ', 4/sqrt(40),'Simulasi =', sd40,"\n")
 cat('Perhitungan manual 100 contoh = ', 4/sqrt(100),'      Simulasi =', sd100)
 ```
 
-# Selang Kepercayaan 95% mean contoh 
+# Selang Kepercayaan 95% mean contoh
 
 Misal kita punya suatu sekumpulan contoh dari populasi yang menyebar normal dengan mean dan simpangan baku yang diketahui. Kita dapat menduga mean populasi menggunakan sebaran percontohan beserta simpangan baku menggunakan rumus di atas.
 
 ## 11 Contoh
+
 ```{r}
 set.seed(50)
 sample.11 <- rnorm(11, mean = 60, sd = 4)
@@ -95,7 +90,7 @@ sample.size <- length(sample.11)
 
 $\bar x \pm (2 \times \sigma_\bar x) = 59.220 \pm (2 \times 1.206)$
 
-## 44 Contoh 
+## 44 Contoh
 
 ```{r}
 set.seed(50)
@@ -115,7 +110,7 @@ sample.size <- length(sample.44)
 
 $\bar x \pm (2 \times \sigma_\bar x) = 59.597 \pm (2 \times 0.603)$
 
-Ketika banyak contoh diperbesar, selang kepercayaan 95% yang didapatkan lebih kecil. 
+Ketika banyak contoh diperbesar, selang kepercayaan 95% yang didapatkan lebih kecil.
 
 # Inferensi Praktis (Penduga tak bias Sigma)
 
@@ -139,6 +134,18 @@ Terlihat bahwa sebaran percontohan simpangan baku menyebar normal dan mendekati 
 
 # Latihan
 
-1. Ulangi simulasi percobaan simpangan baku untuk n = 100 dan n = 500, bandingkan hasilnya!
-2. Ulangi simulasi selang kepercayaan untuk n = 250, apa kesimpulannya?
-3. Uangi simulasi penduga tak bias untuk sebaran eksponensial dan seragam, apakah s tetap tak bias?
+1.  Ulangi simulasi percobaan simpangan baku untuk n = 100 dan n = 500, bandingkan hasilnya!
+2.  Ulangi simulasi selang kepercayaan untuk n = 250, apa kesimpulannya?
+3.  Uangi simulasi penduga tak bias untuk sebaran eksponensial dan seragam, apakah s tetap tak bias?
+
+## No 1
+
+> Ulangi simulasi percobaan simpangan baku untuk n = 100 dan n = 500, bandingkan hasilnya!
+
+## No 2
+
+> Ulangi simulasi selang kepercayaan untuk n = 250, apa kesimpulannya?
+
+## No 3
+
+> Uangi simulasi penduga tak bias untuk sebaran eksponensial dan seragam, apakah s tetap tak bias?
