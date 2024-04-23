@@ -1,13 +1,34 @@
 ---
 title: "Kelompok 4_Praktikum_Pekan 9"
 author: "Angga Fathan Rofiqy"
-date: "2024-04-21"
-output: html_document
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  rmdformats::downcute:
+    self_contained: true
+    thumbnails: false
+    lightbox: true
+    gallery: true
+    highlight: tango
+    code_folding: show
+    toc_depth: 3
+    number_sections: false
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+    fig_caption: true
+pkgdown:
+  as_is: true
 ---
 
 > <mark style="background-color: #e9865b">**Code/Syntax :** </mark> [File.rmd](https://github.com/Zen-Rofiqy/STA1372-MRS/blob/main/Project/Kelompok%204_Praktikum_Pekan%209.Rmd)
 
-> <mark style="background-color: #6ec1c1">**Rpubs :**</mark><https://rpubs.com/ZenR_Prog/MSR-Prak-08>
+**Kelompok 4 Pararel 2**
+
+| Nama                 | NIM           |
+|----------------------|---------------|
+| Angga Fathan Rofiqy  | `G1401211006` |
+| Gladys Adya Zafira   | `G1401211014` |
+| Kheni Hikmah Lestari | `G1401211029` |
 
 # Latihan
 
@@ -38,8 +59,8 @@ means500 <- mean(n500)
 sd500 <- sd(n500)
 
 par(mfrow = c(1, 2))
-hist(n100)
-hist(n500)
+hist(n100, col = "#6ec1c1")
+hist(n500, col = "#357a87")
 ```
 
 ```{r}
@@ -58,7 +79,7 @@ Dengan kata lain, **semakin kecil simpangan bakunya**, **semakin akurat** estima
 ```{r fig.height=3.5, fig.width=7.5, dpi=300}
 set.seed(50)
 sample.250 <- rnorm(250, mean = 60, sd = 4)
-hist(sample.250)
+hist(sample.250, col = "#e9865b")
 ```
 
 ```{r}
