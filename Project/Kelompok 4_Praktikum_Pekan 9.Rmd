@@ -5,7 +5,7 @@ date: "2024-04-21"
 output: html_document
 ---
 
-> <mark style="background-color: #e9865b">**Code/Syntax :** </mark> [File.rmd](https://github.com/Zen-Rofiqy/STA1372-MRS/blob/main/Project/Kelompok%204_Praktikum_Pekan%208.Rmd)
+> <mark style="background-color: #e9865b">**Code/Syntax :** </mark> [File.rmd](https://github.com/Zen-Rofiqy/STA1372-MRS/blob/main/Project/Kelompok%204_Praktikum_Pekan%209.Rmd)
 
 > <mark style="background-color: #6ec1c1">**Rpubs :**</mark><https://rpubs.com/ZenR_Prog/MSR-Prak-08>
 
@@ -17,7 +17,7 @@ output: html_document
 
 ## No 1
 
-> Ulangi simulasi percobaan simpangan baku untuk n = 100 dan n = 500, bandingkan hasilnya!
+> Ulangi simulasi percobaan **simpangan baku** untuk **n = 100** dan **n = 500**, bandingkan hasilnya!
 
 ```{r fig.height=3.5, fig.width=10, dpi=300}
 set.seed(50)
@@ -47,13 +47,13 @@ cat(" Untuk n = 100 :\n","mean = ", means100, "\n SD = ", sd100, "\n\n",
     "Untuk n = 500 :\n","mean = ", means500, "\n SD = ", sd500)
 ```
 
-Simpangan baku yang semakin kecil menunjukkan bahwa distribusi sampel memiliki tingkat variasi yang lebih rendah atau lebih konsisten. Dalam konteks simulasi yang Anda lakukan, ini mengindikasikan bahwa estimasi rata-rata populasi dari sampel-sampel yang diambil (baik untuk n = 100 maupun n = 500) menjadi semakin stabil atau lebih dekat dengan nilai sebenarnya, karena simpangan bakunya menurun.
+**Simpangan baku** yang **semakin kecil** menunjukkan bahwa distribusi sampel memiliki tingkat **variasi yang lebih rendah** atau lebih konsisten. Dalam konteks simulasi yang kami lakukan, ini mengindikasikan bahwa estimasi rata-rata populasi dari sampel-sampel yang diambil (baik untuk n = 100 maupun n = 500) menjadi semakin stabil atau **lebih dekat** dengan **nilai sebenarnya**, karena simpangan bakunya menurun.
 
-Dengan kata lain, semakin kecil simpangan bakunya, semakin akurat estimasi rata-rata populasi dari sampel yang diambil. Ini menggambarkan keandalan atau kepercayaan yang lebih tinggi dalam penggunaan rata-rata sampel sebagai perkiraan rata-rata populasi. Jadi, semakin kecil simpangan bakunya, semakin baik estimasi yang kita miliki tentang rata-rata populasi sebenarnya.
+Dengan kata lain, **semakin kecil simpangan bakunya**, **semakin akurat** estimasi rata-rata populasi dari sampel yang diambil. Ini menggambarkan keandalan atau kepercayaan yang lebih tinggi dalam penggunaan rata-rata sampel sebagai perkiraan rata-rata populasi. Jadi, semakin kecil simpangan bakunya, semakin baik estimasi yang kita miliki tentang rata-rata populasi sebenarnya.
 
 ## No 2
 
-> Ulangi simulasi selang kepercayaan untuk n = 250, apa kesimpulannya?
+> Ulangi simulasi **selang kepercayaan** untuk **n = 250**, apa kesimpulannya?
 
 ```{r fig.height=3.5, fig.width=7.5, dpi=300}
 set.seed(50)
@@ -73,13 +73,13 @@ sample.size <- length(sample.250)
 
 $\bar x \pm (2 \times \sigma_\bar x) = 59.72593 \pm (2 \times 0.2529822)$
 
-Ini menunjukkan bahwa dengan meningkatnya ukuran sampel, interval kepercayaan cenderung menyempit, atau dengan kata lain, kita menjadi lebih yakin tentang perkiraan rata-rata populasi.
+Ini menunjukkan bahwa dengan **meningkatnya ukuran sampel**, interval kepercayaan **cenderung menyempit**, atau dengan kata lain, kita menjadi **lebih yakin** tentang perkiraan **rata-rata populasi**.
 
-Dengan kata lain, semakin besar ukuran sampel, semakin akurat perkiraan rata-rata populasi kita, yang tercermin dalam interval kepercayaan yang lebih sempit. Oleh karena itu, dengan meningkatnya ukuran sampel, tingkat kepercayaan kita terhadap estimasi rata-rata populasi meningkat.
+Dengan kata lain, **semakin besar** ukuran sampel, **semakin akurat** perkiraan rata-rata populasi kita, yang tercermin dalam interval kepercayaan **yang lebih sempit**. Oleh karena itu, dengan meningkatnya ukuran sampel, tingkat kepercayaan kita terhadap estimasi rata-rata populasi meningkat.
 
 ## No 3
 
-> Ulangi simulasi penduga tak bias untuk sebaran eksponensial dan seragam, apakah s tetap tak bias?
+> Ulangi simulasi **penduga tak bias** untuk sebaran **eksponensial** dan **seragam**, apakah **s tetap tak bias**?
 
 ### Exp
 
@@ -88,14 +88,14 @@ set.seed(50)
 k <- 1000 # ulangan (gak ada ketentuan berapa nya, alias bebas berapa aja)
 sample_size <- c(100, 250, 500)
 
-exp_samples <- lapply(sample_size, function(n) matrix(rexp(n*k),k))
+exp_samples <- lapply(sample_size, function(n) matrix(rexp(n*k, 1),k))
 
 par(mfrow = c(1, 3))
-hist(exp_samples[[1]], main = "Sebaran Eksponensial\nUkuran sample (n=2)", 
+hist(exp_samples[[1]], main = "Sebaran Eksponensial\nUkuran sample (n=100)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#E4B3BA")
-hist(exp_samples[[2]], main = "Sebaran Eksponensial\nUkuran sample (n=5)", 
+hist(exp_samples[[2]], main = "Sebaran Eksponensial\nUkuran sample (n=250)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#DE7C8A")
-hist(exp_samples[[3]], main = "Sebaran Eksponensial\nUkuran sample (n=25)", 
+hist(exp_samples[[3]], main = "Sebaran Eksponensial\nUkuran sample (n=500)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#D44155")
 ```
 
@@ -110,13 +110,15 @@ dist_mean <- function(n, dist_samples){
 exp_means <- dist_mean(sample_size, exp_samples)
 
 par(mfrow = c(1, 3))
-hist(exp_means[[1]], main = "Sebaran Eksponensial\nRata-rata sample (n=2)", 
+hist(exp_means[[1]], main = "Sebaran Eksponensial\nRata-rata sample (n=100)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#E4B3BA")
-hist(exp_means[[2]], main = "Sebaran Eksponensial\nRata-rata sample (n=5)", 
+hist(exp_means[[2]], main = "Sebaran Eksponensial\nRata-rata sample (n=250)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#DE7C8A")
-hist(exp_means[[3]], main = "Sebaran Eksponensial\nRata-rata sample (n=25)", 
+hist(exp_means[[3]], main = "Sebaran Eksponensial\nRata-rata sample (n=500)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#D44155")
 ```
+
+Terlihat bahwa nilai harapan sebaran rata-rata eksponensial pada setiap n menyebar normal dan mendekati nilai harapan populasi yakni 1, sehingga telah dibuktikan secara simulasi bahwa s adalah penduga tak bias terhadap $\sigma$.
 
 ```{r}
 cat(" Untuk n = ", sample_size[1], " :\n","mean = ", mean(exp_means[[1]]), 
@@ -151,13 +153,15 @@ hist(unif_samples[[3]], main = "Sebaran Seragam\nUkuran sample (n=500)",
 unif_means <- dist_mean(sample_size, unif_samples)
 
 par(mfrow = c(1, 3))
-hist(unif_means[[1]], main = "Sebaran Seragam\nRata-rata sample (n=2)", 
+hist(unif_means[[1]], main = "Sebaran Seragam\nRata-rata sample (n=100)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#c8daf0")
-hist(unif_means[[2]], main = "Sebaran Seragam\nRata-rata sample (n=5)", 
+hist(unif_means[[2]], main = "Sebaran Seragam\nRata-rata sample (n=250)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#a2c6eb")
-hist(unif_means[[3]], main = "Sebaran Seragam\nRata-rata sample (n=25)", 
+hist(unif_means[[3]], main = "Sebaran Seragam\nRata-rata sample (n=500)", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#4493CA")
 ```
+
+Terlihat bahwa nilai harapan sebaran rata-rata seragam(0,1) pada setiap n menyebar normal dan mendekati nilai harapan populasi yakni 0.5, sehingga telah dibuktikan secara simulasi bahwa s adalah penduga tak bias terhadap $\sigma$.
 
 ```{r}
 cat(" Untuk n = ", sample_size[1], " :\n","mean = ", mean(unif_means[[1]]), 
@@ -169,7 +173,3 @@ cat(" Untuk n = ", sample_size[1], " :\n","mean = ", mean(unif_means[[1]]),
     "Untuk n = ", sample_size[3], " :\n","mean = ", mean(unif_means[[3]]), 
     "\n SD = ", sd(unif_means[[3]]) )
 ```
-
-Tentu, penduga rata-rata sampel (mean estimator) yang dihitung dari sampel-sampel dari distribusi eksponensial dan seragam dalam simulasi menunjukkan kecenderungan yang tak bias (unbiased). Ini dapat dilihat dari fakta bahwa nilai rata-rata (mean) dari estimator tersebut cenderung mendekati nilai sebenarnya dari populasi, dan simpangan bakunya (standard deviation) cenderung menurun dengan meningkatnya ukuran sampel (n).
-
-Jadi, berdasarkan hasil simulasi yang diberikan, kita dapat menyimpulkan bahwa penduga rata-rata sampel (mean estimator) untuk distribusi eksponensial dan seragam dalam simulasi tersebut memang tetap tak bias, karena rata-rata estimator mendekati nilai sebenarnya dari populasi, dan simpangan bakunya relatif stabil atau bahkan menurun seiring dengan peningkatan ukuran sampel.
