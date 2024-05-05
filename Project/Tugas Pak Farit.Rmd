@@ -72,24 +72,6 @@ Dimana a=0, dan b=1 untuk Seragam(0, 1). Namun ada perbedaan dalam fungsi r, yak
 
 > Berikut merupakan hasil dari simulasi pembangkitan bilangan acak nya:
 
-```{r fig.height=3.5, fig.width=15, dpi=300}
-mean(apply(norm_pop, 1, mean))
-mean(apply(norm_pop, 1, median))
-mean(apply(norm_pop, 1, sd))
-print("")
-mean(norm_pop)
-median(norm_pop)
-sd(norm_pop)
-
-set.seed(123)
-par(mfrow=c(1,5))
-hist(rexp(n*k, rate=1))
-hist(rexp(n*k, rate=2))
-hist(rexp(n*k, rate=3))
-hist(rexp(n*k, rate=4))
-hist(rexp(n*k, rate=5))
-```
-
 ```{r fig.height=3.5, fig.width=10, dpi=300}
 set.seed(361)
 # k=ulangan simulasi, n=sample
@@ -226,3 +208,5 @@ cat(  "# Ketakbiasan Ragam #",
 Terlihat bahwa nilai statistiknya sudah dekat dengan nilai parameternya, sehingga memang sudah teruji ketakbiasan ragam dari setiap sebaran.
 
 # Penduga Selang Kepercayaan
+
+Saya akan mencobakan bagaimana pengaruh besarnya ukuran contoh terhadap penduga selang kepercayaan pada sebaran normal, seragam, dan eksponensial(1).
