@@ -60,9 +60,15 @@ Sejalan dengan fungsi pembangkit bilaganan acak dalam R merupakan sampling dari 
 
 Kali ini saya akan sampling dengan langsung membangkitkan bilangan acaknya dengan fungsi yang sudah tersedia (`rnorm`, `runif`, `rexp` dsb). Saya akan mencoba 3 sebaran, yakni sebaran Normal, Seragam, dan Eksponensial(1). Ukuran contoh (n) yang akan saya gunakan untuk setiap sebaran adalah 10, dengan ulangan untuk simulasi (k) = 1000.
 
-Saya menentukan parameter populasi untuk sebaran normal yakni mean=60 dan sd=4. Lalu untuk sebaran seragam saya men
+Saya menentukan parameter populasi untuk sebaran setiap sebaran sebagai berikut:
 
-Dimana rate pada `rexp` = $\frac{1}{\theta}$.
+| Sebaran          | Nilai tengah        | Ragam                                |
+|-----------------|--------------------|-----------------------------------|
+| Normal (60, 16)  | $\mu=60$            | $\sigma^2=16$                        |
+| Seragam (0, 1)   | $\frac{a+b}{2}=0.5$ | $\frac{(b-a)^2}{12} \approx 0.08334$ |
+| Eksponensial (1) | $\theta=1$          | $\theta^2=1$                         |
+
+Dimana a=0, dan b=1 untuk Seragam(0, 1). Namun ada perbedaan dalam fungsi r, yakni pada fungsi `rnorm` parameternya adalah `rnorm(n, mean, sd)`, sehingga `sd` yang saya tetapkan adalah $\sqrt{16}=4$. Lalu pada fungsi `rexp` parameternya adalah `rexp(n, rate = 1)`, dimana `rate` = $\frac{1}{\theta}$, sehingga semakin besar rate, maka akan semakin kecil selisih min max pada sebaran eksponensial.
 
 > Berikut merupakan hasil dari simulasi pembangkitan bilangan acak nya:
 
@@ -133,15 +139,50 @@ for(i in 1:5) hist(exp_sample[,i], col = "#F17950")
 
 Selama ini kita sering melakukan sampling terhadap populasi yang diketahui parameternya, seperti mean dan simpangan bakunya. Namun umumnya kita tidak tahu parameter populasi, sehingga perlu dilakukan pendugaan terhadap parameter, yakni statistik. Untuk nilai tengah, maka statistiknya adalah xbar.
 
-Untuk mengetahui apakah statistik merupakan penga tak bias dari parameter, maka kita bisa mencoba menghitung statistik
+Untuk mengetahui apakah statistik merupakan penga tak bias dari parameter, maka kita bisa mencoba menghitung statistik pada setiap ulangan dan merata-ratakan hasilnya. Lalu dilihat, apakah nilainya berbeda jauh dengan nilai parameternya atau tidak.
+
+Untuk ketakbiasan nilai tengah, saya akan menggunakan fungsi `apply` untuk menerapkan mean pada setiap ulangan (kolom). Namun, mari kita lihat sebarannya terlebih dahulu sebelum melihat ketakbiasannya.
+
+```{r fig.height=3.5, fig.width=10, dpi=300}
+set.seed(361)
+
+par(mfrow = c(1, 3))
+# Sebaran Normal
+norm_mean <- apply(norm_sample, 2, mean)
+
+hist(norm_mean, 
+     main = paste0("Sebaran Normal Rata-rata\nUkuran (n=", n," * k=", k, ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#83D1C4")
+
+# Sebaran Seragam(0,1)
+unif_mean <- apply(unif_sample, 2, mean)
+
+hist(unif_mean, 
+     main = paste0("Sebaran Seragam(0,1) Rata-rata\nUkuran (n=", n," * k=", k, ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#78517C")
+
+# Sebaran Eksponensial(1)
+exp_mean <- apply(exp_sample, 2, mean)
+
+hist(exp_mean, 
+     main = paste0("Sebaran Eksponensial(1) Rata-rata\nUkuran (n=", n," * k=", k, ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#F17950")
+```
+
+Terlihat bahwa nilai tengah untuk sebaran normal sudah mendekati nilai 60, yang berarti $\bar{x}$ merupakan penduga nilai tengah tak bias bagi $\mu$. Lalu untuk sebaran seragam juga nilai pusatnya sudah berada di angka 0.5, ini menandakan bahwa nilai tengah statistik dari sebaran seragam tak berbias bagi nilai tengah parameternya. Begitupula untuk sebaran seragam, kita bisa melihat distribusinya berpusat di nilai 1, yang sama dengan parameternya yakni $\theta=1$.
+
+Namun untuk melihat nilai aslinya, mari kita lihat nilai dibawah.
 
 ```{r}
-
-
-hist(apply(exp_samples[[3]], 1, mean))
+cat(  "# Nilai tengah #",
+    "\nNormal (60,16)   :", mean(norm_mean), " \u2248", 60,
+    "\nSeragam (0,1)    :", mean(unif_mean), "\u2248", (0+1)/2,
+    "\nEksponensial (1) :", mean(exp_mean) , "\u2248", 1)
 ```
 
 ## Ragam
+
+Sama halnya dengan ketabiasan nilai tengah, untuk melihat ketakbiasan ragam bisa dilakukan dengan cara yang sama, bedanya hanya di fungsi `apply`, `FUN` yang digunakan adalah `var`, bukan `mean`.
 
 # Penduga Selang Kepercayaan
 
