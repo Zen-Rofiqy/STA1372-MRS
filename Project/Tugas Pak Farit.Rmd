@@ -288,14 +288,24 @@ hist(exp_samples[[3]],
 ## Pendugaan selang
 
 ```{r}
-sapply(lapply(norm_samples, mean), function(x) x)
-sapply(lapply(unif_samples, mean), function(x) x)
-sapply(lapply(exp_samples, mean), function(x) x)
+mean_norm <- sapply(lapply(norm_samples, mean), function(x) x)
+mean_unif <- sapply(lapply(unif_samples, mean), function(x) x)
+mean_exp  <- sapply(lapply(exp_samples, mean), function(x) x)
 
 # Parameter sd populasi
 norm_sd <- sqrt(16) 
 unif_sd <- sqrt((1-0)^2 /12)
 exp_sd <- sqrt(1)
 
+# Statistik sd sample
+norm_s <- c()
+norm_s[1] <- norm_sd /sqrt(sample_n[[1]])
+norm_s[2] <- norm_sd /sqrt(sample_n[[2]])
+norm_s[3] <- norm_sd /sqrt(sample_n[[3]])
 
+cat("# Pendugaan SK Normal #",
+    "\n        Nilai tengah      Standar Deviasi",
+    "\nn=10  :",mean_norm[1], "    \u00B1   ", norm_s[1],
+    "\nn=30  :",mean_norm[2], "     \u00B1   ", norm_s[2],
+    "\nn=100 :",mean_norm[3], "    \u00B1   ", norm_s[3])
 ```
