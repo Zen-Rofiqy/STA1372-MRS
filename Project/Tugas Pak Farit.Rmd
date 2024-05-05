@@ -144,8 +144,6 @@ Untuk mengetahui apakah statistik merupakan penga tak bias dari parameter, maka 
 Untuk ketakbiasan nilai tengah, saya akan menggunakan fungsi `apply` untuk menerapkan mean pada setiap ulangan (kolom). Namun, mari kita lihat sebarannya terlebih dahulu sebelum melihat ketakbiasannya.
 
 ```{r fig.height=3.5, fig.width=10, dpi=300}
-set.seed(361)
-
 par(mfrow = c(1, 3))
 # Sebaran Normal
 norm_mean <- apply(norm_sample, 2, mean)
@@ -171,46 +169,60 @@ hist(exp_mean,
 
 Terlihat bahwa nilai tengah untuk sebaran normal sudah mendekati nilai 60, yang berarti $\bar{x}$ merupakan penduga nilai tengah tak bias bagi $\mu$. Lalu untuk sebaran seragam juga nilai pusatnya sudah berada di angka 0.5, ini menandakan bahwa nilai tengah statistik dari sebaran seragam tak berbias bagi nilai tengah parameternya. Begitupula untuk sebaran seragam, kita bisa melihat distribusinya berpusat di nilai 1, yang sama dengan parameternya yakni $\theta=1$.
 
-Namun untuk melihat nilai aslinya, mari kita lihat nilai dibawah.
+Agar lebih jelas dan pasti akan ketakbiasannya, mari kita lihat nilai dibawah.
 
 ```{r}
-cat(  "# Nilai tengah #",
+cat(  "# Ketakbiasan Nilai tengah #",
+    "\n                   Statistik   Parameter",
     "\nNormal (60,16)   :", mean(norm_mean), " \u2248", 60,
     "\nSeragam (0,1)    :", mean(unif_mean), "\u2248", (0+1)/2,
     "\nEksponensial (1) :", mean(exp_mean) , "\u2248", 1)
 ```
 
+Terlihat bahwa nilai statistiknya sudah sangat dekat dengan nilai parameternya, sehingga memang sudah teruji ketakbiasan nilai tengah dari setiap sebaran.
+
 ## Ragam
 
 Sama halnya dengan ketabiasan nilai tengah, untuk melihat ketakbiasan ragam bisa dilakukan dengan cara yang sama, bedanya hanya di fungsi `apply`, `FUN` yang digunakan adalah `var`, bukan `mean`.
 
-# Penduga Selang Kepercayaan
+```{r fig.height=3.5, fig.width=10, dpi=300}
+set.seed(361)
 
-# Questionable
+par(mfrow = c(1, 3))
+# Sebaran Normal
+norm_var <- apply(norm_sample, 2, var)
 
-## N pembangkitan bilangan acak
+hist(norm_var, 
+     main = paste0("Sebaran Normal Rata-rata\nUkuran (n=", n," * k=", k, ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#83D1C4")
 
-```{r fig.height=3.5, fig.width=15, dpi=300}
-par(mfrow=c(1,6))
-hist(runif(20, min=0, max=1))
-hist(runif(50, min=0, max=1))
-hist(runif(100, min=0, max=1))
-hist(runif(150, min=0, max=1))
-hist(runif(200, min=0, max=1))
-hist(runif(300, min=0, max=1))
+# Sebaran Seragam(0,1)
+unif_var <- apply(unif_sample, 2, var)
+
+hist(unif_var, 
+     main = paste0("Sebaran Seragam(0,1) Rata-rata\nUkuran (n=", n," * k=", k, ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#78517C")
+
+# Sebaran Eksponensial(1)
+exp_var <- apply(exp_sample, 2, var)
+
+hist(exp_var, 
+     main = paste0("Sebaran Eksponensial(1) Rata-rata\nUkuran (n=", n," * k=", k, ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#F17950")
 ```
+
+Memang agak kurang terlihat jelas, namun bisa dilihat bahwa ragam untuk sebaran normal sudah mendekati nilai 16, yang berarti $s^2$ merupakan penduga ragam tak bias bagi $\sigma^2$. Lalu untuk sebaran seragam juga nilai pusatnya sudah berada di angka 0.08, ini menandakan bahwa ragam statistik dari sebaran seragam tak berbias bagi ragam parameternya. Begitupula untuk sebaran seragam, kita bisa melihat distribusinya berpusat di nilai 1, yang sama dengan parameternya yakni $\theta^2=1$.
+
+Agar lebih jelas dan pasti akan ketakbiasannya, mari kita lihat nilai dibawah.
 
 ```{r}
-norm_pop <- matrix(rnorm(N*k, mean=60, sd=4), k)
-
-datatable(norm_pop)
+cat(  "# Ketakbiasan Ragam #",
+    "\n                   Statistik    Parameter",
+    "\nNormal (60,16)   :", mean(norm_var), "   \u2248", 16,
+    "\nSeragam (0,1)    :", mean(unif_var), "\u2248", (1-0)^2/12,
+    "\nEksponensial (1) :", mean(exp_var) , " \u2248", 1)
 ```
 
-```{r fig.height=3.5, fig.width=15, dpi=300}
-par(mfrow=c(1,5))
-hist(norm_pop[,1])
-hist(norm_pop[,5])
-hist(norm_pop[,10])
-hist(norm_pop[,15])
-hist(norm_pop[,20])
-```
+Terlihat bahwa nilai statistiknya sudah dekat dengan nilai parameternya, sehingga memang sudah teruji ketakbiasan ragam dari setiap sebaran.
+
+# Penduga Selang Kepercayaan
