@@ -1,0 +1,148 @@
+---
+title: "Tugas Pak Farit"
+author: "Angga Fathan Rofiqy"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  rmdformats::downcute:
+    self_contained: true
+    thumbnails: false
+    lightbox: true
+    gallery: true
+    highlight: tango
+    code_folding: hide
+    toc_depth: 3
+    number_sections: true
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+    fig_caption: true
+pkgdown:
+  as_is: true
+---
+
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE, message = FALSE}
+#                      -=( Install & Load Package Function )=-
+install_load <- function (package1, ...)  {   
+
+   # convert arguments to vector
+   packages <- c(package1, ...)
+
+   # start loop to determine if each package is installed
+   for(package in packages){
+
+       # if package is installed locally, load
+       if(package %in% rownames(installed.packages()))
+          do.call('library', list(package))
+
+       # if package is not installed locally, download, then load
+       else {
+          install.packages(package)
+          do.call("library", list(package))
+       }
+   } 
+}
+
+install_load("DT")
+```
+
+![](images/WhatsApp%20Image%202024-05-04%20at%2022.00.29_c932357b.jpg)
+
+-   Teruntuk poin strategi percontohan, dibebaskan mau pake populasi terhingga ataupun tak terhingga.
+-   Untuk nilai tengah yang dipilih jadinya pakai nilai rata-rata saja.
+
+# Ketakbiasan Penduga
+
+## Jenis sebaran populasi (takhingga)
+
+Jenis sebaran populasi yang akan saya gunakan kali ini adalah populsi **takhingga**. Ini mengasumsikan bahwa populasinya merupakan sebuah populasi takhingga yang menyebar suatu sebaran, misalnya menyebar eksponensial.
+
+Sejalan dengan fungsi pembangkit bilaganan acak dalam R merupakan sampling dari sebaran asli. Sehingga ketika kita melakukan pembangkitan bilangan acak, itu bisa langsung dianggap sampling jika langsung menggunakan fungsi pembangkit bilangan acak seperti `rexp`. Ini tidak berlaku jika kita mencampur fungsi nya.
+
+Sehingga kali ini saya akan sampling dengan langsung membangkitkan bilangan acaknya dengan fungsi yang sudah tersedia (`rnorm`, `runif`, `rexp` dsb). Saya akan mencoba 3 sebaran, yakni sebaran Normal, Seragam, dan Eksponensial(1). Ukuran contoh (n) yang akan saya gunakan untuk setiap sebaran adalah 10, 30, dan 100, dengan ulangan (k) = 1000.
+
+> Berikut merupakan hasil dari pembangkitan bilangan acak nya:
+
+```{r fig.height=3.5, fig.width=15, dpi=300}
+mean(apply(norm_pop, 1, mean))
+mean(apply(norm_pop, 1, median))
+mean(apply(norm_pop, 1, sd))
+print("")
+mean(norm_pop)
+median(norm_pop)
+sd(norm_pop)
+```
+
+```{r fig.height=3.5, fig.width=10, dpi=300}
+set.seed(361)
+# k=ulangan, n=sample
+k = 1000; n = 10
+
+par(mfrow = c(1, 3))
+# Sebaran Normal
+norm_sample <- matrix(rnorm(n*k, mean=60, sd=4), n)
+
+hist(norm_sample, 
+     main = paste0("Sebaran Normal\nUkuran sample (n=", n, ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#b4e69e")
+
+# Sebaran Seragam(0,1)
+unif_sample <- matrix(runif(n*k, min=0, max=1), n)
+
+hist(unif_sample, 
+     main = paste0("Sebaran Seragam(0,1)\nUkuran populasi (n=", n, ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#a2c6eb")
+
+# Sebaran Eksponensial(1)
+exp_sample <- matrix(rexp(n*k, rate=1), n)
+
+hist(exp_sample, 
+     main = paste0("Sebaran Eksponensial(1)\nUkuran populasi (n=", n, ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#E4B3BA")
+```
+
+```{r}
+datatable(norm_sample)
+```
+
+## Nilai tengah (rataan)
+
+Selama ini kita sering melakukan sampling terhadap populasi yang diketahui parameternya, seperti mean dan simpangan bakunya. Namun umumnya kita tidak tahu parameter populasi, sehingga perlu dilakukan pendugaan terhadap parameter, yakni statistik.
+
+```{r}
+
+
+hist(apply(exp_samples[[3]], 1, mean))
+```
+
+## Ragam
+
+# Penduga Selang Kepercayaan
+
+# Questionable
+
+## N pembangkitan bilangan acak
+
+```{r fig.height=3.5, fig.width=15, dpi=300}
+par(mfrow=c(1,6))
+hist(runif(20, min=0, max=1))
+hist(runif(50, min=0, max=1))
+hist(runif(100, min=0, max=1))
+hist(runif(150, min=0, max=1))
+hist(runif(200, min=0, max=1))
+hist(runif(300, min=0, max=1))
+```
+
+```{r}
+norm_pop <- matrix(rnorm(N*k, mean=60, sd=4), k)
+
+datatable(norm_pop)
+```
+
+```{r fig.height=3.5, fig.width=15, dpi=300}
+par(mfrow=c(1,5))
+hist(norm_pop[,1])
+hist(norm_pop[,5])
+hist(norm_pop[,10])
+hist(norm_pop[,15])
+hist(norm_pop[,20])
+```
