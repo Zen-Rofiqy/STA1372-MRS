@@ -209,4 +209,93 @@ Terlihat bahwa nilai statistiknya sudah dekat dengan nilai parameternya, sehingg
 
 # Penduga Selang Kepercayaan
 
-Saya akan mencobakan bagaimana pengaruh besarnya ukuran contoh terhadap penduga selang kepercayaan pada sebaran normal, seragam, dan eksponensial(1).
+## Jenis Populasi {.tabset}
+
+Saya akan mencobakan bagaimana pengaruh besarnya ukuran contoh terhadap penduga selang kepercayaan pada populasi sebaran normal, seragam, dan eksponensial(1). Sama seperti sebelumnya, strategi percontohan yang digunakan adalah populasi takhingga, sehingga untuk mengambil sample nya langsung dari pembangkitan fungsi r nya. Ukuran contoh yang akan digunakan adalah 10, 30, dan 100. Parameter tiap populasinya pun sama seperti sebelumnya, yakni:
+
+| Sebaran          | Nilai tengah        | Ragam                                |
+|------------------|--------------------|----------------------------------|
+| Normal (60, 16)  | $\mu=60$            | $\sigma^2=16$                        |
+| Seragam (0, 1)   | $\frac{a+b}{2}=0.5$ | $\frac{(b-a)^2}{12} \approx 0.08334$ |
+| Eksponensial (1) | $\theta=1$          | $\theta^2=1$                         |
+
+> Berikut merupakan hasil dari pembangkitan bilangan acak populasinya:
+
+### Normal
+
+```{r fig.height=3.5, fig.width=10, dpi=300}
+set.seed(361)
+sample_n <- c(10, 30, 100)
+
+norm_samples <- lapply(sample_size, function(n) rnorm(n, mean=60, sd=4))
+
+par(mfrow = c(1, 3))
+hist(norm_samples[[1]], 
+     main = paste0("Sebaran Normal\nUkuran (n=", sample_n[[1]], ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#a9ded7")
+
+hist(norm_samples[[2]], 
+     main = paste0("Sebaran Normal\nUkuran (n=", sample_n[[2]], ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#6ec1c1")
+
+hist(norm_samples[[3]],
+     main = paste0("Sebaran Normal\nUkuran (n=", sample_n[[3]], ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#357a87")
+```
+
+### Seragam
+
+```{r fig.height=3.5, fig.width=10, dpi=300}
+set.seed(361)
+
+unif_samples <- lapply(sample_size, function(n) runif(n, min=0, max=1))
+
+par(mfrow = c(1, 3))
+hist(unif_samples[[1]], 
+     main = paste0("Sebaran Seragam\nUkuran (n=", sample_n[[1]], ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#d5bbf3")
+
+hist(unif_samples[[2]], 
+     main = paste0("Sebaran Seragam\nUkuran (n=", sample_n[[2]], ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#9d48c7")
+
+hist(unif_samples[[3]],
+     main = paste0("Sebaran Seragam\nUkuran (n=", sample_n[[3]], ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
+```
+
+### Eksponensial (1)
+
+```{r fig.height=3.5, fig.width=10, dpi=300}
+set.seed(361)
+
+exp_samples <- lapply(sample_size, function(n) rexp(n, rate=1))
+
+par(mfrow = c(1, 3))
+hist(exp_samples[[1]], 
+     main = paste0("Sebaran Eksponensial(1)\nUkuran (n=", sample_n[[1]], ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#e9865b")
+
+hist(exp_samples[[2]], 
+     main = paste0("Sebaran Eksponensial(1)\nUkuran (n=", sample_n[[2]], ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#ce572b")
+
+hist(exp_samples[[3]],
+     main = paste0("Sebaran Eksponensial(1)\nUkuran (n=", sample_n[[3]], ")"), 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#9a3b1a")
+```
+
+## Pendugaan selang
+
+```{r}
+sapply(lapply(norm_samples, mean), function(x) x)
+sapply(lapply(unif_samples, mean), function(x) x)
+sapply(lapply(exp_samples, mean), function(x) x)
+
+# Parameter sd populasi
+norm_sd <- sqrt(16) 
+unif_sd <- sqrt((1-0)^2 /12)
+exp_sd <- sqrt(1)
+
+
+```
