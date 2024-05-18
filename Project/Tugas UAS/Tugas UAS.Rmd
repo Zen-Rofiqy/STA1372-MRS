@@ -40,10 +40,17 @@ pkgdown:
 
 ```{r fig.height=5, fig.width=15, dpi=300}
 set.seed(361)
-k <- 1000; n <- 1
-mix_data_1 <- rbind(matrix(rnorm(n*k/2, mean = 0, sd = 1), k/2), 
-                    matrix(rchisq(n *k /2, df =1), k /2))
-hist(mix_data_1, main = "Sebaran Populasi Campuran 1", 
+k <- 10000; n <- seq(5,50)
+
+mix_data_1 <- lapply(n, function(n) 
+                      rbind(matrix(rnorm(n*k/2, mean = 0, sd = 1), k/2), 
+                            matrix(rchisq(n *k /2, df =1), k /2)) )
+
+hist(mix_data_1[[1]], main = "Sebaran Populasi Campuran 1", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
+hist(mix_data_1[[2]], main = "Sebaran Populasi Campuran 1", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
+hist(mix_data_1[[3]], main = "Sebaran Populasi Campuran 1", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
 ```
 
@@ -107,12 +114,12 @@ alpha <- 0.05
 ### Mendefinisikan fungsi untuk mengextract p-value dari masing-masing uji (test)
 
 ```{r}
-t_test_pvalue <- function(x,alt="two.sided",mu=mu0){
-t.test(x, alternative = alt, mu = mu)$p.value  
+t_test_pvalue <- function(x, alt="two.sided", mu = mean(mix_data_1[[1]]) ){
+  t.test(x, alternative = alt, mu = mu)$p.value  
 }
 
-wilcox_test_pvalue <- function(x,alt="two.sided",mu=mu0){
-wilcox.test(x, alternative = alt, mu = mu)$p.value  
+wilcox_test_pvalue <- function(x,alt="two.sided",mu = mean(mix_data_1[[1]]) ){
+  wilcox.test(x, alternative = alt, mu = mu)$p.value  
 }
 ```
 
@@ -151,84 +158,41 @@ result_sim1 <- result_sim1[-1, ]
 ```
 
 ```{r}
-# Fungsi untuk membangkitkan data berdasarkan distribusi campuran
-generate_mixed_data <- function(n, dist_types) {
-  sample_data <- numeric(n)
-  for (i in seq_along(dist_types)) {
-    dist <- dist_types[[i]]
-    n_i <- floor(n * dist$proportion)
-    if (dist$type == "normal") {
-      sample_data[(sum(sapply(dist_types[1:(i-1)], 
-                   `[[`, "proportion"))*n + 1):(sum(sapply(dist_types[1:i], 
-                   `[[`, "proportion"))*n)] <- rnorm(n_i, dist$mean, dist$sd)
-    } else if (dist$type == "chisq") {
-      sample_data[(sum(sapply(dist_types[1:(i-1)], 
-                   `[[`, "proportion"))*n + 1):(sum(sapply(dist_types[1:i], 
-                   `[[`, "proportion"))*n)] <- rchisq(n_i, dist$df)
-    }
-  }
-  return(sample_data)
-}
+# membuat objek data.frame dummy untuk menyimpan hasil simulasi
+result_sim1 <- data.frame(n=0,alpha_empiris=0,test_name="")
+set.seed(2020)
 
-# Menjalankan simulasi untuk tiga skenario distribusi campuran
-dist_scenarios <- list(
-  list(list(type = "normal", mean = 0, sd = 1, proportion = 0.5), 
-       list(type = "chisq", df = 1, proportion = 0.5)),
+# iterasi simulasi berdasarkan ukuran sampel
+for(i in seq_along(n)){
   
-  list(list(type = "chisq", df = 1, proportion = 0.5), 
-       list(type = "chisq", df = 3, proportion = 0.5)),
+  # menghitung p value uji t dari 10rb data hasil bangkitan
+  t_test_res <- apply(mix_data_1[[i]], 1, t_test_pvalue)
   
-  list(list(type = "chisq", df = 1, proportion = 0.25), 
-       list(type = "chisq", df = 3, proportion = 0.25),
-       list(type = "normal", mean = 0, sd = 1, proportion = 0.25),
-       list(type = "normal", mean = 3, sd = 1.5, proportion = 0.25))
-)
-```
-
-```{r}
-results <- list()
-for (scenario in 1:length(dist_scenarios)) {
-  result_sim <- data.frame(n = 0, alpha_empiris = 0, test_name = "", 
-                           scenario = scenario)
-  set.seed(2020 + scenario)
-  for (i in seq_along(n)) {
-    sim_mc_mixed <- replicate(num_rep, 
-                              generate_mixed_data(n[i], 
-                                      dist_scenarios[[scenario]]))
-    
-    t_test_res <- apply(sim_mc_mixed, 2, t_test_pvalue)
-    wilcox_test_res <- apply(sim_mc_mixed, 2, wilcox_test_pvalue)
-    
-    t_p_value_sim <- mean(t_test_res < alpha)
-    wilcox_p_value_sim <- mean(wilcox_test_res < alpha)
-    
-    result_sim <- rbind(result_sim, list(n[i], t_p_value_sim, "t_test", scenario),
-                        list(n[i], wilcox_p_value_sim, "wilcox_test", scenario))
-  }
-  result_sim <- result_sim[-1, ]
-  results[[scenario]] <- result_sim
+  # menghitung p value uji wilcoxon dari 10rb data hasil bangkitan
+  wilcox_test_res <- apply(mix_data_1[[i]], 1, wilcox_test_pvalue)
+  
+  # menghitung alpha empiris dari uji t
+  t_p_value_sim <- mean(t_test_res < alpha)
+  
+  # menghitung alpha empiris dari uji wilcoxon
+  wilcox_p_value_sim <- mean(wilcox_test_res < alpha)
+  
+  # menyimpan hasil simulasi 
+  result_sim1 <- rbind(result_sim1, list(n[i], t_p_value_sim, "t_test"),
+                    list(n[i], wilcox_p_value_sim, "wilcox_test")
+  )
 }
-
-results_combined <- do.call(rbind, results)
+# membuang baris dummy
+result_sim1 <- result_sim1[-1, ]
 ```
 
-```{r}
-ggplot(data = results_combined, aes(x = n, y = alpha_empiris, color = test_name)) +
-  geom_point() + 
-  geom_line() + 
-  geom_hline(yintercept = alpha, linetype = "dashed") + 
-  facet_wrap(~ scenario, ncol = 1, scales = "free_y") +
-  scale_y_continuous(limits = c(0, 0.1)) + 
-  labs(title = "Empirical Type I Error Rates under Different Distributions",
-       x = "Sample Size", y = "Empirical Alpha") +
-  theme_minimal()
-```
+### Plot
 
 ```{r message=FALSE, warning=FALSE}
 library(ggplot2)
 ggplot(data = result_sim1, aes(n, alpha_empiris))+
   geom_point(aes(color=test_name)) + 
-  geom_hline(yintercept = 0.05) + scale_y_continuous(limits = c(0,0.1))
+  geom_hline(yintercept = 0.05)
 ```
 
 # No 3
