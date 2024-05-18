@@ -20,7 +20,7 @@ pkgdown:
   as_is: true
 ---
 
-![](images/WhatsApp Image 2024-05-17 at 20.48.21_ec3c486e.jpg)
+![](images/WhatsApp%20Image%202024-05-17%20at%2020.48.21_ec3c486e.jpg)
 
 # No 1
 
@@ -85,6 +85,210 @@ $H_0 : μ ≠ 1500$
 
 Bangkitan data berdasarkan distribusi N(μ=1500,σ=200), α=0.05 dan ulangan sebanyak 10.000. Ukuran sampel yang diteliti adalah 5 sampai 50. Berilah kesimpulan atas hasilnya!
 
-```{r}
+### Mendefinisikan parameter-parameter yang digunakan untuk simulasi
 
+```{r}
+# mendefinisikan ukuran sampel dari 5 saampai 50
+n <- seq(5,50) 
+
+# mendefinisikan miu distribusi normal
+mu0 <- 1500
+
+# mendefinisikan sigma distribusi normal
+sigma0 <- 200
+
+# mendefinisikan banyaknya ulangan
+num_rep <- 10000
+
+# mendefinisikan alpha
+alpha <- 0.05
 ```
+
+### Mendefinisikan fungsi untuk mengextract p-value dari masing-masing uji (test)
+
+```{r}
+t_test_pvalue <- function(x,alt="two.sided",mu=mu0){
+t.test(x, alternative = alt, mu = mu)$p.value  
+}
+
+wilcox_test_pvalue <- function(x,alt="two.sided",mu=mu0){
+wilcox.test(x, alternative = alt, mu = mu)$p.value  
+}
+```
+
+### Menjalankan Simulasi
+
+```{r}
+# membuat objek data.frame dummy untuk menyimpan hasil simulasi
+result_sim1 <- data.frame(n=0,alpha_empiris=0,test_name="")
+set.seed(2020)
+
+# iterasi simulasi berdasarkan ukuran sampel
+for(i in seq_along(n)){
+    
+  # membangkitan data berdistribusi normal dengan ulangan 10rb
+  sim_mc_norm <- replicate(num_rep, rnorm(n[i], mu0, sigma0))
+  
+  # menghitung p value uji t dari 10rb data hasil bangkitan
+  t_test_res <- apply(sim_mc_norm, 2, t_test_pvalue)
+  
+  # menghitung p value uji wilcoxon dari 10rb data hasil bangkitan
+  wilcox_test_res <- apply(sim_mc_norm, 2, wilcox_test_pvalue)
+  
+  # menghitung alpha empiris dari uji t
+  t_p_value_sim <- mean(t_test_res < alpha)
+  
+  # menghitung alpha empiris dari uji wilcoxon
+  wilcox_p_value_sim <- mean(wilcox_test_res < alpha)
+  
+  # menyimpan hasil simulasi 
+  result_sim1 <- rbind(result_sim1, list(n[i], t_p_value_sim, "t_test"),
+                    list(n[i], wilcox_p_value_sim, "wilcox_test")
+  )
+}
+# membuang baris dummy
+result_sim1 <- result_sim1[-1, ]
+```
+
+```{r}
+# Fungsi untuk membangkitkan data berdasarkan distribusi campuran
+generate_mixed_data <- function(n, dist_types) {
+  sample_data <- numeric(n)
+  for (i in seq_along(dist_types)) {
+    dist <- dist_types[[i]]
+    n_i <- floor(n * dist$proportion)
+    if (dist$type == "normal") {
+      sample_data[(sum(sapply(dist_types[1:(i-1)], 
+                   `[[`, "proportion"))*n + 1):(sum(sapply(dist_types[1:i], 
+                   `[[`, "proportion"))*n)] <- rnorm(n_i, dist$mean, dist$sd)
+    } else if (dist$type == "chisq") {
+      sample_data[(sum(sapply(dist_types[1:(i-1)], 
+                   `[[`, "proportion"))*n + 1):(sum(sapply(dist_types[1:i], 
+                   `[[`, "proportion"))*n)] <- rchisq(n_i, dist$df)
+    }
+  }
+  return(sample_data)
+}
+
+# Menjalankan simulasi untuk tiga skenario distribusi campuran
+dist_scenarios <- list(
+  list(list(type = "normal", mean = 0, sd = 1, proportion = 0.5), 
+       list(type = "chisq", df = 1, proportion = 0.5)),
+  
+  list(list(type = "chisq", df = 1, proportion = 0.5), 
+       list(type = "chisq", df = 3, proportion = 0.5)),
+  
+  list(list(type = "chisq", df = 1, proportion = 0.25), 
+       list(type = "chisq", df = 3, proportion = 0.25),
+       list(type = "normal", mean = 0, sd = 1, proportion = 0.25),
+       list(type = "normal", mean = 3, sd = 1.5, proportion = 0.25))
+)
+```
+
+```{r}
+results <- list()
+for (scenario in 1:length(dist_scenarios)) {
+  result_sim <- data.frame(n = 0, alpha_empiris = 0, test_name = "", 
+                           scenario = scenario)
+  set.seed(2020 + scenario)
+  for (i in seq_along(n)) {
+    sim_mc_mixed <- replicate(num_rep, 
+                              generate_mixed_data(n[i], 
+                                      dist_scenarios[[scenario]]))
+    
+    t_test_res <- apply(sim_mc_mixed, 2, t_test_pvalue)
+    wilcox_test_res <- apply(sim_mc_mixed, 2, wilcox_test_pvalue)
+    
+    t_p_value_sim <- mean(t_test_res < alpha)
+    wilcox_p_value_sim <- mean(wilcox_test_res < alpha)
+    
+    result_sim <- rbind(result_sim, list(n[i], t_p_value_sim, "t_test", scenario),
+                        list(n[i], wilcox_p_value_sim, "wilcox_test", scenario))
+  }
+  result_sim <- result_sim[-1, ]
+  results[[scenario]] <- result_sim
+}
+
+results_combined <- do.call(rbind, results)
+```
+
+```{r}
+ggplot(data = results_combined, aes(x = n, y = alpha_empiris, color = test_name)) +
+  geom_point() + 
+  geom_line() + 
+  geom_hline(yintercept = alpha, linetype = "dashed") + 
+  facet_wrap(~ scenario, ncol = 1, scales = "free_y") +
+  scale_y_continuous(limits = c(0, 0.1)) + 
+  labs(title = "Empirical Type I Error Rates under Different Distributions",
+       x = "Sample Size", y = "Empirical Alpha") +
+  theme_minimal()
+```
+
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+ggplot(data = result_sim1, aes(n, alpha_empiris))+
+  geom_point(aes(color=test_name)) + 
+  geom_hline(yintercept = 0.05) + scale_y_continuous(limits = c(0,0.1))
+```
+
+# No 3
+
+> Buatlah langkah-langkah pembangkitan data agar bisa digunakan untuk menyelidiki asumsi ragam homogen dalam model regresi! Realiasikan langkah-langkahmu tersebut dalam R!
+
+Bangkitkan peubah Y dan X berdasarkan model regresi linear sederhana berikut ini: Y = 3 + 2X + ϵ Banyaknya amatan yang dibangkitkan adalah 100
+
+## Membangkitkan Residual dan Peubah X
+
+```{r}
+set.seed(123)
+n <- 100
+x <- rnorm(n, mean = 5, sd = 2)
+epsilon_homogen <- rnorm(n, mean = 0, sd = 1)
+epsilon_hetero <- rnorm(n, mean = 0, sd = x)
+```
+
+## Membangkitkan Peubah Respon Y
+
+```{r}
+# Varians konstan (homogenitas)
+y_const <- 3 + 2 * x + epsilon_homogen
+
+# Varians non-konstan (heteroskedastisitas)
+y_hetero <- 3 + 2 * x + epsilon_hetero
+
+# Gabungkan menjadi dataframe
+data <- data.frame(x, y_const, y_hetero)
+```
+
+## Melakukan Regresi Linier
+
+```{r}
+# Langkah 2: Melakukan Regresi Linier
+model_const <- lm(y_const ~ x, data = data)
+model_hetero <- lm(y_hetero ~ x, data = data)
+```
+
+## Menyelidiki Homoskedastisitas
+
+```{r message=FALSE, warning=FALSE}
+# Visualisasi Residuals vs Fitted Values
+par(mfrow = c(2, 2))
+plot(model_const$fitted.values, residuals(model_const),
+     main = "Homoskedastisitas",
+     xlab = "Fitted Values", ylab = "Residuals",
+     pch = 19, col = "blue")
+abline(h = 0, col = "red")
+
+plot(model_hetero$fitted.values, residuals(model_hetero),
+     main = "Heteroskedastisitas",
+     xlab = "Fitted Values", ylab = "Residuals",
+     pch = 19, col = "blue")
+abline(h = 0, col = "red")
+
+# Uji Breusch-Pagan
+library(lmtest)
+bptest(model_const)
+bptest(model_hetero)
+```
+
+Berdasarkan hasil analisis, ketika error mengikuti distribusi normal dengan varians konstan, kondisi homoskedastisitas terpenuhi. Hal ini dapat dilihat dari visualisasi Residuals vs Fitted Values, di mana residuals tersebar secara acak di sekitar garis nol tanpa pola yang jelas. Selain itu, uji Breusch-Pagan menghasilkan nilai BP = 1.2665 dengan p-value = 0.2604, yang menunjukkan tidak ada bukti yang cukup untuk menolak hipotesis nol bahwa varians residuals adalah konstan (p-value lebih besar dari 0.05). Sebaliknya, ketika error mengikuti distribusi normal dengan varians yang tidak konstan, kondisi homoskedastisitas tidak terpenuhi. Pada visualisasi Residuals vs Fitted Values, residuals menunjukkan pola tertentu dan tidak tersebar secara acak, menunjukkan adanya heteroskedastisitas. Uji Breusch-Pagan pada kasus ini menghasilkan nilai BP = 18.114 dengan p-value = 2.08e-05, yang menunjukkan adanya bukti kuat untuk menolak hipotesis nol bahwa varians residuals adalah konstan (p-value sangat rendah, lebih kecil dari 0.05). Dengan demikian, analisis visual dan uji formal Breusch-Pagan secara konsisten menunjukkan bahwa model dengan error berdistribusi normal dan varians konstan memenuhi asumsi homoskedastisitas, sedangkan model dengan varians tidak konstan tidak memenuhi asumsi ini.
