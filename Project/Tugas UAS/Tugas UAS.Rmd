@@ -48,8 +48,10 @@ mix_data_1 <- lapply(n, function(n)
 
 hist(mix_data_1[[1]], main = "Sebaran Populasi Campuran 1", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
+
 hist(mix_data_1[[2]], main = "Sebaran Populasi Campuran 1", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
+
 hist(mix_data_1[[3]], main = "Sebaran Populasi Campuran 1", 
      xlab = "Nilai", ylab = "Frekuensi", col = "#792b9a")
 ```
@@ -60,7 +62,7 @@ hist(mix_data_1[[3]], main = "Sebaran Populasi Campuran 1",
 
 ```{r fig.height=5, fig.width=15, dpi=300}
 set.seed(361)
-k <- 1000; n <- 1
+
 mix_data_2 <- rbind(matrix(rchisq(n*k/2, df = 1), k/2), 
                     matrix(rchisq(n*k/2, df = 3), k/2))
 hist(mix_data_2, main = "Sebaran Populasi Campuran 2", 
@@ -114,11 +116,11 @@ alpha <- 0.05
 ### Mendefinisikan fungsi untuk mengextract p-value dari masing-masing uji (test)
 
 ```{r}
-t_test_pvalue <- function(x, alt="two.sided", mu = mean(mix_data_1[[1]]) ){
+t_test_pvalue <- function(x, alt="two.sided", mu = mean(mix_data_1[[1]] ) ){
   t.test(x, alternative = alt, mu = mu)$p.value  
 }
 
-wilcox_test_pvalue <- function(x,alt="two.sided",mu = mean(mix_data_1[[1]]) ){
+wilcox_test_pvalue <- function(x,alt="two.sided",mu = mean(mix_data_1[[1]] ) ){
   wilcox.test(x, alternative = alt, mu = mu)$p.value  
 }
 ```
@@ -159,7 +161,7 @@ result_sim1 <- result_sim1[-1, ]
 
 ```{r}
 # membuat objek data.frame dummy untuk menyimpan hasil simulasi
-result_sim1 <- data.frame(n=0,alpha_empiris=0,test_name="")
+result_sim1 <- data.frame(n=0, alpha_empiris=0, test_name="")
 set.seed(2020)
 
 # iterasi simulasi berdasarkan ukuran sampel
