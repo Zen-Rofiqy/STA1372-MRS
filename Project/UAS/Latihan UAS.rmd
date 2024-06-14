@@ -52,7 +52,9 @@ install_load <- function (package1, ...)  {
 install_load("MASS","dplyr","DT")
 ```
 
-### Estimasi koefisien
+### Fungsi
+
+> **Estimasi koefisien**
 
 ```{r}
 est.coeff <- function(x, y) {
@@ -61,7 +63,7 @@ est.coeff <- function(x, y) {
 }
 ```
 
-### SSE
+> **SSE**
 
 ```{r}
 cal.SSE <- function(x, y, coefficients) {
@@ -71,7 +73,7 @@ cal.SSE <- function(x, y, coefficients) {
 }
 ```
 
-### MSE
+> **MSE**
 
 ```{r}
 cal.MSE <- function(x, y, coefficients) {
@@ -81,7 +83,7 @@ cal.MSE <- function(x, y, coefficients) {
 }
 ```
 
-### R-squared
+> **R-squared**
 
 ```{r}
 cal.R.sq <- function(x, y, coefficients) {
@@ -487,3 +489,153 @@ Bisa dilihat bahwa, semakin besar ukuran sampel, maka semakin kecil lebar interv
 # Teorema Limit Pusat
 
 Biar gak penuh, ada di sini ya brow: <https://rpubs.com/ZenR_Prog/MSR-Prak-08>
+
+# Kesalahan tipe 1 - Uji Hipotesis
+
+> Jika data diasumsikan tidak normal bagaimana ukuran sampel berpengaruh kesalahan tipe 1 pada uji hipotesis?
+
+Contoh kasus sebaran:
+
+1.  50% sebaran normal N(0,1) dan 50% sebaran chi-square χ2(df=1)
+2.  50% sebaran chi-square χ2(df=1)dan 50% dengan chi-square χ2(df=3)
+3.  25% sebaran chi-square χ2(df=1). 25% dengan chi-square χ2(df=3), 25% sebaran normal N(0,1) dan 25% sebaran normal N(3,1.5)
+
+## Fungsi & Library
+
+### Lilbrary
+
+```{r message=FALSE, warning=FALSE}
+install_load("ggplot2","lmtest","mvtnorm","MBESS","dplyr","DT")
+```
+
+### Fungsi
+
+> **Uji T**.
+
+```{r}
+t_test_p_value <- function(x) t.test(x)$p.value
+```
+
+> **Uji Wilcoxon**.
+
+```{r}
+wilcox_test_p_value <- function(x) wilcox.test(x)$p.value
+```
+
+> **Simulasi**.
+
+```{r}
+test_case <- function(sample_size, case_number, test_function) {
+  p_values <- replicate(1000, { # 1000 ulangan
+    data <- generate_data(sample_size, case_number)
+    test_function(data)
+  })
+  mean(p_values)
+}
+```
+
+## Data
+
+```{r}
+generate_data <- function(n, case_number) {
+  normal_size <- n %/% 2
+  chi_size <- n - normal_size
+  
+  # Data Kasus 1
+  if (case_number == 1) {
+    normal_data <- rnorm(normal_size, mean = 0, sd = 1)
+    chi_squared_data <- rchisq(chi_size, df = 1)
+    data <- c(normal_data, chi_squared_data)
+  
+  # Data Kasus 2    
+  } else if (case_number == 2) {
+    chi_size <- n %/% 2
+    chi_squared_1_data <- rchisq(chi_size, df = 1)
+    chi_squared_3_data <- rchisq(chi_size, df = 3)
+    data <- c(chi_squared_1_data, chi_squared_3_data)
+  
+  # Data Kasus 3    
+  } else if (case_number == 3) {
+    chi_size <- n %/% 4
+    normal_size <- n - 3 * chi_size
+    chi_squared_1_data <- rchisq(chi_size, df = 1)
+    chi_squared_3_data <- rchisq(chi_size, df = 3)
+    normal_1_data <- rnorm(normal_size, mean = 0, sd = 1)
+    normal_2_data <- rnorm(normal_size, mean = 3, sd = 1.5)
+    data <- c(chi_squared_1_data, chi_squared_3_data, normal_1_data, normal_2_data)
+  }
+  
+  return(data)
+}
+```
+
+```{r}
+# Range ukuran sampel yang akan diuji
+n <- seq(5, 60)
+```
+
+## Uji T
+
+### Plot
+
+```{r}
+# Menampilkan plot antara nilai p dan ukuran sampel
+plot_data_t_test <- data.frame(
+  Sample_Size = rep(sample_size, 3),
+  # Menghitung p-value untuk setiap ukuran sampel
+  P_Value = c(
+    sapply(n, test_case, case = 1, test = t_test_p_value), 
+    sapply(n, test_case, case = 2, test = t_test_p_value), 
+    sapply(n, test_case, case = 3, test = t_test_p_value)
+  ),
+  Case = rep(c("Kasus Sebaran 1", "Kasus Sebaran 2", "Kasus Sebaran 3"), 
+             each = length(sample_sizes))
+)
+
+ggplot(plot_data_t_test, aes(x = Sample_Size, y = P_Value, color = Case)) +
+  geom_point() +
+  geom_hline(yintercept = 0.05, linetype = "dashed", color = "red") +
+  labs(title="Uji-t", x = "Ukuran Sampel", y = "Nilai p") +
+  scale_color_discrete(name = "Kasus Sebaran") +
+  theme_minimal()
+```
+
+### Data
+
+```{r}
+datatable(plot_data_t_test)
+```
+
+## Uji **Wilcoxon**
+
+### Plot
+
+```{r}
+# Menampilkan plot antara nilai p dan ukuran sampel
+plot_data_wilcox_test <- data.frame(
+  Sample_Size = rep(sample_size, 3),
+  # Menghitung p-value untuk setiap ukuran sampel
+  P_Value = c(
+    sapply(n, test_case, case = 1, test = wilcox_test_p_value), 
+    sapply(n, test_case, case = 2, test = wilcox_test_p_value), 
+    sapply(n, test_case, case = 3, test = wilcox_test_p_value)
+  ),
+  Case = rep(c("Kasus Sebaran 1", "Kasus Sebaran 2", "Kasus Sebaran 3"), 
+             each = length(sample_sizes))
+)
+
+ggplot(plot_data_t_test, aes(x = Sample_Size, y = P_Value, color = Case)) +
+  geom_point() +
+  geom_hline(yintercept = 0.05, linetype = "dashed", color = "red") +
+  labs(title="Uji-Wilcoxon", x = "Ukuran Sampel", y = "Nilai p") +
+  scale_color_discrete(name = "Kasus Sebaran") +
+  theme_minimal()
+```
+
+### Data
+
+```{r}
+datatable(plot_data_wilcox_test)
+```
+
+\#
