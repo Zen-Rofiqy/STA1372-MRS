@@ -216,7 +216,7 @@ Dapat terlihat bahwa nilai mean dan median cenderung sama ketika sebarannya sime
 
 Ditentukan pula nilai n atau banyak sampel sebanyak 100 dan k atau banyak ulangan sebanyak 1000 untuk membuat sebaran contoh.
 
-### Sebaran Normal
+### Normal
 
 ```{r}
 set.seed(86)
@@ -249,7 +249,7 @@ abline(v=median(pop.norm), col = "red", lwd = 2)
 
 Gambar menunjukan mean dan median contoh menyebar di antara mean dan median populasi yang menunjukan ketakbiasan mean dan median bagi sampel.
 
-### **Sebaran Eksponensial**
+### **Eksponensial**
 
 ```{r}
 set.seed(86)
@@ -341,3 +341,145 @@ datatable(var)
 ```
 
 Dari hasil di atas, dapat terlihat bahwa pembagi n-1 memiliki hasil yang lebih tidak bias daripada pada pembagi n. Hal ini menunjukan bahwa pembagi n berbias untuk ragam contoh.
+
+# **Selang Kepercayaan**
+
+## Fungsi Selang Kepercayaan
+
+### Normal
+
+```{r}
+ci_normal <- function(sample, confidence_level) {
+  n <- length(sample)
+  mean_sample <- mean(sample)
+  sd_sample <- sd(sample)
+  error <- qnorm(1 - (1 - confidence_level) / 2) * (sd_sample / sqrt(n))
+  lower_bound <- mean_sample - error
+  upper_bound <- mean_sample + error
+  return(c(lower_bound, upper_bound))
+}
+```
+
+### Seragam
+
+```{r}
+ci_uniform <- function(sample, confidence_level) {
+  n <- length(sample)
+  mean_sample <- mean(sample)
+  sd_sample <- sqrt((n + 1) / (12 * n)) * (max(sample) - min(sample))
+  error <- qnorm(1 - (1 - confidence_level) / 2) * (sd_sample / sqrt(n))
+  lower_bound <- mean_sample - error
+  upper_bound <- mean_sample + error
+  return(c(lower_bound, upper_bound))
+}
+```
+
+### Eksponensial
+
+```{r}
+ci_exponential <- function(sample, confidence_level) {
+  n <- length(sample)
+  mean_sample <- mean(sample)
+  sd_sample <- mean_sample / sqrt(n)
+  error <- qnorm(1 - (1 - confidence_level) / 2) * (sd_sample / sqrt(n))
+  lower_bound <- mean_sample - error
+  upper_bound <- mean_sample + error
+  return(c(lower_bound, upper_bound))
+}
+```
+
+## Pengujian
+
+```{r}
+# Set confidence level
+confidence_level <- 0.95
+
+# Ukuran contoh
+sample_sizes <- c(10, 30, 100)
+```
+
+### Normal
+
+```{r}
+set.seed(86)
+# Distribusi normal
+population_mean <- 10
+population_sd <- 2
+
+cat("Penduga Selang Kepercayaan untuk Distribusi Normal\n")
+for (n in sample_sizes) {
+  cat("Dengan Ukuran Contoh", n, ":\n")
+  sample_normal <- rnorm(n, mean = population_mean, sd = population_sd)
+  confidence_interval <- ci_normal(sample_normal, confidence_level)
+  cat("Selang kepercayaan:", confidence_interval, "\n\n")
+}
+```
+
+### Seragam
+
+```{r}
+set.seed(8)
+# Distribusi seragam
+population_min <- 5
+population_max <- 15
+
+cat("Penduga Selang Kepercayaan untuk Distribusi Seragam\n")
+for (n in sample_sizes) {
+  cat("Dengan Ukuran Contoh", n, ":\n")
+  sample_uniform <- runif(n, min = population_min, max = population_max)
+  confidence_interval <- ci_uniform(sample_uniform, confidence_level)
+  cat("Selang kepercayaan:", confidence_interval, "\n\n")
+}
+```
+
+### **Eksponensial**
+
+```{r}
+set.seed(8)
+# Distribusi eksponensial
+population_rate <- 0.1
+
+cat("Penduga Selang Kepercayaan untuk Distribusi Eksponensial\n")
+for (n in sample_sizes) {
+  cat("Dengan Ukuran Contoh", n, ":\n")
+  sample_exponential <- rexp(n, rate = population_rate)
+  confidence_interval <- ci_exponential(sample_exponential, confidence_level)
+  cat("Selang kepercayaan:", confidence_interval, "\n\n")
+}
+```
+
+### **Visualisasi**
+
+```{r fig.height=5, fig.width=10, dpi=300}
+# Set seed
+set.seed(86)
+
+# Set ukuran sampel
+sample_sizes <- c(10, 30, 100, 300, 1000)
+
+# Set tingkat kepercayaan
+confidence_level <- 0.95
+
+# Set parameter populasi
+population_mean <- 10
+population_sd <- 2
+
+# Inisialisasi vektor untuk menyimpan lebar interval kepercayaan
+confidence_intervals <- numeric(length(sample_sizes))
+
+# Hitung lebar interval kepercayaan untuk setiap ukuran sampel
+for (i in 1:length(sample_sizes)) {
+  sample_normal <- rnorm(sample_sizes[i], mean = population_mean, sd = population_sd)
+  confidence_interval <- ci_normal(sample_normal, confidence_level)
+  confidence_intervals[i] <- confidence_interval[2] - confidence_interval[1]
+}
+
+# Plot lebar interval kepercayaan terhadap ukuran sampel
+plot(sample_sizes, confidence_intervals, type = "n", 
+     xlab = "Ukuran Sampel", ylab = "Lebar Interval Kepercayaan", 
+     main = "Lebar Interval Kepercayaan Terhadap Ukuran Sampel")
+lines(sample_sizes, confidence_intervals, type = "b", lwd = 2, col = "#4493CA")
+points(sample_sizes, confidence_intervals, pch = 16, col = "#D44155", cex = 1.5)
+```
+
+Bisa dilihat bahwa, semakin besar ukuran sampel, maka semakin kecil lebar interval kepercayaannya.
