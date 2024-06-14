@@ -483,3 +483,7 @@ points(sample_sizes, confidence_intervals, pch = 16, col = "#D44155", cex = 1.5)
 ```
 
 Bisa dilihat bahwa, semakin besar ukuran sampel, maka semakin kecil lebar interval kepercayaannya.
+
+# Teorema Limit Pusat
+
+Biar gak penuh, ada di sini ya brow: <https://rpubs.com/ZenR_Prog/MSR-Prak-08>
