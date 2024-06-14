@@ -166,7 +166,178 @@ colnames(results) <- c(
 result <- data.frame(
   "Mean" = colMeans(results),
   "Var"  = apply(results, 2, var)
-)
+) %>% format(., scientific = TRUE)
 
 datatable(result)
 ```
+
+# **Pendugaan Tak Bias**
+
+## Library
+
+```{r}
+install_load("DT")
+```
+
+## Rataan & Median
+
+### Pembangkitan Populasi
+
+```{r fig.height=3.5, fig.width=10, dpi=300}
+set.seed(86)
+
+# Normal (0,1)
+pop.norm = rnorm(10000000) 
+
+# Eksponensial (1)
+pop.exp = rexp(10000000)
+
+par(mfrow = c(1, 2))
+hist(pop.norm, main = "Sebaran Normal", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#b4e69e")
+
+hist(pop.exp, main = "Sebaran Eksponensial", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#DE7C8A")
+```
+
+Visualisasi di atas, dapat terlihat bahwa sebaran setiap populasi berbeda-beda. Dengan nilai mean dan median setiap sebaran setiap populasi adalah sebagai berikut:
+
+```{r}
+mm <- data.frame(
+  Sebaran = c("Normal", "Eksponensial"),
+  Median  = c(median(pop.norm), median(pop.exp)),
+  Mean    = c(mean(pop.norm), mean(pop.exp))
+) %>% format(., scientific = TRUE)
+
+datatable(mm)
+```
+
+Dapat terlihat bahwa nilai mean dan median cenderung sama ketika sebarannya simetris dan cenderung berbeda ketika sebarannya tidak simetris.
+
+Ditentukan pula nilai n atau banyak sampel sebanyak 100 dan k atau banyak ulangan sebanyak 1000 untuk membuat sebaran contoh.
+
+### Sebaran Normal
+
+```{r}
+set.seed(86)
+n = 100; k = 1000
+norm = matrix(sample(pop.norm, n*k), k)
+norm_mean = apply(norm, 1, mean)
+norm_median = apply(norm, 1, median)
+
+normal <- data.frame(
+  "\ " = c("Sampel", "Populasi"), 
+  mean = c(mean(norm_mean), mean(pop.norm)), 
+  median = c(mean(norm_median), median(pop.norm))
+) %>% mutate(across(-1, round, 5))
+
+datatable(normal)
+```
+
+Dapat terlihat dengan banyak sampel sebanyak 100 dengan ulangan sebanyak 1000 kali, nilai mean dan median sampel cukup mendekati nilai parameternya. Hal ini menunjukan bahwa mean dan median sampel tidak bias terhadap parameternya. Lebih jelasnya, dapat dilihat dari visualisasi sebaran contoh di bawah ini.
+
+```{r fig.height=3.5, fig.width=10, dpi=300}
+par(mfrow = c(1, 2))
+hist(norm_mean, main = "Mean", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#b4e69e")
+abline(v = mean(pop.norm), col = "red", lwd = 2)
+
+hist(norm_median, main = "Median", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#8DC16D")
+abline(v=median(pop.norm), col = "red", lwd = 2)
+```
+
+Gambar menunjukan mean dan median contoh menyebar di antara mean dan median populasi yang menunjukan ketakbiasan mean dan median bagi sampel.
+
+### **Sebaran Eksponensial**
+
+```{r}
+set.seed(86)
+n = 100; k = 1000
+exp = matrix(sample(pop.exp, n*k), k)
+exp_mean = apply(exp, 1, mean)
+exp_median = apply(exp, 1, median)
+
+expo <- data.frame(
+  "\ " = c("Sampel", "Populasi"), 
+  mean = c(mean(exp_mean), mean(pop.exp)), 
+  median = c(mean(mean), median(pop.exp))
+) %>% mutate(across(-1, round, 5))
+
+datatable(expo)
+```
+
+Dapat terlihat dengan banyak sampel sebanyak 100 dengan ulangan sebanyak 1000 kali, nilai mean dan median sampel cukup mendekati nilai parameternya. Hal ini menunjukan bahwa mean dan median sampel tidak bias terhadap parameternya. Lebih jelasnya, dapat dilihat dari visualisasi sebaran contoh di bawah ini
+
+```{r fig.height=3.5, fig.width=10, dpi=300}
+par(mfrow = c(1, 2))
+hist(exp_mean, main = "Mean", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#E4B3BA")
+abline(v = mean(pop.exp), col = "blue", lwd = 2)
+
+hist(exp_median, main = "Median", 
+     xlab = "Nilai", ylab = "Frekuensi", col = "#DE7C8A")
+abline(v=median(pop.exp), col = "blue", lwd = 2)
+```
+
+Gambar menunjukan mean dan median contoh menyebar di antara mean dan median populasi yang menunjukan ketakbiasan mean dan median bagi sampel.
+
+### **Kesimpulan**
+
+Dari pengerjaan yang telah dilakukan, dapat disimpulkan bahwa rata-rata (mean) atau median contoh merupakan penduga tak bias bagi rata-rata atau median populasi pada sebaran apapun (baik simetris maupun tidak simetris).
+
+## Ragam
+
+```{r}
+# Fungsi Pendugaan Ragam
+ragam <- function(x, sample = TRUE) {
+  n <- length(x)
+  mean_x <- mean(x)
+  sse <- sum((x - mean_x)^2)
+  if (sample) {
+    return(sse / (n - 1))
+  } else {
+    return(sse / n)
+  }
+}
+```
+
+Jika sample `TRUE` (default), maka yang digunakan adalah pembagi n-1, dan jika `FALSE` pembaginya adalah n.
+
+Dalam hal ini, kita akan menggunakan pop.norm yang telah digunakan pada soal sebelumnya sebagai populasinya. Akan dilakukan simulasi untuk membandingkan kedua pembagi ini.
+
+```{r}
+k = 1000 # Ulangan
+n = 30 # Jumlah sampel
+
+ragam_contoh_n <- numeric(0) # Pembagi n
+ragam_contoh_n_1 <- numeric(0) # Pembagi n-1
+
+for (i in 1:k) {
+  contoh <- sample(pop.norm, n)
+  ragam_contoh_n[i] <- ragam(contoh, sample = F)
+  ragam_contoh_n_1[i] <- ragam(contoh, sample = T)
+}
+```
+
+Didapat hasil sebagai berikut:
+
+```{r}
+var.pop = ragam(pop.norm, F)
+var.pop
+```
+
+```{r}
+var <- data.frame(
+  Pembagi = c("n", "n-1"),
+  Rataan_Ragam = c(mean(ragam_contoh_n), mean(ragam_contoh_n_1)),
+  Selisih_Dengan_Ragam_Populasi = c(
+    abs(mean(ragam_contoh_n) - var.pop), 
+    abs(mean(ragam_contoh_n_1) - var.pop)
+  )
+) %>% mutate(across(-1, round, 5))
+
+datatable(var)
+```
+
+Dari hasil di atas, dapat terlihat bahwa pembagi n-1 memiliki hasil yang lebih tidak bias daripada pada pembagi n. Hal ini menunjukan bahwa pembagi n berbias untuk ragam contoh.
