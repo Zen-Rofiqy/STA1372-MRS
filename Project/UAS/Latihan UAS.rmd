@@ -490,7 +490,7 @@ Bisa dilihat bahwa, semakin besar ukuran sampel, maka semakin kecil lebar interv
 
 Biar gak penuh, ada di sini ya brow: <https://rpubs.com/ZenR_Prog/MSR-Prak-08>
 
-# Kesalahan tipe 1 - Uji Hipotesis
+# P Value - Uji Hipotesis
 
 > Jika data diasumsikan tidak normal bagaimana ukuran sampel berpengaruh kesalahan tipe 1 pada uji hipotesis?
 
@@ -627,7 +627,7 @@ plot_data_wilcox_test <- data.frame(
 ggplot(plot_data_t_test, aes(x = Sample_Size, y = P_Value, color = Case)) +
   geom_point() +
   geom_hline(yintercept = 0.05, linetype = "dashed", color = "red") +
-  labs(title="Uji-Wilcoxon", x = "Ukuran Sampel", y = "Nilai p") +
+  labs(title="Uji Peringkat Bertanda Wilcoxon", x = "Ukuran Sampel", y = "Nilai p") +
   scale_color_discrete(name = "Kasus Sebaran") +
   theme_minimal()
 ```
@@ -638,4 +638,20 @@ ggplot(plot_data_t_test, aes(x = Sample_Size, y = P_Value, color = Case)) +
 datatable(plot_data_wilcox_test)
 ```
 
-\#
+# P Value - one-way ANOVA
+
+> Pengaruh banyaknya amatan dan tidak terpenuhinya asumsi sebaran normal terhadap pengujian hipotesis di one-way ANOVA.
+
+Contoh kasus sebaran:
+
+1.  50% sebaran normal N(0,1) dan 50% sebaran chi-square χ2(df=1)
+2.  50% sebaran chi-square χ2(df=1)dan 50% dengan chi-square χ2(df=3)
+3.  25% sebaran chi-square χ2(df=1). 25% dengan chi-square χ2(df=3), 25% sebaran normal N(0,1) dan 25% sebaran normal N(3,1.5)
+
+## Fungsi & Library
+
+### Library
+
+```{r message=FALSE, warning=FALSE}
+install_load("ggplot2","dplyr","DT")
+```
